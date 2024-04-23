@@ -41,7 +41,8 @@ final class TabBarItemView: UIView {
     }
 
     private func setupStackView() {
-        image.image = item.image
+        image.image = item.image?.withRenderingMode(.alwaysTemplate)
+        image.tintColor = .ui.primaryBlue
         title.text = item.title
         stack = UIStackView(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 8, arrangedSubviews: [image, title])
         addSubview(stack)
@@ -66,6 +67,7 @@ final class TabBarItemView: UIView {
         UIView.animate(withDuration: animated ? 0.25 : 0, delay: 0.0, options: .transitionCrossDissolve, animations: { [weak self] in
             guard let self = self else { return }
             self.title.textColor = isSelected ? TabBarItem.selectedColor : TabBarItem.unselectedColor
+            self.image.tintColor = .ui.primaryBlue.withAlphaComponent(isSelected ? 1 : 0.8)
         }, completion: { _ in
             completion?()
         })

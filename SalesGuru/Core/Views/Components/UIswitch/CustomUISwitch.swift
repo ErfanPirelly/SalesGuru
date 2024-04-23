@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 
 class CustomUISwitch: UIControl {
-    public var onTintColor: UIColor? = .ui.primaryBlue!
+    public var onTintColor: UIColor? = .ui.primaryBlue
     public var offTintColor: UIColor? = .ui.silverGray
     public var thumbTintColor: UIColor? = .white
     public var thumbCornerRadius: CGFloat = 7

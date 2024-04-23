@@ -49,7 +49,7 @@ enum TabBarItem: Int, CaseIterable {
     }
     
     static var unselectedColor: UIColor {
-        return .blue.withAlphaComponent(0.62)
+        return .black.withAlphaComponent(0.62)
     }
 
     static var selectedColor: UIColor {

@@ -9,7 +9,7 @@ import UIKit
 
 class HomeVC: UITabBarController {
     // MARK: - properties
-    private let customView = CustomTabBarView()
+    private let tabbarView = CustomTabBarView()
     var selectedItem: TabBarItem {
         return TabBarItem(rawValue: selectedIndex) ?? .inbox
     }
@@ -17,7 +17,6 @@ class HomeVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
-        
         setup(items:  [.inbox, .calls, .settings], viewControllers: [InboxVC(), CallsVC(), SettinsVC()])
     }
     
@@ -25,9 +24,13 @@ class HomeVC: UITabBarController {
     private func prepareUI() {
         tabBar.alpha = 0
         view.backgroundColor = .ui.backgroundColor2
-        view.addSubview(customView)
-        customView.delegate = self
-        customView.snp.makeConstraints { make in
+        setupTabBarView()
+    }
+    
+    private func setupTabBarView() {
+        view.addSubview(tabbarView)
+        tabbarView.delegate = self
+        tabbarView.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
         }
     }
@@ -41,7 +44,7 @@ extension HomeVC: CustomTabBarViewDelegate {
             
         } else {
             selectedIndex = item.rawValue
-            self.customView.select(item)
+            self.tabbarView.select(item)
         }
     }
     
@@ -51,6 +54,6 @@ extension HomeVC: CustomTabBarViewDelegate {
     
     func setup(items: [TabBarItem], viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
-        customView.setup(with: items)
+        tabbarView.setup(with: items)
     }
 }

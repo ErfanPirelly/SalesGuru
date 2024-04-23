@@ -43,7 +43,7 @@ final class CustomTabBarView: UIView {
         stackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(55)
             make.top.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview().inset(UIView.safeArea.bottom + 8)
         }
     }
     
