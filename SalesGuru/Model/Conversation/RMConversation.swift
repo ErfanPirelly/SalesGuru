@@ -8,5 +8,7 @@
 import Foundation
 
 struct RMConversation {
-    let title, username, date, 
+    let title, username, date, content: String?
+    let unread: Bool
+    let messageCount: Int = 3
 }

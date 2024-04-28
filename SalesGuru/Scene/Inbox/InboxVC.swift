@@ -9,6 +9,7 @@ import UIKit
 
 class InboxVC: UIViewController {
     // MARK: - properties
+    private let customView = InboxView()
     
     // MARK: - life cycle
     override func viewDidLoad() {
@@ -18,6 +19,7 @@ class InboxVC: UIViewController {
     
     // MARK: - prepare UI
     private func prepareUI() {
-        view.backgroundColor = .green
+        view.addSubview(customView)
+        customView.pinToEdge(on: view)
     }
 }

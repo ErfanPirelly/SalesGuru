@@ -92,8 +92,8 @@ public class AEOTPTextField: UITextField {
     public func showWrongOtp() {
         for digitLabel in digitLabels {
             digitLabel.backgroundColor = .white
-            digitLabel.addBorder(color: .ui.red ?? .red, thickness: 1)
-            digitLabel.textColor = .ui.red
+            digitLabel.addBorder(color: .red, thickness: 1)
+            digitLabel.textColor = .red
         }
     }
 }

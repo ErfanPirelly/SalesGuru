@@ -13,12 +13,16 @@ protocol CustomTabBarViewDelegate: TabBarItemViewDelegate {}
 final class CustomTabBarView: UIView {
     // MARK: - properties
     private var stackView: UIStackView!
-    weak var delegate: CustomTabBarViewDelegate?
+    weak var delegate: CustomTabBarViewDelegate? {
+        didSet {
+            print(delegate)
+        }
+    }
     private var allItems: [TabBarItemView] = []
     
     // MARK: Init/Deinit
-    init() {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         prepareUI()
         prepareConstraints()
     }
@@ -29,6 +33,7 @@ final class CustomTabBarView: UIView {
 
     // MARK: - UI
     private func prepareUI() {
+        translatesAutoresizingMaskIntoConstraints = false
         setupStackView()
         applyCorners(to: .top, with: 15)
         backgroundColor = .ui.backgroundColor3
@@ -52,6 +57,7 @@ final class CustomTabBarView: UIView {
     func setup(with items: [TabBarItem]) {
         for item in items {
             let view = TabBarItemView(item: item)
+            view.translatesAutoresizingMaskIntoConstraints = false
             self.allItems.append(view)
             view.delegate = self
             stackView.addArrangedSubview(view)

@@ -10,7 +10,7 @@ import UIKit
 extension UITextField {
         
     func custom(placeholder: String) {
-        self.backgroundColor = .ui.textFieldsBG
+        self.backgroundColor = .ui.backgroundColor3
         self.attributedPlaceholder = NSAttributedString(
             string: placeholder,
             attributes: [

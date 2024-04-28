@@ -69,7 +69,7 @@ extension CustomToast {
     
     func success(message: String, duration: TimeInterval = 5) {
         var style = ToastStyle()
-        style.backgroundColor = .ui.green ?? .green
+        style.backgroundColor = .green
         style.titleFont = .Fonts.semiBold(10)
         style.messageFont = .Fonts.semiBold(10)
         style.titleAlignment = .center

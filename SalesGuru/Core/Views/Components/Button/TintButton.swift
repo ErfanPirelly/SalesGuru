@@ -20,7 +20,7 @@ extension TintButton {
     override func setup() {
         super.setup()
         self.backgroundColor = .ui.clear
-        self.titleLabel?.textColor = .ui.darkText
+        self.titleLabel?.textColor = .ui.darkColor
         self.titleLabel?.font = .Fonts.medium(15)
     }
     
@@ -33,7 +33,7 @@ final class CancelButton: TintButton {
     override func setup() {
         super.setup()
         self.backgroundColor = .ui.clear
-        self.titleLabel?.textColor = .ui.red
+        self.titleLabel?.textColor = .red
         self.titleLabel?.font = .Fonts.medium(15)
     }
     

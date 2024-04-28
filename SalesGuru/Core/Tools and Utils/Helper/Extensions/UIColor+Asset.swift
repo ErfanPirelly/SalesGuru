@@ -11,17 +11,6 @@ extension UIColor {
     static let ui = UIColor.UI()
     
     struct UI {
-      
-        let subtitleDarkGray = UIColor(named: "subtitleDarkGray")
-        let textFieldsBG = UIColor(named: "textFieldsBG")
-        let red = UIColor(named: "red")
-        let darkText = UIColor(named: "darkText")
-       
-        let grayHalfAlpha = UIColor(named: "grayHalfAlpha")
-        let redError = UIColor(named: "redError")
-        let green = UIColor(named: "green")
-        let lightGray = UIColor(named: "lightGray")
-        let darkYellow = UIColor(named: "darkYellow")
         let white = UIColor.white
         let clear = UIColor.clear
         let black = UIColor.black
@@ -35,8 +24,15 @@ extension UIColor {
         let set = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         
         // MARK: - hex colors
+        
         /// #07A4FC
         let primaryBlue = UIColor(p3: "#07A4FC")
+
+        /// #B73333
+        let red = UIColor(p3: "#B73333")
+
+        /// #36B27E
+        let green = UIColor(p3: "#36B27E")
         
         /// B8BABF
         let silverGray = UIColor(p3: "#B8BABF")
@@ -47,7 +43,7 @@ extension UIColor {
         /// #535353
         let darkColor2 = UIColor(p3: "#535353")
         
-        /// 171717
+        /// 8F92A1
         let darkColor3 = UIColor(p3: "#8F92A1")
         
         /// 131313

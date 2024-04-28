@@ -57,7 +57,7 @@ extension AlertManager {
         }
         alertController.addAction(confirm)
         alertController.addAction(cancel)
-        alertController.view.tintColor = .ui.darkText
+        alertController.view.tintColor = .ui.darkColor
         topViewController()?.present(alertController, animated: true)
     }
     

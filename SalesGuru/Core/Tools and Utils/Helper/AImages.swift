@@ -17,4 +17,9 @@ enum AImages: String {
     case inboxTab = "inbox_tab_ic"
     case callsTab = "calls_tab_ic"
     case settingsTab = "settings_tab_ic"
+    
+    // MARK: - header
+    case search = "search_ic"
+    case notification = "notification_ic"
+    
 }

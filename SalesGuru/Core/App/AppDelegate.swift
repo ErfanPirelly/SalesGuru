@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = HomeVC()
+        self.window?.rootViewController = CleanNavigation(rootViewController: HomeVC())
         self.window?.makeKeyAndVisible()
         return true
     }

@@ -9,10 +9,10 @@ import UIKit
 
 class HeaderView: UIView {
     // MARK: - properties
-    private let logo = UIImageView(image: .get(image: .logo1))
-    private let avatar = UIImageView()
-    private let searchButton = UIButton()
-    private let notificationButton = UIButton()
+    private let logo = UIButton(image: .get(image: .logo1)!)
+    private let avatar = UIButton(type: .system)
+    private let searchButton = UIButton(image: .get(image: .search)!.withRenderingMode(.alwaysOriginal))
+    private let notificationButton = UIButton(image: .get(image: .notification)!.withRenderingMode(.alwaysOriginal))
     private var stack: UIStackView!
     
     // MARK: - init
@@ -24,6 +24,7 @@ class HeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     // MARK: - setup ui
     private func setupUI() {
         setupLogo()
@@ -32,16 +33,16 @@ class HeaderView: UIView {
     }
     
     private func setupLogo() {
-        logo.isUserInteractionEnabled = true
-        logo.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(logoDidTouched)))
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        logo.addTarget(self, action: #selector(logoDidTouched), for: .touchUpInside)
         addSubview(logo)
     }
     
     private func setupAvatar() {
+        avatar.translatesAutoresizingMaskIntoConstraints = false
         avatar.backgroundColor = .ui.silverGray
         avatar.applyCorners(to: .all, with: 10)
-        avatar.isUserInteractionEnabled = true
-        avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarDidTouched)))
+        avatar.addTarget(self, action: #selector(avatarDidTouched), for: .touchUpInside)
     }
     
     private func setupNotificationButton() {
@@ -60,7 +61,6 @@ class HeaderView: UIView {
         setupSearchButton()
         setupNotificationButton()
         setupAvatar()
-        
         stack = .init(axis: .horizontal, alignment: .center, distribution: .fillEqually, spacing: 22, arrangedSubviews: [searchButton, notificationButton, avatar])
         addSubview(stack)
     }

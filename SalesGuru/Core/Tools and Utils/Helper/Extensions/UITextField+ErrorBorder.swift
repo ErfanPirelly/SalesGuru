@@ -10,7 +10,7 @@ import UIKit
 extension UIView {
     
     func showErrorBorder(message: String, offset: CGFloat = -8, font: UIFont = .Fonts.medium(12)) {
-        self.layer.borderColor = UIColor.ui.red?.cgColor
+        self.layer.borderColor = UIColor.red.cgColor
         self.layer.borderWidth = 0.9
         guard let superView = self.superview else {return}
         if accessibilityIdentifier == nil {
@@ -20,7 +20,7 @@ extension UIView {
             let errorLabel = UILabel()
             errorLabel.alpha = 0
             errorLabel.text = ""
-            errorLabel.textColor = .ui.red?.withAlphaComponent(0.72)
+            errorLabel.textColor = .red.withAlphaComponent(0.72)
             errorLabel.font = font
             errorLabel.textAlignment = .left
             errorLabel.accessibilityLabel = "errorLabel" + accessibilityIdentifier!

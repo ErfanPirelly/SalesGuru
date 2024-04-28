@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeVC: UITabBarController {
+class TabbarVC: UITabBarController {
     // MARK: - properties
     private let tabbarView = CustomTabBarView()
     var selectedItem: TabBarItem {
@@ -18,8 +18,11 @@ class HomeVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
-        delegate = self
-        setup(items:  [.inbox, .calls, .settings], viewControllers: [InboxVC(), CallsVC(), SettinsVC()])
+//        delegate = self
+    }
+    
+    deinit {
+        print("deinited")
     }
     
     // MARK: - prepare UI
@@ -40,7 +43,7 @@ class HomeVC: UITabBarController {
 
 
 // MARK: - view delegate
-extension HomeVC: CustomTabBarViewDelegate {
+extension TabbarVC: CustomTabBarViewDelegate {
     func didSelectVC(item: TabBarItem) {
         if item == selectedItem {
             
@@ -60,6 +63,6 @@ extension HomeVC: CustomTabBarViewDelegate {
     }
 }
 
-extension HomeVC: UITabBarControllerDelegate {
+extension TabbarVC: UITabBarControllerDelegate {
     
 }
