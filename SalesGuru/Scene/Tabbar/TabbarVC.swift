@@ -13,10 +13,12 @@ class HomeVC: UITabBarController {
     var selectedItem: TabBarItem {
         return TabBarItem(rawValue: selectedIndex) ?? .inbox
     }
+    
     // MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
+        delegate = self
         setup(items:  [.inbox, .calls, .settings], viewControllers: [InboxVC(), CallsVC(), SettinsVC()])
     }
     
@@ -56,4 +58,8 @@ extension HomeVC: CustomTabBarViewDelegate {
         self.viewControllers = viewControllers
         tabbarView.setup(with: items)
     }
+}
+
+extension HomeVC: UITabBarControllerDelegate {
+    
 }
