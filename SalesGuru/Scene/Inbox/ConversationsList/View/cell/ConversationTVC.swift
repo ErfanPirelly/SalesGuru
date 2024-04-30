@@ -104,18 +104,19 @@ class ConversationTVC: UITableViewCell {
     private func setupConstraints() {
         card.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview().inset(32)
+            make.leading.trailing.equalToSuperview().inset(24)
         }
         
         avatar.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview().inset(18)
+            make.top.equalToSuperview().inset(18)
+            make.leading.equalToSuperview()
             make.size.equalTo(40)
         }
         
         titleStack.snp.makeConstraints { make in
             make.top.equalTo(avatar).offset(-2)
             make.leading.equalTo(avatar.snp.trailing).inset(-20)
-            make.trailing.equalToSuperview().inset(24)
+            make.trailing.equalToSuperview()
         }
         
         usernameStack.snp.makeConstraints { make in

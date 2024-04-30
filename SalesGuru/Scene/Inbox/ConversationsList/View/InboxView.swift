@@ -36,7 +36,7 @@ class InboxView: UIView {
         tableView.backgroundColor = .white
         addSubview(tableView)
     }
-    
+
     private func setupConstraints() {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
