@@ -81,12 +81,12 @@ class HeaderView: UIView {
         logo.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(UIView.safeArea.top + 12)
             make.bottom.equalToSuperview().inset(12)
-            make.leading.equalToSuperview().inset(36)
+            make.leading.equalToSuperview().inset(24)
         }
         
         stack.snp.makeConstraints { make in
             make.centerY.equalTo(logo)
-            make.trailing.equalToSuperview().inset(32)
+            make.trailing.equalToSuperview().inset(24)
         }
     }
 }

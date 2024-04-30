@@ -166,6 +166,12 @@
 		E481D2392BD7EA7600C1A018 /* DMSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E481D2312BD7EA7600C1A018 /* DMSans-ExtraBold.ttf */; };
 		E481D23A2BD7EA7600C1A018 /* DMSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E481D2322BD7EA7600C1A018 /* DMSans-SemiBold.ttf */; };
 		E481D23B2BD7EA7600C1A018 /* DMSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E481D2332BD7EA7600C1A018 /* DMSans-Thin.ttf */; };
+		E4AA91EA2BDFA40B00996A18 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91E92BDFA40B00996A18 /* SettingsView.swift */; };
+		E4AA91ED2BDFAC6E00996A18 /* SettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91EC2BDFAC6E00996A18 /* SettingVM.swift */; };
+		E4AA91F02BDFAE7400996A18 /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91EF2BDFAE7400996A18 /* SettingsTVC.swift */; };
+		E4AA91F42BDFB77100996A18 /* ConversationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91F32BDFB77100996A18 /* ConversationVC.swift */; };
+		E4AA91F72BDFB78000996A18 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91F62BDFB78000996A18 /* ConversationView.swift */; };
+		E4AA91FA2BDFB79700996A18 /* ConversationMessageTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91F92BDFB79700996A18 /* ConversationMessageTVC.swift */; };
 		E4B7D55F2BDE419400CFE478 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B7D55E2BDE419400CFE478 /* InboxView.swift */; };
 		E4B7D5612BDE426500CFE478 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B7D5602BDE426500CFE478 /* HeaderView.swift */; };
 		E4B7D5652BDE4C9E00CFE478 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B7D5642BDE4C9E00CFE478 /* HomeVC.swift */; };
@@ -337,6 +343,12 @@
 		E481D2312BD7EA7600C1A018 /* DMSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		E481D2322BD7EA7600C1A018 /* DMSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		E481D2332BD7EA7600C1A018 /* DMSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Thin.ttf"; sourceTree = "<group>"; };
+		E4AA91E92BDFA40B00996A18 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E4AA91EC2BDFAC6E00996A18 /* SettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVM.swift; sourceTree = "<group>"; };
+		E4AA91EF2BDFAE7400996A18 /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
+		E4AA91F32BDFB77100996A18 /* ConversationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationVC.swift; sourceTree = "<group>"; };
+		E4AA91F62BDFB78000996A18 /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		E4AA91F92BDFB79700996A18 /* ConversationMessageTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationMessageTVC.swift; sourceTree = "<group>"; };
 		E4B7D55E2BDE419400CFE478 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		E4B7D5602BDE426500CFE478 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		E4B7D5642BDE4C9E00CFE478 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -1042,8 +1054,8 @@
 		E481D2222BD7E89100C1A018 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
-				E4B7D55D2BDE418700CFE478 /* View */,
-				E481D2232BD7E8A500C1A018 /* InboxVC.swift */,
+				E4AA91F22BDFB75F00996A18 /* Conversation */,
+				E4AA91F12BDFB74100996A18 /* ConversationsList */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";
@@ -1059,6 +1071,8 @@
 		E481D2282BD7E8F000C1A018 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				E4AA91EB2BDFAC6300996A18 /* ViewModel */,
+				E4AA91E82BDFA3FE00996A18 /* View */,
 				E481D2292BD7E8FE00C1A018 /* SettinsVC.swift */,
 			);
 			path = Settings;
@@ -1077,6 +1091,66 @@
 				E481D2332BD7EA7600C1A018 /* DMSans-Thin.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E4AA91E82BDFA3FE00996A18 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA91EE2BDFAE6500996A18 /* cell */,
+				E4AA91E92BDFA40B00996A18 /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E4AA91EB2BDFAC6300996A18 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA91EC2BDFAC6E00996A18 /* SettingVM.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E4AA91EE2BDFAE6500996A18 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA91EF2BDFAE7400996A18 /* SettingsTVC.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		E4AA91F12BDFB74100996A18 /* ConversationsList */ = {
+			isa = PBXGroup;
+			children = (
+				E4B7D55D2BDE418700CFE478 /* View */,
+				E481D2232BD7E8A500C1A018 /* InboxVC.swift */,
+			);
+			path = ConversationsList;
+			sourceTree = "<group>";
+		};
+		E4AA91F22BDFB75F00996A18 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA91F52BDFB77400996A18 /* View */,
+				E4AA91F32BDFB77100996A18 /* ConversationVC.swift */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		E4AA91F52BDFB77400996A18 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA91F82BDFB78300996A18 /* cell */,
+				E4AA91F62BDFB78000996A18 /* ConversationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E4AA91F82BDFB78300996A18 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				E4AA91F92BDFB79700996A18 /* ConversationMessageTVC.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		E4B7D55D2BDE418700CFE478 /* View */ = {
@@ -1276,6 +1350,7 @@
 				E414D6FA2BD7911E007A22D7 /* DependenceProviders.swift in Sources */,
 				E414D75C2BD7917F007A22D7 /* UIView+corners.swift in Sources */,
 				E414D7372BD7917E007A22D7 /* SheetModalPresentationController.swift in Sources */,
+				E4AA91EA2BDFA40B00996A18 /* SettingsView.swift in Sources */,
 				E414D7DD2BD7935F007A22D7 /* RMEmpty.swift in Sources */,
 				E414D74F2BD7917F007A22D7 /* UIColor+HEX.swift in Sources */,
 				E414D7B72BD792D9007A22D7 /* LandscapeImagePickerController.swift in Sources */,
@@ -1317,12 +1392,14 @@
 				E414D6DF2BD78F20007A22D7 /* LoadView.swift in Sources */,
 				E414D6D72BD78F20007A22D7 /* CustomToast.swift in Sources */,
 				E414D7CD2BD792DA007A22D7 /* ViewControllerTitle.swift in Sources */,
+				E4AA91ED2BDFAC6E00996A18 /* SettingVM.swift in Sources */,
 				E414D7BB2BD792D9007A22D7 /* LabelLight.swift in Sources */,
 				E414D7532BD7917F007A22D7 /* UINavigationController.swift in Sources */,
 				E414D7BC2BD792D9007A22D7 /* LabelMedium.swift in Sources */,
 				E414D7B02BD792D9007A22D7 /* UITextImageButton.swift in Sources */,
 				E481D2242BD7E8A500C1A018 /* InboxVC.swift in Sources */,
 				E414D7C62BD792DA007A22D7 /* AEOTPTextField.swift in Sources */,
+				E4AA91FA2BDFB79700996A18 /* ConversationMessageTVC.swift in Sources */,
 				E414D7AB2BD792D9007A22D7 /* RadioButton.swift in Sources */,
 				E414D7E42BD7946E007A22D7 /* FileManagerService.swift in Sources */,
 				E414D7D52BD792DA007A22D7 /* LandscapeAlertController.swift in Sources */,
@@ -1333,6 +1410,7 @@
 				E414D7AE2BD792D9007A22D7 /* SubmitButton.swift in Sources */,
 				E414D7B82BD792D9007A22D7 /* ImagePicker.swift in Sources */,
 				E414D7C92BD792DA007A22D7 /* AEOTPTextFieldImplementationProtocol.swift in Sources */,
+				E4AA91F02BDFAE7400996A18 /* SettingsTVC.swift in Sources */,
 				E414D6BA2BD78F20007A22D7 /* CustomError.swift in Sources */,
 				E414D74C2BD7917F007A22D7 /* UIButton.swift in Sources */,
 				E414D7512BD7917F007A22D7 /* UILabel.swift in Sources */,
@@ -1357,8 +1435,10 @@
 				E414D6F92BD7911E007A22D7 /* CoreDependence.swift in Sources */,
 				E414D73A2BD7917F007A22D7 /* ShablonImages.swift in Sources */,
 				E414D7472BD7917F007A22D7 /* Label.swift in Sources */,
+				E4AA91F42BDFB77100996A18 /* ConversationVC.swift in Sources */,
 				E4B7D5612BDE426500CFE478 /* HeaderView.swift in Sources */,
 				E481D2192BD7DDD800C1A018 /* CustomTabBarView.swift in Sources */,
+				E4AA91F72BDFB78000996A18 /* ConversationView.swift in Sources */,
 				E414D7C02BD792DA007A22D7 /* BasePickerView.swift in Sources */,
 				E414D6D62BD78F20007A22D7 /* AlertManager.swift in Sources */,
 				E414D7BE2BD792DA007A22D7 /* LabelSemiBold.swift in Sources */,

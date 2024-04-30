@@ -9,6 +9,7 @@ import UIKit
 
 class SettinsVC: UIViewController {
     // MARK: - properties
+    private let customView = SettingsView()
     
     // MARK: - life cycle
     override func viewDidLoad() {
@@ -18,7 +19,15 @@ class SettinsVC: UIViewController {
     
     // MARK: - prepare UI
     private func prepareUI() {
-        view.backgroundColor = .red
+        view.addSubview(customView)
+        customView.delegate = self
+        customView.pinToEdge(on: view)
+    }
+}
+
+extension SettinsVC: SettingsViewDelegate {
+    func didSelect(setting item: SettingItem) {
+        print(item.rawValue)
     }
 }
 

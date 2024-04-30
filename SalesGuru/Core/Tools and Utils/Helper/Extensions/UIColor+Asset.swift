@@ -37,8 +37,17 @@ extension UIColor {
         /// B8BABF
         let silverGray = UIColor(p3: "#B8BABF")
         
+        /// #99B2C6
+        let silverGray2 = UIColor(p3: "#99B2C6")
+                
+        /// #BCBFC3
+        let gray3 = UIColor(p3: "#BCBFC3")
+        
         /// 171717
-        let darkColor = UIColor(p3: "#171717")
+        let darkColor = UIColor(p3: "#171717")   
+        
+        /// #0B0B0B
+        let darkColor1 = UIColor(p3: "#0B0B0B")
         
         /// #535353
         let darkColor2 = UIColor(p3: "#535353")
@@ -63,5 +72,8 @@ extension UIColor {
         
         /// #F9F9FA
         let backgroundColor3 = UIColor(p3: "#F9F9FA")
+        
+        /// #F1F7FB
+        let backgroundColor4 = UIColor(p3: "#F1F7FB")
     }
 }

@@ -22,4 +22,10 @@ enum AImages: String {
     case search = "search_ic"
     case notification = "notification_ic"
     
+    // MARK: - settings
+    case accountSetting = "account_setting_ic"
+    case iframeSetting = "iframe_setting_ic"
+    case notificationSetting = "notification_setting_ic"
+    case securitySetting = "security_setting_ic"
+    case userSetting = "user_setting_ic"
 }

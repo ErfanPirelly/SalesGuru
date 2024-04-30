@@ -13,11 +13,7 @@ protocol CustomTabBarViewDelegate: TabBarItemViewDelegate {}
 final class CustomTabBarView: UIView {
     // MARK: - properties
     private var stackView: UIStackView!
-    weak var delegate: CustomTabBarViewDelegate? {
-        didSet {
-            print(delegate)
-        }
-    }
+    weak var delegate: CustomTabBarViewDelegate?
     private var allItems: [TabBarItemView] = []
     
     // MARK: Init/Deinit
@@ -46,7 +42,7 @@ final class CustomTabBarView: UIView {
     
     private func prepareConstraints() {
         stackView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(55)
+            make.leading.trailing.equalToSuperview().inset(40)
             make.top.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().inset(UIView.safeArea.bottom + 8)
         }
