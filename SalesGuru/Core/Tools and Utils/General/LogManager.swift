@@ -34,12 +34,12 @@ struct Logger {
         // mixPanel
 #if DEBUG
 #else
-        Mixpanel.getInstance(name: "Logger")?.trackWithGroups(event: "Log", properties: [
-            "email": userManager.email ?? "",
-            "uid": userManager.uid ?? "",
-            "event Type": level.rawValue,
-            "message": finalMessage
-        ], groups: nil)
+//        Mixpanel.getInstance(name: "Logger")?.trackWithGroups(event: "Log", properties: [
+//            "email": userManager.email ?? "",
+//            "uid": userManager.uid ?? "",
+//            "event Type": level.rawValue,
+//            "message": finalMessage
+//        ], groups: nil)
 #endif
         
         // Log to Firebase Crashlytics for remote monitoring

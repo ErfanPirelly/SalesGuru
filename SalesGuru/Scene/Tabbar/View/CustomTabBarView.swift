@@ -30,9 +30,9 @@ final class CustomTabBarView: UIView {
     // MARK: - UI
     private func prepareUI() {
         translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .white
         setupStackView()
-        applyCorners(to: .top, with: 15)
-        backgroundColor = .ui.backgroundColor3
+        applyCorners(to: .top, with: 28)
     }
 
     private func setupStackView() {
@@ -43,8 +43,8 @@ final class CustomTabBarView: UIView {
     private func prepareConstraints() {
         stackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(40)
-            make.top.equalToSuperview().inset(16)
-            make.bottom.equalToSuperview().inset(UIView.safeArea.bottom + 8)
+            make.top.equalToSuperview().inset(24)
+            make.bottom.equalToSuperview().inset(UIView.safeArea.bottom + 12)
         }
     }
     

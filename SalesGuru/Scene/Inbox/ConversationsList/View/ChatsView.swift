@@ -7,14 +7,15 @@
 
 import UIKit
 
-protocol InboxViewDelegate: AnyObject {
+protocol ChatViewDelegate: ConversationFilterViewDelegate {
     func didSelectConversation()
 }
 
 class ChatsView: UIView {
     // MARK: - properties
+    private let filterView = ConversationFilterView()
     private let tableView = UITableView()
-    weak var delegate: InboxViewDelegate?
+    weak var delegate: ChatViewDelegate?
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -29,7 +30,14 @@ class ChatsView: UIView {
     // MARK: - setupUI
     private func setupUI() {
         setupTableView()
+        setupFilterView()
         setupConstraints()
+    }
+    
+    private func setupFilterView() {
+        filterView.translatesAutoresizingMaskIntoConstraints = false
+        filterView.delegate = self
+        addSubview(filterView)
     }
     
     private func setupTableView() {
@@ -43,8 +51,15 @@ class ChatsView: UIView {
     }
 
     private func setupConstraints() {
+        
+        filterView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview()
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(filterView.snp.bottom).offset(24)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
@@ -63,4 +78,16 @@ extension ChatsView: tableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.didSelectConversation()
     }
+}
+
+extension ChatsView: ConversationFilterViewDelegate {
+    func didSelectFilter(with: IMConversationFilter) {
+        delegate?.didSelectFilter(with: with)
+    }
+    
+    func deSelectFilter(with: IMConversationFilter) {
+        delegate?.deSelectFilter(with: with)
+    }
+    
+    
 }

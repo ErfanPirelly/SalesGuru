@@ -9,6 +9,10 @@ import UIKit
 
 // MARK: - UIView
 public extension UIView {
+    func pinToEdge(on view: UIView) {
+        anchorWithConstants(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.bottomAnchor)
+    }
+    
     func anchorWithConstantsToTop(top : NSLayoutYAxisAnchor? = nil,
                                   left : NSLayoutXAxisAnchor? = nil,
                                   right: NSLayoutXAxisAnchor? = nil,

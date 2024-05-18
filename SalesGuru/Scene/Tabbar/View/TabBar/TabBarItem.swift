@@ -8,35 +8,35 @@
 import UIKit
 
 enum TabBarItem: Int, CaseIterable {
-    case inbox
-    case calls
-    case settings
+    case chat
+    case calendar
+    case charts
 
 
     var image: UIImage? {
         switch self {
-        case .inbox: return .get(image: .inboxTab)
-        case .calls: return .get(image: .callsTab)
-        case .settings: return .get(image: .settingsTab)
+        case .chat: return .get(image: .inactiveChatTab)
+        case .calendar: return .get(image: .inactiveCalendarTab)
+        case .charts: return .get(image: .inactiveChartTab)
         }
     }
     
     var selectedImage: UIImage? {
         switch self {
-        case .inbox: return .get(image: .inboxTab)
-        case .calls: return .get(image: .callsTab)
-        case .settings: return .get(image: .settingsTab)
+        case .chat: return .get(image: .activeChatTab)
+        case .calendar: return .get(image: .activeCalendarTab)
+        case .charts: return .get(image: .activeChartTab)
         }
     }
     
     var title: String {
         switch self {
-        case .inbox:
-            return "Inbox"
-        case .calls:
-            return "Calls"
-        case .settings:
-            return "Settings"
+        case .chat:
+            return "Chats"
+        case .calendar:
+            return "Calendar"
+        case .charts:
+            return "Charts"
         }
     }
 
@@ -45,15 +45,6 @@ enum TabBarItem: Int, CaseIterable {
     }
 
     var imageSize: CGFloat {
-        return 24
+        return 20
     }
-    
-    static var unselectedColor: UIColor {
-        return .black.withAlphaComponent(0.62)
-    }
-
-    static var selectedColor: UIColor {
-        return .black
-    }
-
 }

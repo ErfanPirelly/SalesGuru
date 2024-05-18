@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RMConversation {
+struct RMConversation: Codable {
     let title, username, date, content: String?
     let unread: Bool
     let messageCount: Int = 3

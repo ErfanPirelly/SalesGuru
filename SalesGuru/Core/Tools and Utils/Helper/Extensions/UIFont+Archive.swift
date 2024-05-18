@@ -28,7 +28,29 @@ extension UIFont {
         static func light(_ size: CGFloat) -> UIFont {
             return UIFont(name: "DMSans-Light", size: size)!
         }
-        
     }
+    
+    struct Quicksand {
+        static func bold(_ size: CGFloat) -> UIFont {
+            return UIFont(name: "Quicksand-Bold", size: size)!
+        }
+        
+        static func semiBold(_ size: CGFloat) -> UIFont {
+            return UIFont(name: "Quicksand-SemiBold", size: size)!
+        }
+        
+        static func medium(_ size: CGFloat) -> UIFont {
+            return UIFont(name: "Quicksand-Medium", size: size)!
+        }
+        
+        static func normal(_ size: CGFloat) -> UIFont {
+            return UIFont(name: "Quicksand-Regular", size: size)!
+        }
+        
+        static func light(_ size: CGFloat) -> UIFont {
+            return UIFont(name: "Quicksand-Light", size: size)!
+        }
+    }
+    
 }
 

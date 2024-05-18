@@ -9,7 +9,7 @@ import UIKit
 
 class ConversationVC: UIViewController {
     // MARK: - properties
-    private let customView = ConversationView()
+    private let customView = SingleChatView()
     
     // MARK: - life cycle
     override func viewDidLoad() {

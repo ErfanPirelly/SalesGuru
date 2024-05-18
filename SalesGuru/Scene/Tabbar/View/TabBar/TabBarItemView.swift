@@ -16,7 +16,6 @@ final class TabBarItemView: UIView {
     // MARK: - properties
     private var stack: UIStackView!
     private let image = UIImageView()
-    private let title = UILabel(font: .Fonts.bold(12), textColor: .black)
     public let item: TabBarItem
     weak var delegate: TabBarItemViewDelegate?
     
@@ -43,8 +42,7 @@ final class TabBarItemView: UIView {
     private func setupStackView() {
         image.image = item.image?.withRenderingMode(.alwaysTemplate)
         image.tintColor = .ui.primaryBlue
-        title.text = item.title
-        stack = UIStackView(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 8, arrangedSubviews: [image, title])
+        stack = UIStackView(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 8, arrangedSubviews: [image])
         addSubview(stack)
     }
     
@@ -52,6 +50,7 @@ final class TabBarItemView: UIView {
         image.snp.makeConstraints { make in
             make.size.equalTo(item.imageSize)
         }
+        
         stack.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -66,8 +65,7 @@ final class TabBarItemView: UIView {
     func applyState(_ isSelected: Bool, animated: Bool = true, completion: Action? = nil) {
         UIView.animate(withDuration: animated ? 0.25 : 0, delay: 0.0, options: .transitionCrossDissolve, animations: { [weak self] in
             guard let self = self else { return }
-            self.title.textColor = isSelected ? TabBarItem.selectedColor : TabBarItem.unselectedColor
-            self.image.tintColor = .ui.primaryBlue.withAlphaComponent(isSelected ? 1 : 0.8)
+            self.image.image = isSelected ? item.selectedImage : item.image
         }, completion: { _ in
             completion?()
         })

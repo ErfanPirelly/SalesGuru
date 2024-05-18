@@ -35,6 +35,14 @@ private extension ChatsVC {
 }
 // MARK: -  view delegate
 extension ChatsVC: ChatViewDelegate {
+    func didSelectFilter(with: IMConversationFilter) {
+        Logger.log(.info, with.rawValue)
+    }
+    
+    func deSelectFilter(with: IMConversationFilter) {
+        Logger.log(.info, with.rawValue)
+    }
+    
     func didSelectConversation() {
         presentConversation()
     }

@@ -11,7 +11,7 @@ class TabbarVC: UITabBarController {
     // MARK: - properties
     private let tabbarView = CustomTabBarView()
     var selectedItem: TabBarItem {
-        return TabBarItem(rawValue: selectedIndex) ?? .inbox
+        return TabBarItem(rawValue: selectedIndex) ?? .chat
     }
     
     // MARK: - life cycle
@@ -60,6 +60,7 @@ extension TabbarVC: CustomTabBarViewDelegate {
     func setup(items: [TabBarItem], viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
         tabbarView.setup(with: items)
+        tabbarView.select(.chat)
     }
 }
 

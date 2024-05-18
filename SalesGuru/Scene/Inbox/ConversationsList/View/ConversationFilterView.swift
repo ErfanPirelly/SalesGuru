@@ -39,7 +39,7 @@ class ConversationFilterView: UIView {
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = UICollectionViewFlowLayout.automaticSize
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         layout.minimumInteritemSpacing = 6
         layout.minimumLineSpacing = 6
         
@@ -55,12 +55,21 @@ class ConversationFilterView: UIView {
     
     private func setupSearchBar() {
         searchBar.placeholder = "Search"
-        searchBar.backgroundColor = .black.withAlphaComponent(0.05)
+        let color = UIColor.black.withAlphaComponent(0.05)
+        
         searchBar.applyCorners(to: .all, with: 10)
-        searchBar.searchBarStyle = .prominent
-        searchBar.tintColor = .ui.gray4
-        searchBar.barTintColor = .black.withAlphaComponent(0.05)
+        searchBar.setPlaceholderTextColorTo(color: .ui.gray4)
+        searchBar.backgroundImage = UIImage()
+        searchBar.searchTextField.background = UIImage()
         searchBar.searchTextField.textColor = .black
+        searchBar.searchTextField.tintColor = .ui.gray4
+        searchBar.searchTextField.backgroundColor = .clear
+        searchBar.searchTextField.custom(placeholder: "Search", with: .ui.gray4)
+        searchBar.searchTextField.font = .Quicksand.semiBold(17)
+
+        searchBar.backgroundColor = color
+        searchBar.tintColor = .ui.gray4
+        searchBar.setMagnifyingGlassColorTo(color: .ui.gray4)
         addSubview(searchBar)
     }
     

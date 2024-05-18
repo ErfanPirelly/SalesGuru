@@ -11,14 +11,15 @@ class ConversationTVC: UITableViewCell {
     // MARK: - properties
     static let CellID = "ConversationTVC"
     private let avatar = UIImageView()
+    private let avatarBackView = UIView()
+    
     private let title = UILabel(font: .Fonts.medium(10), textColor: .ui.darkColor3, alignment: .left)
-    private let dateLabel = UILabel(font: .Fonts.medium(10), textColor: .ui.darkColor3, alignment: .left)
+    private let dateLabel = UILabel(font: .Fonts.medium(10), textColor: .ui.darkColor, alignment: .left)
     private let username = UILabel(font: .Fonts.medium(14), textColor: .ui.darkColor, alignment: .left)
     private let unreadMessages = UILabel(font: .Fonts.medium(10), textColor: .white, alignment: .left)
     private let contentLabel = UILabel(font: .Fonts.light(12), textColor: .ui.darkColor2, alignment: .left)
     private var titleStack: UIStackView!
-    private var usernameStack: UIStackView!
-    private let statusView = UIView()
+    private var dateStack: UIStackView!
     private let card = UIView()
     private let separator = UIView()
     
@@ -26,7 +27,6 @@ class ConversationTVC: UITableViewCell {
         didSet {
             username.textColor = unread ? .ui.darkColor : .ui.darkColor3
             unreadMessages.isHidden = !unread
-            statusView.backgroundColor = unread ? .ui.green : .ui.red
         }
     }
     // MARK: - init
@@ -47,10 +47,9 @@ class ConversationTVC: UITableViewCell {
         setupCardView()
         setupSeparator()
         setupTitleStack()
-        setupUsernameStack()
+        setupDateStack()
         setupContent()
         setupAvatar()
-        setupStatusView()
         setupConstraints()
     }
     
@@ -64,36 +63,26 @@ class ConversationTVC: UITableViewCell {
         separator.backgroundColor = .ui.darkColor3
         separator.alpha = 0.1
         contentView.addSubview(separator)
-        
     }
+    
     private func setupTitleStack() {
-        titleStack = .init(axis: .horizontal, alignment: .center, distribution: .fill, spacing: 10, arrangedSubviews: [title, dateLabel])
+        titleStack = .init(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 10, arrangedSubviews: [title, username])
         card.addSubview(titleStack)
     }
     
-    private func setupUsernameStack() {
+    private func setupDateStack() {
         unreadMessages.backgroundColor = .ui.primaryBlue
         unreadMessages.applyCorners(to: .all, with: 4)
-        usernameStack = .init(axis: .horizontal, alignment: .center, distribution: .equalSpacing, spacing: 8, arrangedSubviews: [username, unreadMessages])
-        card.addSubview(usernameStack)
+        dateStack = .init(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 10, arrangedSubviews: [dateLabel, unreadMessages])
+        card.addSubview(dateStack)
     }
     
     private func setupAvatar() {
+        avatarBackView.translatesAutoresizingMaskIntoConstraints = false
+        avatarBackView.applyCorners(to: .all, with: 10)
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        avatar.backgroundColor = .ui.primaryBlue
-        avatar.applyCorners(to: .all, with: 10)
-        card.addSubview(avatar)
-    }
-    
-    private func setupStatusView() {
-        let view = UIView()
-        statusView.translatesAutoresizingMaskIntoConstraints = false
-        statusView.applyCorners(to: .all, with: 3)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.applyCorners(to: .all, with: 5)
-        view.backgroundColor = .white
-        view.addSubview(statusView)
-        card.addSubview(view)
+        avatarBackView.addSubview(avatar)
+        card.addSubview(avatarBackView)
     }
     
     private func setupContent() {
@@ -107,43 +96,36 @@ class ConversationTVC: UITableViewCell {
             make.leading.trailing.equalToSuperview().inset(24)
         }
         
-        avatar.snp.makeConstraints { make in
+        avatarBackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalToSuperview()
             make.size.equalTo(40)
         }
         
-        titleStack.snp.makeConstraints { make in
-            make.top.equalTo(avatar).offset(-2)
-            make.leading.equalTo(avatar.snp.trailing).inset(-20)
-            make.trailing.equalToSuperview()
+        avatar.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
         
-        usernameStack.snp.makeConstraints { make in
-            make.top.equalTo(titleStack.snp.bottom)
-            make.leading.equalTo(titleStack)
-            make.width.lessThanOrEqualTo(titleStack)
+        titleStack.snp.makeConstraints { make in
+            make.top.equalTo(avatarBackView).offset(-2)
+            make.leading.equalTo(avatarBackView.snp.trailing).inset(-20)
+            make.width.lessThanOrEqualTo(0.45 * K.size.portrait.width)
         }
         
         contentLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(titleStack)
-            make.top.equalTo(usernameStack.snp.bottom).offset(16)
+            make.leading.equalTo(titleStack)
+            make.top.equalTo(titleStack.snp.bottom).offset(8)
             make.bottom.equalToSuperview().inset(20)
+            make.width.lessThanOrEqualTo(0.45 * K.size.portrait.width)
         }
         
-        statusView.superview?.snp.makeConstraints { make in
-            make.centerX.equalTo(avatar.snp.trailing).inset(2)
-            make.centerY.equalTo(avatar.snp.bottom).inset(2)
-            make.size.equalTo(10)
-        }
-        
-        statusView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalTo(6)
+        dateStack.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(24)
+            make.centerY.equalToSuperview()
         }
         
         separator.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.centerX.equalToSuperview()
             make.height.equalTo(1)
             make.leading.trailing.equalTo(card)
@@ -157,5 +139,12 @@ class ConversationTVC: UITableViewCell {
         self.contentLabel.text = with.content
         self.unread = with.unread
         self.unreadMessages.text = " \(with.messageCount) "
+        fillImageView()
+    }
+    
+    func fillImageView() {
+        avatar.image = .get(image: .flame)
+        avatar.tintColor = .white
+        avatarBackView.backgroundColor = .ui.red1
     }
 }

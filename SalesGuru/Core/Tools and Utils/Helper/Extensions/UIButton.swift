@@ -8,7 +8,7 @@
 import UIKit
 
 public extension UIButton {
-    convenience init(image: UIImage) {
+    convenience init(image: UIImage?) {
         self.init(type: .system)
         self.translatesAutoresizingMaskIntoConstraints = false
         setImage(image, for: .normal)

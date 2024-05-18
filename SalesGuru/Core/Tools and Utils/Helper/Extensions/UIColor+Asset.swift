@@ -30,24 +30,34 @@ extension UIColor {
 
         /// #B73333
         let red = UIColor(p3: "#B73333")
+        
+        /// #AB2727
+        let red1 = UIColor(p3: "#AB2727")
 
         /// #36B27E
         let green = UIColor(p3: "#36B27E")
+        
+        /// #4EBF90
+        let green1 = UIColor(p3: "#4EBF90")
+        
         
         /// B8BABF
         let silverGray = UIColor(p3: "#B8BABF")
         
         /// #99B2C6
         let silverGray2 = UIColor(p3: "#99B2C6")
+        
+        /// #8E8E93
+        let gray4 = UIColor(p3: "#8E8E93")
                 
         /// #BCBFC3
         let gray3 = UIColor(p3: "#BCBFC3")
         
-        /// 171717
-        let darkColor = UIColor(p3: "#171717")   
+        /// #201F29
+        let darkColor = UIColor(p3: "#201F29")
         
-        /// #0B0B0B
-        let darkColor1 = UIColor(p3: "#0B0B0B")
+        /// #171717
+        let darkColor1 = UIColor(p3: "#171717")
         
         /// #535353
         let darkColor2 = UIColor(p3: "#535353")
@@ -67,11 +77,11 @@ extension UIColor {
         /// FFFFFF
         let backgroundColor1 = UIColor(p3: "#FFFFFF")
         
-        /// F5F5F5
-        let backgroundColor2 = UIColor(p3: "#F5F5F5")
+        /// #FBFBFB
+        let backgroundColor2 = UIColor(p3: "#FBFBFB")
         
-        /// #F9F9FA
-        let backgroundColor3 = UIColor(p3: "#F9F9FA")
+        /// #8F92A1
+        let backgroundColor3 = UIColor(p3: "#8F92A1")
         
         /// #F1F7FB
         let backgroundColor4 = UIColor(p3: "#F1F7FB")

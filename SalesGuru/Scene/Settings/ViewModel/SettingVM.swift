@@ -15,18 +15,7 @@ enum SettingItem: String, CaseIterable {
     case security
     
     var icon: UIImage? {
-        switch self {
-        case .account:
-            return .get(image: .accountSetting)
-        case .iframe:
-            return .get(image: .iframeSetting)
-        case .notification:
-            return .get(image: .notificationSetting)
-        case .user:
-            return .get(image: .userSetting)
-        case .security:
-            return .get(image: .securitySetting)
-        }
+        return nil
     }
 }
 

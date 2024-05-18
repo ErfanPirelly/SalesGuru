@@ -9,12 +9,11 @@ import UIKit
 
 extension UITextField {
         
-    func custom(placeholder: String) {
-        self.backgroundColor = .ui.backgroundColor3
+    func custom(placeholder: String, with color: UIColor) {
         self.attributedPlaceholder = NSAttributedString(
             string: placeholder,
             attributes: [
-                NSAttributedString.Key.foregroundColor: UIColor.systemGray
+                NSAttributedString.Key.foregroundColor: color
             ]
         )
     }

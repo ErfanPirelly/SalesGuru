@@ -38,6 +38,12 @@ class HomeVC: UIViewController {
             view.pinToEdge(on: self.customView.containerView)
         }
         tabBarVC?.didMove(toParent: self)
-        tabBarVC?.setup(items:  [.inbox, .calls, .settings], viewControllers: [InboxVC(), CallsVC(), SettinsVC()])
+        let inboxVC = setupInboxVC()
+        tabBarVC?.setup(items:  [.chat, .calendar, .charts], viewControllers: [ChatsVC(), CalendarVC(), SettinsVC()])
+    }
+    
+    private func setupInboxVC() -> UIViewController {
+        let navigation = BaseNavigationController(rootViewController: ChatsVC())
+        return navigation
     }
 }
