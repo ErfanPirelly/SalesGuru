@@ -10,20 +10,42 @@ import UIKit
 class ChatsVC: UIViewController {
     // MARK: - properties
     private let customView = ChatsView()
+    public var output: Outputs?
+    private let viewModel = ChatsVM()
     
     // MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareUI()
         navigationController?.isNavigationBarHidden = true
         navigationController?.setNavigationBarHidden(true, animated: false)
+        prepareUI()
+        getData()
     }
     
     // MARK: - prepare UI
     private func prepareUI() {
         view.addSubview(customView)
-        customView.pinToEdge(on: view)
+        customView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().inset(CustomTabBarView.Height)
+        }
         customView.delegate = self
+    }
+    
+    func getData() {
+        viewModel.getConversation { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    self.customView.setData(data: success)
+                }
+            case .failure(let failure):
+                Logger.log(.error, failure.localizedDescription)
+                self.showError(message: failure.localizedDescription)
+            }
+        }
     }
 }
 
@@ -33,6 +55,7 @@ private extension ChatsVC {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+
 // MARK: -  view delegate
 extension ChatsVC: ChatViewDelegate {
     func didSelectFilter(with: IMConversationFilter) {
@@ -46,4 +69,16 @@ extension ChatsVC: ChatViewDelegate {
     func didSelectConversation() {
         presentConversation()
     }
+}
+
+// MARK: - more actions
+extension ChatsVC {
+    enum Actions {
+        
+    }
+    
+    struct Outputs {
+        let action: (Actions) -> Void
+    }
+    
 }

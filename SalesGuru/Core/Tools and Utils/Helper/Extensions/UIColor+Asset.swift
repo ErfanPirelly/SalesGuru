@@ -59,8 +59,8 @@ extension UIColor {
         /// #171717
         let darkColor1 = UIColor(p3: "#171717")
         
-        /// #535353
-        let darkColor2 = UIColor(p3: "#535353")
+        /// #353535
+        let darkColor2 = UIColor(p3: "#353535")
         
         /// 8F92A1
         let darkColor3 = UIColor(p3: "#8F92A1")

@@ -10,11 +10,9 @@ import Foundation
 final class UserManager: NSObject {
     let manager = UserDefaults.standard
     
-    static let shared = UserManager()
-    
     var uid: String? {
         get {
-            return AuthManager.shared.auth.currentUser?.uid
+            return manager[#function]
         }
         set {
             manager[#function] = newValue
@@ -23,7 +21,7 @@ final class UserManager: NSObject {
     
     var email: String? {
         get {
-            return AuthManager.shared.auth.currentUser?.email
+            return manager[#function]
         }
         set {
             manager[#function] = newValue
@@ -32,24 +30,16 @@ final class UserManager: NSObject {
     
     var photoUrl: String? {
         get {
-            return AuthManager.shared.auth.currentUser?.photoURL?.absoluteString
+            return manager[#function]
         }
         set {
             manager[#function] = newValue
         }
     }
     
-    var refreshToken: String? {
-        get {
-            return AuthManager.shared.auth.currentUser?.refreshToken
-        }
-        set {
-            manager[#function] = newValue
-        }
-    }
     var idToken: String? {
         get {
-            return AuthManager.shared.token
+            return manager[#function]
         }
         set {
             manager[#function] = newValue
@@ -65,7 +55,7 @@ final class UserManager: NSObject {
     }
     var phoneNumber: String? {
         get {
-            return AuthManager.shared.auth.currentUser?.phoneNumber
+            return manager[#function]
         }
         set {
             manager[#function] = newValue
@@ -85,6 +75,6 @@ final class UserManager: NSObject {
         }
     }
     
-    private override init() {}
+    override init() {}
     
 }

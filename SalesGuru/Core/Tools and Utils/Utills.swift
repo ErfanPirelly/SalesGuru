@@ -68,20 +68,11 @@ struct Utils {
         return rootViewController
     }
     
-    static func timestamp(timeResult: TimeInterval) -> String {
+    static func timestamp(to timeResult: TimeInterval, style: DateFormatter.Style) -> String {
         let date = Date(timeIntervalSince1970: timeResult)
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .none
-        dateFormatter.dateStyle = .short
-        let localDate = dateFormatter.string(from: date)
-        return localDate
-    }
-    
-    static func timestamp(to timeResult: TimeInterval) -> String {
-        let date = Date(timeIntervalSince1970: timeResult)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .none
-        dateFormatter.dateStyle = .medium
+        dateFormatter.dateStyle = style
         let localDate = dateFormatter.string(from: date)
         return localDate
     }

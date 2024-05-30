@@ -96,6 +96,10 @@ class ConversationTVC: UITableViewCell {
             make.leading.trailing.equalToSuperview().inset(24)
         }
         
+        unreadMessages.snp.makeConstraints { make in
+            make.width.greaterThanOrEqualTo(18)
+        }
+        
         avatarBackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(18)
             make.leading.equalToSuperview()
@@ -105,6 +109,7 @@ class ConversationTVC: UITableViewCell {
         avatar.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+        
         
         titleStack.snp.makeConstraints { make in
             make.top.equalTo(avatarBackView).offset(-2)
@@ -121,7 +126,7 @@ class ConversationTVC: UITableViewCell {
         
         dateStack.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(24)
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(username)
         }
         
         separator.snp.makeConstraints { make in
@@ -131,6 +136,29 @@ class ConversationTVC: UITableViewCell {
             make.leading.trailing.equalTo(card)
         }
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.dateLabel.text = ""
+        self.unread = false
+        self.unreadMessages.text = ""
+    }
+    
+    func fill(cell with: RMChat) {
+        self.title.text = with.source
+        self.username.text = with.name
+        
+        if let interval = with.startChatTs {
+            self.dateLabel.text = Utils.timestamp(to: interval, style: .short)
+        }
+        self.contentLabel.text = with.followUpMessage
+        if let unreadCounter = with.unreadCounter, unreadCounter != 0 {
+            self.unread = true
+            self.unreadMessages.text = " \(unreadCounter) "
+        }
+        fillImageView()
+    }
+    
     
     func fill(cell with: RMConversation) {
         self.title.text = with.title
@@ -141,6 +169,7 @@ class ConversationTVC: UITableViewCell {
         self.unreadMessages.text = " \(with.messageCount) "
         fillImageView()
     }
+    
     
     func fillImageView() {
         avatar.image = .get(image: .flame)

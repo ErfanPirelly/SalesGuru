@@ -7,19 +7,28 @@
 
 import UIKit
 
-protocol SingleChatViewDelegate: ConversationFilterViewDelegate {}
+protocol SingleChatViewDelegate: ConversationNavigationBarViewDelegate {
+    func isFromCurrentUser(at index: IndexPath) -> Bool
+    func isDateChanges(at index: IndexPath) -> Bool
+    func isPreviousMessageSameSender(at indexPath: IndexPath) -> Bool
+    func getPositionForMessage(at index: IndexPath) -> MessagePosition
+}
 
 class SingleChatView: UIView {
     // MARK: - properties
-    private let tableView = UITableView()
+    private let tableView = UITableView(frame: .zero, style: .grouped)
     private let dataSource = MockData.conversationMessages
-    private let filterView = ConversationFilterView()
-    weak var delegate: SingleChatView?
+    private let navBar = ConversationNavigationBarView()
+    weak var delegate: SingleChatViewDelegate?
+    private let inputBar = ChatInputBarView()
+    private let keyboardManager = KeyboardManager()
+    private var chatKeyboardObserver: ChatKeyboardObserver!
     
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupKeyboardManager()
     }
     
     required init?(coder: NSCoder) {
@@ -28,100 +37,134 @@ class SingleChatView: UIView {
     
     // MARK: - setupUI
     private func setupUI() {
-        backgroundColor = .white
+        backgroundColor = .ui.backgroundColor4
         setupFilterView()
         setupTableView()
+        setupInputBar()
         setupConstraints()
     }
     
     private func setupFilterView() {
-        filterView.translatesAutoresizingMaskIntoConstraints = false
-        filterView.delegate = self
-        addSubview(filterView)
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        navBar.delegate = self
+        addSubview(navBar)
+    }
+    
+    private func setupInputBar() {
+        addSubview(inputBar)
     }
     
     private func setupTableView() {
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(RecivedConversationMessageTVC.self, forCellReuseIdentifier: RecivedConversationMessageTVC.CellID)
+        tableView.register(ReceivedConversationMessageTVC.self, forCellReuseIdentifier: ReceivedConversationMessageTVC.CellID)
         tableView.register(SentConversationMessageTVC.self, forCellReuseIdentifier: SentConversationMessageTVC.CellID)
+        tableView.register(ChatHeaderTVH.self, forHeaderFooterViewReuseIdentifier: ChatHeaderTVH.ViewID)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.contentInset.bottom = 24
         addSubview(tableView)
     }
 
     private func setupConstraints() {
-        filterView.snp.makeConstraints { make in
+        navBar.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().inset(20)
+            make.top.equalToSuperview()
         }
 
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(filterView.snp.bottom).offset(32)
+            make.top.equalTo(navBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        
+        inputBar.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+    
+    private func setupKeyboardManager() {
+        keyboardManager.inputAccessoryView = inputBar
+        keyboardManager.bind(to: tableView)
+        keyboardManager.bind(inputAccessoryView: inputBar)
+     
+        chatKeyboardObserver = .init(textView: inputBar.textView, scrollView: tableView, textViewContainer: inputBar)
+        chatKeyboardObserver.setupObserver()
     }
 }
 
 extension SingleChatView: tableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         dataSource.count
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = dataSource[indexPath.row]
-        var position: MessagePosition = .first
-        let previousData = dataSource[safe: indexPath.row - 1]
-        let nextData = dataSource[safe: indexPath.row + 1]
+        let data = dataSource[indexPath.section]
+        let isMe = delegate?.isFromCurrentUser(at: indexPath) ?? false
+        let position = delegate?.getPositionForMessage(at: indexPath) ?? .first
         
-        if !data.isMe {
-            if let previousData = previousData {
-                position = !previousData.isMe ? .middle : .first
-            } else {
-                position = .first
-            }
-            
-            if let nextData = nextData {
-                position = !nextData.isMe ? position : .last
-            } else {
-                position = .last
-            }
-            let cell = tableView.dequeueReusableCell(withIdentifier: RecivedConversationMessageTVC.CellID, for: indexPath) as! RecivedConversationMessageTVC
+        if !isMe {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ReceivedConversationMessageTVC.CellID, for: indexPath) as! ReceivedConversationMessageTVC
             cell.fill(cell: data, position: position)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: SentConversationMessageTVC.CellID, for: indexPath) as! SentConversationMessageTVC
-            
-            if let previousData = previousData {
-                position = previousData.isMe ? .middle : .first
-            } else {
-                position = .first
-            }
-            
-            if let nextData = nextData {
-                position = nextData.isMe ? position : .last
-            } else {
-                position = .last
-            }
-            
             cell.fill(cell: data, position: position)
             return cell
         }
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ChatHeaderTVH.ViewID) as! ChatHeaderTVH
+        let dateChanges = (delegate?.isDateChanges(at: IndexPath(row: 0, section: section)) ?? false)
+        view.fillView(with: "09:24, Monday")
+        
+        if dateChanges {
+            return view
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let sameUser = (delegate?.isPreviousMessageSameSender(at: IndexPath(row: 0, section: section)) ?? false)
+        let dateChanges = (delegate?.isDateChanges(at: IndexPath(row: 0, section: section)) ?? false)
+        
+        if dateChanges {
+            return 74
+        } else if sameUser {
+            return 8
+        } else {
+            return 32
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
 }
 
 // MARK: - user view delegate
-extension SingleChatView: ConversationFilterViewDelegate {
-    func didSelectFilter(with: IMConversationFilter) {
-        delegate?.didSelectFilter(with: with)
+extension SingleChatView: ConversationNavigationBarViewDelegate {
+    func backButtonDidTouched() {
+        delegate?.backButtonDidTouched()
     }
     
-    func deSelectFilter(with: IMConversationFilter) {
-        delegate?.deSelectFilter(with: with)
+    func moreButtonDidTouched() {
+        delegate?.moreButtonDidTouched()
     }
     
- 
+    func aiButtonDidTouched() {
+        delegate?.aiButtonDidTouched()
+    }
 }

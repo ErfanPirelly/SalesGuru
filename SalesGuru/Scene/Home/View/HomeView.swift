@@ -10,7 +10,6 @@ import UIKit
 class HomeView: UIView {
     // MARK: - properties
     public let containerView = UIView()
-    private let header = HeaderView()
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -27,22 +26,16 @@ class HomeView: UIView {
         backgroundColor = .ui.backgroundColor1
         isUserInteractionEnabled = true
         translatesAutoresizingMaskIntoConstraints = false
-        header.translatesAutoresizingMaskIntoConstraints = false
+
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.isUserInteractionEnabled = true
         addSubview(containerView)
-        addSubview(header)
         setupConstraints()
     }
     
     private func setupConstraints() {
-        header.snp.makeConstraints { make in
-            make.top.leading.trailing.equalToSuperview()
-        }
-        
         containerView.snp.makeConstraints { make in
-            make.top.equalTo(header.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 }

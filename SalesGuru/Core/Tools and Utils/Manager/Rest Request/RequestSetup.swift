@@ -8,6 +8,7 @@
 import Alamofire
 
 struct RequestSetup {
+    
     var route: String!
     var params: Codable?
     var method: HTTPMethod = .post
@@ -15,7 +16,6 @@ struct RequestSetup {
     var body: Data?
     var headers: HTTPHeaders = [
         "Content-Type": "application/json",
-        "Authorization": "Bearer \(UserManager.shared.idToken ?? "")",
         "P-Device-OS": "ios",
         "P-Device-Version": UIDevice.current.systemVersion,
         "P-Device-Model": UIDevice.current.localizedModel,
@@ -28,10 +28,7 @@ struct RequestSetup {
          method: HTTPMethod = .post,
          body: Data? = nil,
          encoding: ParameterEncoding = JSONEncoding.default,
-         headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "Authorization": "Bearer \(UserManager.shared.idToken ?? "")"
-         ]) {
+         headers: HTTPHeaders = ["Content-Type": "application/json",]) {
              self.route = route
              self.params = params
              self.method = method

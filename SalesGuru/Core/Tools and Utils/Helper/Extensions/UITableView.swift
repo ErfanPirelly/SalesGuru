@@ -61,3 +61,23 @@ extension UITableView: ListView {
     }
     
 }
+
+extension UITableView {
+    var indexPathForLastItem: IndexPath? {
+      guard numberOfSections > 0 else { return nil }
+      for offset in 1 ... numberOfSections {
+        let section = numberOfSections - offset
+        let lastItem = numberOfRows(inSection: section) - 1
+        if lastItem >= 0 {
+          return IndexPath(item: lastItem, section: section)
+        }
+      }
+      return nil
+    }
+    
+    public func scrollToLastItem(at pos: UITableView.ScrollPosition = .bottom, animated: Bool = true) {
+      guard let indexPath = indexPathForLastItem else { return }
+        scrollToRow(at: indexPath, at: pos, animated: animated)
+    }
+}
+

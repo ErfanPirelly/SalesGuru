@@ -11,11 +11,10 @@ import SnapKit
 class SentConversationMessageTVC: UITableViewCell {
     // MARK: - properties
     static let CellID = "SentConversationMessageTVC"
-    private let dateLabel = UILabel(font: .Fonts.medium(11), textColor: .ui.darkColor3, alignment: .left)
+    private let dateLabel = UILabel(font: .Quicksand.medium(11), textColor: .ui.silverGray2, alignment: .left)
     private let card = UIView()
-    private let contentLabel = UILabel(font: .Fonts.light(14), textColor: .ui.darkColor, alignment: .left)
+    private let contentLabel = UILabel(font: .Fonts.light(14), textColor: .white, alignment: .left)
     private var stack: UIStackView!
-    private var bottomSpacing: Constraint!
     
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -41,7 +40,7 @@ class SentConversationMessageTVC: UITableViewCell {
     }
     
     private func setupCardView() {
-        card.backgroundColor = .ui.primaryBlue.withAlphaComponent(0.15)
+        card.backgroundColor = .ui.primaryBlue
         card.translatesAutoresizingMaskIntoConstraints = false
         card.applyCorners(to: .all, with: 10)
         stack = .init(axis: .vertical, alignment: .trailing, distribution: .equalSpacing, spacing: 4, arrangedSubviews: [card, dateLabel])
@@ -50,12 +49,14 @@ class SentConversationMessageTVC: UITableViewCell {
     
     private func setupConstraints() {
         stack.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(8)
+            make.top.bottom.equalToSuperview()
             make.trailing.equalToSuperview().inset(24)
-            make.height.greaterThanOrEqualTo(48)
-            bottomSpacing = make.bottom.equalToSuperview().constraint
         }
 
+        card.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(48)
+        }
+        
         contentLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.width.greaterThanOrEqualTo(15)
@@ -65,8 +66,11 @@ class SentConversationMessageTVC: UITableViewCell {
     }
     
     private func setMessagePosition(position: MessagePosition) {
-        self.dateLabel.isHidden = position != .last
-        bottomSpacing.update(offset: position == .last ? 24 : 0)
+        if position == .single {
+            self.dateLabel.isHidden = false
+        } else {
+            self.dateLabel.isHidden = position != .last
+        }
     }
     
     func fill(cell with: RMConversationMessages, position: MessagePosition) {

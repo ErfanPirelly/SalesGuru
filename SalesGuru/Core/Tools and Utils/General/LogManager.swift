@@ -16,7 +16,8 @@ enum LogLevel: String {
 
 struct Logger {
     static let logger = OSLog(subsystem: "sales.guru.ios.App", category: "CustomLogs")
-    static let userManager = UserManager.shared
+    static let userManager: UserManager = inject()
+    
     static func log(_ level: LogLevel = .info, file: String = #file, function: String = #function, line: Int = #line, _ messages: Any...) {
          // Construct log message with source location information
          let filePart = file.components(separatedBy: "/").last ?? ""

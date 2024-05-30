@@ -72,6 +72,23 @@ public extension Validator {
              return value.count >= min && (max != nil ? value.count <= max! : true)
          }
      }
+    
+    
+    static func passwordValidator() -> Validator {
+        let validationFormat = "SELF MATCHES %@"
+        let passwordRegex = "(?=.*[0-9])" + //at least 1 digit
+                            "(?=.*[a-z])" + // at least 1 lower case letter
+                            "(?=.*[A-Z])" + // at least 1 upper case letter
+                            "(?=.*[a-zA-Z])" + // any letter
+                            "(?=.*[@#$%^&+=_!`{|}~:;<>?.()*/\\,\\[\\]\"'\\-])" + // at least 1 special character
+                            /*"(?=\\S+$)" + */          //no white spaces
+                            ".{8,}" //at least 8 characters
+        let passwordTest = NSPredicate(format: validationFormat,
+                                       passwordRegex)
+         return Validator { value in
+             return passwordTest.evaluate(with: value)
+         }
+     }
 }
 
 

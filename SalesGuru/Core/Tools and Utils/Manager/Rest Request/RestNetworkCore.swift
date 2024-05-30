@@ -9,6 +9,10 @@ import Foundation
 import Alamofire
 
 final class RestNetworkCore<T: Codable>: NSObject {
+    internal static var userManager: UserManager {
+        return inject()
+    }
+    
     private static var interceptor: Interceptor {
         return .init()
     }
@@ -25,76 +29,6 @@ final class RestNetworkCore<T: Codable>: NSObject {
 // MARK: - Methods
 
 extension RestNetworkCore {
-    
-    // MARK: - Object Response
-    /// - Note: - Use this when "data" property is a single Object
-    
-    static func connect(setup: RequestSetup,
-                        callback: @escaping (_ response: T?, _ error: CustomError?) -> Void) {
-        guard isConnectedToTheInternet else {
-            let error = CustomError(description: "Device is not connected to the internet, Try again later!")
-            callback(nil, error)
-            return
-        }
-        let statusCode: Range<Int> = 200..<401
-        sessionManager.request(setup.route,
-                               method: setup.method,
-                               parameters: try? setup.params?.toDictionary(),
-                               encoding: setup.encoding,
-                               headers: setup.headers,
-                               interceptor: interceptor)
-        .validate(statusCode: statusCode)
-        .responseData { response in
-            do {
-                switch response.result {
-                case .success(let value):
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode(T.self, from: value)
-                    callback(result, nil)
-                    Logger.log(.success, result)
-                case .failure(let error):
-                    let customError = CustomError(description: error.localizedDescription)
-                    callback(nil, customError)
-                    Logger.log(.error, customError)
-                }
-            } catch let error {
-                let customError = CustomError(description: error.localizedDescription)
-                callback(nil, customError)
-                Logger.log(.error, customError)
-            }
-        }
-    }
-    
-    // MARK: - Array Response
-    /// - Note: - Use this when "data" property is an Array
-    
-    static func arrayConnect(setup: RequestSetup,
-                             callback: @escaping (_ arrayResponse: [T]?, _ error: CustomError?) -> Void) {
-        guard isConnectedToTheInternet else {
-            let error = CustomError(description: "Device is not connected to the internet, Try again later!")
-            callback(nil, error)
-            return
-        }
-        sessionManager.request(setup.route,
-                               method: setup.method,
-                               parameters: try? setup.params?.toDictionary(),
-                               encoding: setup.encoding,
-                               headers: setup.headers,
-                               interceptor: interceptor)
-            .validate(statusCode: 200..<300)
-            .response { response in
-            guard let data = response.data else { return }
-            do {
-                let decoder = JSONDecoder()
-                let result = try decoder.decode([T].self, from: data)
-                callback(result, nil)
-                Logger.log(.success, result)
-            } catch {
-                callback(nil, convert(error: response.data))
-            }
-        }
-    }
-    
     // MARK: - Upload
     /// - Note: -  Use this when you wanna upload a file (such as picture or ...) to server
     
@@ -106,7 +40,7 @@ extension RestNetworkCore {
             callback(nil, error)
             return
         }
-        let fileName = "bug-report-" + (UserManager.shared.uid ?? "uid-") + Date().description
+        let fileName = "bug-report-" + (userManager.uid ?? "uid-") + Date().description
         // Request
         
         let request = sessionManager.upload(multipartFormData: { multipartFormData in
@@ -135,8 +69,7 @@ extension RestNetworkCore {
         }
     }
     
-    // MARK: - Cancell all request in session
-    
+    // MARK: - Cancel all request in session
     static func cancelAllRequest() {
         Alamofire.Session.default.cancelAllRequests()
     }
@@ -195,11 +128,14 @@ extension RestNetworkCore {
 }
 
 class Interceptor: RequestInterceptor {
+    private var userManager: UserManager = inject()
+    private var authManager: AuthManager = inject()
+    
     func adapt(_ urlRequest: URLRequest,
                using state: RequestAdapterState,
                completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var request = urlRequest
-        let token = UserManager.shared.idToken ?? ""
+        let token = userManager.idToken ?? ""
         let bearerToken = "Bearer \(token)"
         request.setValue(bearerToken, forHTTPHeaderField: "Authorization")
         Logger.log(.info, bearerToken)
@@ -219,7 +155,7 @@ class Interceptor: RequestInterceptor {
     }
     
     func refreshToken(completion: @escaping (_ isSuccess: Bool) -> Void) {
-        AuthManager.shared.refreshToken {
+        authManager.refreshToken {
             completion(true)
         }
     }

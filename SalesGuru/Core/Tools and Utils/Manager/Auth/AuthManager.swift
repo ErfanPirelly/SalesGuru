@@ -15,18 +15,19 @@ enum UserType {
 typealias authCallback = (_ response: AuthDataResult?,_ error: CustomError?) -> Void
 
 final class AuthManager: NSObject {
-    static let shared = AuthManager()
     public var type: UserType = .normal
     private var verificationId: String?
     private var interval: TimeInterval = 3600
     var token: String = ""
+    let userManager: UserManager
     
     public lazy var auth: Auth = {
         return Auth.auth()
     }()
     
     
-    private override init() {
+    init(userManager: UserManager) {
+        self.userManager = userManager
         super.init()
         addStateDidChangeListener()
         startTimer()
@@ -38,6 +39,10 @@ final class AuthManager: NSObject {
     private func checkUser(user: User) {
         let uid = user.uid
         type = uid.contains("staff") ? .staff : .normal
+        self.userManager.uid = uid
+        self.userManager.email = user.email
+        self.userManager.photoUrl = user.photoURL?.absoluteString
+        self.userManager.phoneNumber = user.phoneNumber
     }
 }
 
@@ -114,6 +119,7 @@ extension AuthManager {
                 completion: @escaping authCallback) {
         auth.signIn(withEmail: email, password: password) { authResult, error in
             guard authResult != nil, error == nil else {
+                Logger.log(.error, error?.localizedDescription)
                 completion(nil, CustomError(description: error?.localizedDescription ?? ""))
                 return
             }
@@ -173,7 +179,7 @@ extension AuthManager {
      
     func getIDToken() {
         auth.currentUser?.getIDToken(completion: { idToken, _  in
-            UserManager.shared.idToken = idToken
+            self.userManager.idToken = idToken
         })
     }
     
@@ -211,6 +217,7 @@ extension AuthManager {
             guard let self = self else { return }
             if error == nil {
                 self.token = token ?? ""
+                self.userManager.idToken = token
                 Logger.log(.success, token)
             } else {
                 Logger.log(.error, error?.localizedDescription, "No token")

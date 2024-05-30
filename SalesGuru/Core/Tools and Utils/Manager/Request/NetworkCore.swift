@@ -9,13 +9,8 @@ import FirebaseDatabase
 import FirebaseStorage
 
 enum FirebaseDatabase: String {
-    case client = "https://pirelly-client-request.firebaseio.com"
-    case user = "https://pirelly-users.firebaseio.com"
-    case support = "https://pirelly-support.firebaseio.com"
-    case aiModels = "https://pirelly-ai-models.firebaseio.com"
-    case db = "https://pirelly360-default-rtdb.firebaseio.com"
-    case centerAuth = "https://drivee-central-auth.firebaseio.com/"
-
+    case salesguru = "https://salesguru.firebaseio.com/"
+    
     var databaseReference: DatabaseReference {
         return Database.database(url: self.rawValue).reference()
     }

@@ -29,6 +29,7 @@ extension BaseNavigationController {
         navBasicConfig()
         interactivePopGestureRecognizer?.delegate = self
         interactivePopGestureRecognizer?.isEnabled = true
+
         if #available(iOS 13.0, *) {
             let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithOpaqueBackground()
@@ -79,6 +80,11 @@ final class CleanNavigation: BaseNavigationController {
     override func setup() {
         super.setup()
         navBasicConfig()
+        
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.scrollEdgeAppearance = .none
+        navigationController?.isNavigationBarHidden = true
+        
         if #available(iOS 13.0, *) {
             let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithOpaqueBackground()

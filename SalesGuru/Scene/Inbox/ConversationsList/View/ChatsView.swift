@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ChatViewDelegate: ConversationFilterViewDelegate {
+protocol ChatViewDelegate: ConversationFilterViewDelegate, EmptyConversationViewDelegate {
     func didSelectConversation()
 }
 
@@ -15,7 +15,10 @@ class ChatsView: UIView {
     // MARK: - properties
     private let filterView = ConversationFilterView()
     private let tableView = UITableView()
+    private let header = HeaderView()
     weak var delegate: ChatViewDelegate?
+    private var chats: [RMChat] = []
+    private let emptyView = EmptyConversationView()
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -29,9 +32,16 @@ class ChatsView: UIView {
     
     // MARK: - setupUI
     private func setupUI() {
+        setupHeaderView()
+        setupEmptyView()
         setupTableView()
         setupFilterView()
         setupConstraints()
+    }
+    
+    private func setupHeaderView() {
+        header.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(header)
     }
     
     private func setupFilterView() {
@@ -50,10 +60,19 @@ class ChatsView: UIView {
         addSubview(tableView)
     }
 
+    private func setupEmptyView() {
+        emptyView.delegate = self
+        emptyView.alpha = 0
+        addSubview(emptyView)
+    }
+    
     private func setupConstraints() {
+        header.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
         
         filterView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
+            make.top.equalTo(header.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
         }
         
@@ -61,17 +80,30 @@ class ChatsView: UIView {
             make.top.equalTo(filterView.snp.bottom).offset(24)
             make.leading.trailing.bottom.equalToSuperview()
         }
+        
+        emptyView.snp.makeConstraints { make in
+            make.center.equalTo(tableView)
+            make.width.equalTo(262)
+        }
+    }
+    
+    func setData(data: [RMChat]) {
+        emptyView.fade(duration: 0.2, delay: 0, isIn: data.isEmpty)
+        tableView.fade(duration: 0.2, delay: 0, isIn: !data.isEmpty)
+        self.chats = data
+        self.tableView.reloadData()
     }
 }
 
 extension ChatsView: tableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        MockData.conversations.count
+        chats.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTVC.CellID, for: indexPath) as! ConversationTVC
-        cell.fill(cell: MockData.conversations[indexPath.row])
+        let chat = chats[indexPath.row]
+        cell.fill(cell: chat)
         return cell
     }
  

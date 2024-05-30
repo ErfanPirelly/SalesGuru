@@ -11,6 +11,7 @@ protocol CustomTabBarViewDelegate: TabBarItemViewDelegate {}
 
 // view
 final class CustomTabBarView: UIView {
+    static let Height = UIView.safeArea.bottom + 56
     // MARK: - properties
     private var stackView: UIStackView!
     weak var delegate: CustomTabBarViewDelegate?

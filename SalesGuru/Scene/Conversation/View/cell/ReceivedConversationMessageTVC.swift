@@ -1,5 +1,5 @@
 //
-//  RecivedConversationMessageTVC.swift
+//  ReceivedConversationMessageTVC.swift
 //  SalesGuru
 //
 //  Created by mmdMoovic on 4/29/24.
@@ -9,21 +9,21 @@ import UIKit
 import SnapKit
 
 enum MessagePosition {
+    case single
     case first
     case middle
     case last
 }
 
-class RecivedConversationMessageTVC: UITableViewCell {
+class ReceivedConversationMessageTVC: UITableViewCell {
     // MARK: - properties
     static let CellID = "RecivedConversationMessageTVC"
-    private let statusView = UIView()
     private let avatar = UIImageView()
-    private let dateLabel = UILabel(font: .Fonts.medium(11), textColor: .ui.darkColor3, alignment: .left)
+    private let dateLabel = UILabel(font: .Quicksand.light(11), textColor: .ui.silverGray2, alignment: .left)
     private let card = UIView()
-    private let contentLabel = UILabel(font: .Fonts.light(14), textColor: .ui.darkColor, alignment: .left)
-    private var stack: UIStackView!
-    private var bottomSpacing: Constraint!
+    private let contentLabel = UILabel(font: .Fonts.light(14), textColor: .ui.darkColor1, alignment: .left)
+    private var verticalStack: UIStackView!
+    
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,8 +39,7 @@ class RecivedConversationMessageTVC: UITableViewCell {
     private func setupView() {
         setupCardView()
         setupAvatar()
-        setupStatusView()
-        setupContent()
+        setupVerticalStack()
         setupConstraints()
     }
     
@@ -50,43 +49,32 @@ class RecivedConversationMessageTVC: UITableViewCell {
         avatar.applyCorners(to: .all, with: 10)
         contentView.addSubview(avatar)
     }
-    
-    private func setupStatusView() {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        statusView.translatesAutoresizingMaskIntoConstraints = false
-        statusView.applyCorners(to: .all, with: 3)
-        statusView.backgroundColor = .ui.green
-        view.applyCorners(to: .all, with: 5)
-        view.backgroundColor = .white
-        view.addSubview(statusView)
-        contentView.addSubview(view)
-    }
-    
+
     private func setupContent() {
         contentLabel.numberOfLines = 0
         card.addSubview(contentLabel)
     }
     
     private func setupCardView() {
+        setupContent()
         card.backgroundColor = .ui.darkColor3.withAlphaComponent(0.1)
         card.translatesAutoresizingMaskIntoConstraints = false
         card.applyCorners(to: .all, with: 10)
-        stack = .init(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 4, arrangedSubviews: [card, dateLabel])
-        contentView.addSubview(stack)
+    }
+    
+    private func setupVerticalStack() {
+        verticalStack = .init(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 3, arrangedSubviews: [card, dateLabel])
+        contentView.addSubview(verticalStack)
     }
     
     private func setupConstraints() {
-        stack.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(8)
-            make.bottom.equalToSuperview()
-            make.leading.equalTo(avatar).inset(56)
-            make.height.greaterThanOrEqualTo(48)
-            bottomSpacing = make.bottom.equalToSuperview().constraint
+        verticalStack.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(avatar.snp.trailing).inset(-16)
         }
         
         avatar.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(8)
+            make.top.equalToSuperview().inset(3)
             make.leading.equalToSuperview().inset(24)
             make.size.equalTo(40)
         }
@@ -98,23 +86,19 @@ class RecivedConversationMessageTVC: UITableViewCell {
             make.top.bottom.equalToSuperview().inset(14)
         }
         
-        statusView.superview?.snp.makeConstraints { make in
-            make.centerX.equalTo(avatar.snp.trailing).inset(2)
-            make.centerY.equalTo(avatar.snp.bottom).inset(2)
-            make.size.equalTo(10)
-        }
-        
-        statusView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.size.equalTo(6)
+        card.snp.makeConstraints { make in
+            make.height.greaterThanOrEqualTo(48)
         }
     }
     
     private func setMessagePosition(position: MessagePosition) {
-        self.avatar.isHidden = position != .first
-        self.statusView.superview?.isHidden = position != .first
-        self.dateLabel.isHidden = position != .last
-        bottomSpacing.update(offset: position == .last ? 24 : 0)
+        if position == .single {
+            self.avatar.isHidden = false
+            self.dateLabel.isHidden = false
+        } else {
+            self.avatar.isHidden = position != .first
+            self.dateLabel.isHidden = position != .last
+        }
     }
     
     func fill(cell with: RMConversationMessages, position: MessagePosition) {

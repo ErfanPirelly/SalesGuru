@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,9 +16,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         AppConfig.config()
+        // MARK: - Firebase Config
+        AppConfig.configureFirebase(notification: self, messagingDelegate: self, application: application)
+        CoreDependence(window).execute()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = CleanNavigation(rootViewController: HomeVC())
+        self.window?.rootViewController = HomeVC()
         self.window?.makeKeyAndVisible()
         return true
     }
+}
+
+
+
+// MARK: - configureFirebase messaging
+extension AppDelegate: UNUserNotificationCenterDelegate, MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+           guard let fcmToken = fcmToken else { return }
+        Logger.log(.info, fcmToken)
+       }
+       
+       func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+           let userInfo = response.notification.request.content.userInfo
+           // Print full message.
+       }
+       
+       func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+           Messaging.messaging().apnsToken = deviceToken
+       }
+       
+       func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+           let userInfo = notification.request.content.userInfo
+           Messaging.messaging().appDidReceiveMessage(userInfo)
+           completionHandler([[.sound, .badge]])
+       }
+       
+       func application(_ application: UIApplication,
+       didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+          fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+         Messaging.messaging().appDidReceiveMessage(userInfo)
+         completionHandler(.noData)
+       }
 }

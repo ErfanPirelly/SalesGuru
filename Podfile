@@ -22,4 +22,5 @@ pod 'RxSwift'
 pod 'RxCocoa'
 pod 'Mixpanel-swift'
 pod 'SDWebImageFLPlugin'
+pod 'M13Checkbox'
 end
