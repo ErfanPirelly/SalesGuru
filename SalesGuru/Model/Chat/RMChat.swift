@@ -5,14 +5,50 @@
 //  Created by Erfan mac mini on 5/28/24.
 //
 
-import Foundation
+import UIKit
 
 // hot, cold, contactAttemped
-
+enum LeadState: String, Codable {
+    case engaged = "contactAttemped"
+    case hot
+    case cold
+    
+    var title: String {
+        switch self {
+        case .engaged:
+            return "Re Engaged Lead"
+        case .hot:
+            return "Hot Lead"
+        case .cold:
+            return "Cold Lead"
+        }
+    }
+    var image: UIImage? {
+        switch self {
+        case .engaged:
+            return .get(image: .sun)
+        case .hot:
+            return .get(image: .flame)
+        case .cold:
+            return .get(image: .ice)
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .engaged:
+            return .ui.green1
+        case .hot:
+            return .ui.red1
+        case .cold:
+            return .ui.primaryBlue
+        }
+    }
+}
 
 struct RMChat: Codable {
+    var id: String?
     let aiMode, appointment, appointmentIsSet : Bool?
-    
     let appointmentTime: Double?
     let city: String?
     let followUp: Bool?
@@ -28,6 +64,11 @@ struct RMChat: Codable {
     let startChatTs: Double?
     let unreadCounter: Int?
     let lastMessage: LastMessage?
+    let leadState: LeadState?
+    
+    var timestamp: Double {
+        return (lastMessage?.timestamp ?? 0) / 1000
+    }
     
     init(aiMode: Bool? = nil,
          appointment: Bool? = nil,
@@ -48,7 +89,8 @@ struct RMChat: Codable {
          source: String? = nil,
          startChatTs: Double? = nil,
          unreadCounter: Int? = nil,
-         lastMessage: LastMessage? = nil) {
+         lastMessage: LastMessage? = nil,
+         leadState: LeadState? = nil) {
         self.lastMessage = lastMessage
         self.aiMode = aiMode
         self.appointment = appointment
@@ -69,6 +111,7 @@ struct RMChat: Codable {
         self.source = source
         self.startChatTs = startChatTs
         self.unreadCounter = unreadCounter
+        self.leadState = leadState
     }
     
     init(from decoder: any Decoder) throws {
@@ -93,6 +136,7 @@ struct RMChat: Codable {
         self.startChatTs = try? container.decodeIfPresent(Double.self, forKey: .startChatTs)
         self.unreadCounter = try? container.decodeIfPresent(Int.self, forKey: .unreadCounter)
         self.lastMessage = try? container.decodeIfPresent(LastMessage.self, forKey: .lastMessage)
+        self.leadState = try? container.decodeIfPresent(LeadState.self, forKey: .leadState)
     }
 }
 
@@ -115,10 +159,11 @@ struct RMChatParser: FirebaseParser {
         }
         
         let decoder = JSONDecoder()
-        let carsArray = dictionary.compactMap { (_, value) -> RMChat? in
-            if let carDictionary = value as? [String: Any],
-               let jsonData = try? JSONSerialization.data(withJSONObject: carDictionary),
-               let chat = try? decoder.decode(RMChat.self, from: jsonData) {
+        let carsArray = dictionary.compactMap { (key, value) -> RMChat? in
+            if let dictionary = value as? [String: Any],
+               let jsonData = try? JSONSerialization.data(withJSONObject: dictionary),
+               var chat = try? decoder.decode(RMChat.self, from: jsonData) {
+                chat.id = key
                 return chat
             }
             return nil

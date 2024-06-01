@@ -16,7 +16,7 @@ class ConversationTVC: UITableViewCell {
     private let title = UILabel(font: .Fonts.medium(10), textColor: .ui.darkColor3, alignment: .left)
     private let dateLabel = UILabel(font: .Fonts.medium(10), textColor: .ui.darkColor, alignment: .left)
     private let username = UILabel(font: .Fonts.medium(14), textColor: .ui.darkColor, alignment: .left)
-    private let unreadMessages = UILabel(font: .Fonts.medium(10), textColor: .white, alignment: .left)
+    private let unreadMessages = UILabel(font: .Fonts.medium(10), textColor: .white, alignment: .center)
     private let contentLabel = UILabel(font: .Fonts.light(12), textColor: .ui.darkColor2, alignment: .left)
     private var titleStack: UIStackView!
     private var dateStack: UIStackView!
@@ -26,6 +26,8 @@ class ConversationTVC: UITableViewCell {
     private var unread = true {
         didSet {
             username.textColor = unread ? .ui.darkColor : .ui.darkColor3
+            contentLabel.textColor = unread ? .ui.darkColor2 : .ui.darkColor3
+            dateLabel.textColor = unread ? .ui.darkColor : .ui.darkColor3
             unreadMessages.isHidden = !unread
         }
     }
@@ -98,6 +100,7 @@ class ConversationTVC: UITableViewCell {
         
         unreadMessages.snp.makeConstraints { make in
             make.width.greaterThanOrEqualTo(18)
+            make.height.equalTo(18)
         }
         
         avatarBackView.snp.makeConstraints { make in
@@ -145,35 +148,23 @@ class ConversationTVC: UITableViewCell {
     }
     
     func fill(cell with: RMChat) {
-        self.title.text = with.source
+        self.title.text = "From " + (with.source ?? "Unknown")
         self.username.text = with.name
         
-        if let interval = with.startChatTs {
-            self.dateLabel.text = Utils.timestamp(to: interval, style: .short)
-        }
-        self.contentLabel.text = with.followUpMessage
+        self.dateLabel.text = Date(timeIntervalSince1970: with.timestamp).conversationDateFormatter()
+        self.contentLabel.text = with.lastMessage?.content
         if let unreadCounter = with.unreadCounter, unreadCounter != 0 {
             self.unread = true
             self.unreadMessages.text = " \(unreadCounter) "
+        } else {
+            self.unread = false
         }
-        fillImageView()
+        fillImageView(with: with.leadState ?? .cold)
     }
     
-    
-    func fill(cell with: RMConversation) {
-        self.title.text = with.title
-        self.username.text = with.username
-        self.dateLabel.text = with.date
-        self.contentLabel.text = with.content
-        self.unread = with.unread
-        self.unreadMessages.text = " \(with.messageCount) "
-        fillImageView()
-    }
-    
-    
-    func fillImageView() {
-        avatar.image = .get(image: .flame)
+    func fillImageView(with lead: LeadState) {
+        avatar.image = lead.image
         avatar.tintColor = .white
-        avatarBackView.backgroundColor = .ui.red1
+        avatarBackView.backgroundColor = lead.color
     }
 }

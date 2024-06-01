@@ -12,5 +12,5 @@ enum IMConversationFilter: String, CaseIterable {
     case appointment
     case hot = "hot lead"
     case engaged = "re-engaed"
-    case other = "Other"
+    case cold = "Cold"
 }

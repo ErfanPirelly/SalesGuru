@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CoreDependence(window).execute()
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = HomeVC()
+        self.window?.rootViewController = PersonalInformationVC(info: .init(privacyAccepted: false))
         self.window?.makeKeyAndVisible()
         return true
     }

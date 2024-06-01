@@ -14,6 +14,8 @@ protocol RegisterViewDelegate: LoginViewDelegate {
 extension RegisterViewDelegate {
     func signUpDidTouched() {}
     func signInButtonDidTouched(sender: UIButton, email: String, password: String) {}
+    func signInWithGoogleDidTouched(sender: UIButton) {}
+    func signInWithAppleDidTouched(sender: UIButton) {}
 }
 
 class RegisterWithEmailPasswordView: UIView {

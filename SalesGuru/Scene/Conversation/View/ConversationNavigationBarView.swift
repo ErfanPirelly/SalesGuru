@@ -15,6 +15,7 @@ protocol ConversationNavigationBarViewDelegate: AnyObject {
 
 class ConversationNavigationBarView: UIView {
     // MARK: - properties
+    private let avatarBackView = UIView()
     private let avatar = UIImageView()
     private let username = UILabel(font: .Quicksand.bold(17), textColor: .ui.black, alignment: .left)
     private let subtitle = UILabel(font: .Quicksand.medium(13), textColor: .black.withAlphaComponent(0.35), alignment: .left)
@@ -39,6 +40,7 @@ class ConversationNavigationBarView: UIView {
     
     // MARK: - setupUi
     private func setupUI() {
+        translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white.withAlphaComponent(0.6)
         setupButtonStack()
         setupStack()
@@ -56,9 +58,6 @@ class ConversationNavigationBarView: UIView {
         moreButton.addTarget(self, action: #selector(moreButtonDidTouched), for: .touchUpInside)
         aiButton.addTarget(self, action: #selector(aiButtonDidTouched), for: .touchUpInside)
         searchButton.addTarget(self, action: #selector(searchButtonDidTouched), for: .touchUpInside)
-        backButton.addTarget(self, action: #selector(backButtonDidTouched), for: .touchUpInside)
-        backButton.tintColor = .ui.primaryBlue
-        backButton.imageEdgeInsets = .init(top: 8, left: 11.33, bottom: 8, right: 11.33)
     }
 
     private func setupButtonStack() {
@@ -73,17 +72,20 @@ class ConversationNavigationBarView: UIView {
     }
     
     private func setupAvatar() {
+        backButton.addTarget(self, action: #selector(backButtonDidTouched), for: .touchUpInside)
+        backButton.tintColor = .ui.primaryBlue
+        backButton.imageEdgeInsets = .init(top: 8, left: 11.33, bottom: 8, right: 11.33)
+        
+        avatarBackView.translatesAutoresizingMaskIntoConstraints = false
+        avatarBackView.applyCorners(to: .all, with: 10)
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        avatar.applyCorners(to: .all, with: 10)
-        avatarStack = .init(distribution: .equalSpacing, spacing: 4, arrangedSubviews: [backButton, avatar])
+        avatarBackView.addSubview(avatar)
+        
+        avatarStack = .init(axis: .horizontal, distribution: .equalSpacing, spacing: 4, arrangedSubviews: [backButton, avatarBackView])
         addSubview(avatarStack)
     }
     
     private func setupConstraints() {
-        avatar.snp.makeConstraints { make in
-            make.size.equalTo(40)
-        }
-        
         [moreButton, aiButton, searchButton, backButton].forEach({
             $0.snp.makeConstraints { make in
                 make.size.equalTo(32)
@@ -93,19 +95,38 @@ class ConversationNavigationBarView: UIView {
         avatarStack.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(16)
             make.top.equalToSuperview().inset(UIView.topOrLeftSafeAreaConstant + 8)
-            make.bottom.equalToSuperview().inset(9)
+            make.bottom.equalToSuperview().inset(12)
+        }
+        
+        avatarBackView.snp.makeConstraints { make in
+            make.size.equalTo(40)
+        }
+        
+        avatar.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
         
         stack.snp.makeConstraints { make in
-            make.top.equalTo(avatar).inset(3)
-            make.leading.equalTo(avatar.snp.trailing).inset(-14)
-            make.width.lessThanOrEqualToSuperview().multipliedBy(0.32)
+            make.top.equalTo(avatarStack).inset(3)
+            make.leading.equalTo(avatarStack.snp.trailing).offset(14)
         }
         
         buttonsStack.snp.makeConstraints { make in
-            make.centerY.equalTo(avatar)
+            make.centerY.equalTo(avatarStack)
             make.trailing.equalToSuperview().inset(16)
         }
+    }
+    
+    func config(with chat: RMChat) {
+        self.username.text = chat.name
+        self.subtitle.text = chat.leadState?.title ?? ""
+        fillImageView(with: chat.leadState ?? .cold)
+    }
+    
+    private func fillImageView(with lead: LeadState) {
+        avatar.image = lead.image
+        avatar.tintColor = .white
+        avatarBackView.backgroundColor = lead.color
     }
 }
 

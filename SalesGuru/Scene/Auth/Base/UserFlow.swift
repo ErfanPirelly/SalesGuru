@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseCore
 
 enum UserFlow {
+    case home
     case updateProfile(info: IMPersonalInformation)
     case login
     case signUp

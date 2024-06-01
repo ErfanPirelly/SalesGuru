@@ -16,6 +16,8 @@ enum AImages: String {
     case passwordVisibility = "passwordVisibility"
     case passwordHide = "passwordHide"
     case login = "login_ic"
+    case companyInfo = "company_info_ic"
+    case personalInfo = "personal_info_ic"
     
     // MARK: - tab bar
     case activeChatTab = "chats_ic"

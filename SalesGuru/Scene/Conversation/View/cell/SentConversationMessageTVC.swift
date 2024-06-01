@@ -8,13 +8,14 @@
 import UIKit
 import SnapKit
 
-class SentConversationMessageTVC: UITableViewCell {
+class SentConversationMessageTVC: UITableViewCell, ConversationMessageCell {
     // MARK: - properties
     static let CellID = "SentConversationMessageTVC"
     private let dateLabel = UILabel(font: .Quicksand.medium(11), textColor: .ui.silverGray2, alignment: .left)
     private let card = UIView()
     private let contentLabel = UILabel(font: .Fonts.light(14), textColor: .white, alignment: .left)
     private var stack: UIStackView!
+    public var message: RMMessage?
     
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -25,6 +26,13 @@ class SentConversationMessageTVC: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        message = nil
+        dateLabel.text = ""
+        contentLabel.text = ""
     }
     
     // MARK: - prepare UI
@@ -49,7 +57,7 @@ class SentConversationMessageTVC: UITableViewCell {
     
     private func setupConstraints() {
         stack.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview().inset(4)
             make.trailing.equalToSuperview().inset(24)
         }
 
@@ -73,9 +81,14 @@ class SentConversationMessageTVC: UITableViewCell {
         }
     }
     
-    func fill(cell with: RMConversationMessages, position: MessagePosition) {
+    func fill(cell with: RMMessage, leadState: LeadState, position: MessagePosition) {
+        self.message = with
         self.setMessagePosition(position: position)
         self.contentLabel.text = with.content
-        self.dateLabel.text = with.date
+        var dateStr = with.date.toFormattedString(format: "hh:mm a").capitalized
+        if with.sender == "AI" {
+            dateStr += " AI"
+        }
+        self.dateLabel.text = dateStr
     }
 }

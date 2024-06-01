@@ -15,14 +15,21 @@ enum MessagePosition {
     case last
 }
 
-class ReceivedConversationMessageTVC: UITableViewCell {
+protocol ConversationMessageCell: AnyObject {
+    var message: RMMessage? {get set}
+    func fill(cell with: RMMessage, leadState: LeadState, position: MessagePosition)
+}
+
+class ReceivedConversationMessageTVC: UITableViewCell, ConversationMessageCell {
     // MARK: - properties
     static let CellID = "RecivedConversationMessageTVC"
+    private let avatarBackView = UIView()
     private let avatar = UIImageView()
     private let dateLabel = UILabel(font: .Quicksand.light(11), textColor: .ui.silverGray2, alignment: .left)
     private let card = UIView()
     private let contentLabel = UILabel(font: .Fonts.light(14), textColor: .ui.darkColor1, alignment: .left)
     private var verticalStack: UIStackView!
+    public var message: RMMessage?
     
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -35,6 +42,14 @@ class ReceivedConversationMessageTVC: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        message = nil
+        avatar.image = nil
+        dateLabel.text = ""
+        contentLabel.text = ""
+        
+    }
     // MARK: - prepare UI
     private func setupView() {
         setupCardView()
@@ -44,10 +59,11 @@ class ReceivedConversationMessageTVC: UITableViewCell {
     }
     
     private func setupAvatar() {
+        avatarBackView.translatesAutoresizingMaskIntoConstraints = false
+        avatarBackView.applyCorners(to: .all, with: 10)
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        avatar.backgroundColor = .ui.primaryBlue
-        avatar.applyCorners(to: .all, with: 10)
-        contentView.addSubview(avatar)
+        avatarBackView.addSubview(avatar)
+        contentView.addSubview(avatarBackView)
     }
 
     private func setupContent() {
@@ -69,20 +85,24 @@ class ReceivedConversationMessageTVC: UITableViewCell {
     
     private func setupConstraints() {
         verticalStack.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview().inset(4)
             make.leading.equalTo(avatar.snp.trailing).inset(-16)
         }
         
-        avatar.snp.makeConstraints { make in
+        avatarBackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(3)
             make.leading.equalToSuperview().inset(24)
             make.size.equalTo(40)
         }
         
+        avatar.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
         contentLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.width.greaterThanOrEqualTo(15)
-            make.width.lessThanOrEqualTo(0.7 * K.size.portrait.width)
+            make.width.lessThanOrEqualTo(0.5 * K.size.portrait.width)
             make.top.bottom.equalToSuperview().inset(14)
         }
         
@@ -101,9 +121,19 @@ class ReceivedConversationMessageTVC: UITableViewCell {
         }
     }
     
-    func fill(cell with: RMConversationMessages, position: MessagePosition) {
+    func fill(cell with: RMMessage, leadState: LeadState, position: MessagePosition) {
+        self.message = with
         self.setMessagePosition(position: position)
         self.contentLabel.text = with.content
-        self.dateLabel.text = with.date
+        let dateStr = with.date.toFormattedString(format: "hh:mm a")
+        self.dateLabel.text = dateStr
+        fillImageView(with: leadState)
+    }
+    
+    
+    func fillImageView(with lead: LeadState) {
+        avatar.image = lead.image
+        avatar.tintColor = .white
+        avatarBackView.backgroundColor = lead.color
     }
 }

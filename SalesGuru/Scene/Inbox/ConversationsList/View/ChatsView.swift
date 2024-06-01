@@ -7,8 +7,10 @@
 
 import UIKit
 
-protocol ChatViewDelegate: ConversationFilterViewDelegate, EmptyConversationViewDelegate {
-    func didSelectConversation()
+protocol ChatViewDelegate: ConversationFilterViewDelegate,
+                           EmptyConversationViewDelegate,
+                           EmptyConversationViewDelegate {
+    func didSelect(chat with: RMChat)
 }
 
 class ChatsView: UIView {
@@ -108,10 +110,12 @@ extension ChatsView: tableViewDelegate {
     }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.didSelectConversation()
+        let chat = chats[indexPath.row]
+        delegate?.didSelect(chat: chat)
     }
 }
 
+// MARK: - conversation filter delegate
 extension ChatsView: ConversationFilterViewDelegate {
     func didSelectFilter(with: IMConversationFilter) {
         delegate?.didSelectFilter(with: with)
@@ -120,6 +124,11 @@ extension ChatsView: ConversationFilterViewDelegate {
     func deSelectFilter(with: IMConversationFilter) {
         delegate?.deSelectFilter(with: with)
     }
-    
-    
+}
+
+// MARK: - empty view delegate
+extension ChatsView: EmptyConversationViewDelegate {
+    func addLeadDidTouched() {
+        delegate?.addLeadDidTouched()
+    }
 }

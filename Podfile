@@ -23,4 +23,5 @@ pod 'RxCocoa'
 pod 'Mixpanel-swift'
 pod 'SDWebImageFLPlugin'
 pod 'M13Checkbox'
+pod 'CountryPickerView'
 end

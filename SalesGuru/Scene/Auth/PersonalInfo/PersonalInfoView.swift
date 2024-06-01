@@ -8,25 +8,28 @@
 import UIKit
 import M13Checkbox
 
+protocol PersonalInfoViewDelegate: AnyObject {
+    func submitButtonDidTouched(with firstName: String, lastName: String,
+                                privacyAccepted: Bool,
+                                sender: UIButton)
+    func signInButtonDidTouched()
+}
+
 class PersonalInfoView: UIView {
     // MARK: - properties
-    private let imageView = UIImageView(image: .get(image: .login))
-    private let title = UILabel(text: "Welome to Drivee 👋", font: .Quicksand.bold(24), textColor: .ui.darkColor, alignment: .center)
-    private let subtitle = UILabel(text: "Please enter your mail and set password for your account", font: .Quicksand.light(14), textColor: .ui.darkColor, alignment: .center)
+    private let imageView = UIImageView(image: .get(image: .personalInfo))
+    private let title = UILabel(text: "Enter Your personal info", font: .Quicksand.bold(24), textColor: .ui.darkColor, alignment: .center)
+    private let subtitle = UILabel(text: "Please confirm your country code and enter your phone number", font: .Quicksand.light(14), textColor: .ui.darkColor, alignment: .center)
     private var titleStack: UIStackView!
     private var stack: UIStackView!
-    private let firstnameTextField = AuthTextFieldBox(placeholder: "Fist Name", title: "name")
-    private let lastnameTextField = AuthTextFieldBox(placeholder: "Last Name", title: "Last Name")
-    private let submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 52), textColor: .white, fillColor: .ui.primaryBlue, text: Text(text: "Sign Up", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
-    private var passwordShowStatusImageView: UIImageView!
+    public let firstnameTextField = AuthTextFieldBox(placeholder: "Fist Name", title: "name")
+    public let lastnameTextField = AuthTextFieldBox(placeholder: "Last Name", title: "Last Name")
+    private let submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 52), textColor: .white, fillColor: .ui.primaryBlue, text: Text(text: "Submit", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
     private var signUpButton: UIButton!
-    private var countryCodeLabel: UILabel!
-    private var countryImageView: UIImageView!
     private var privacyCheckBox: M13Checkbox!
-    private var privacyLabel: UITextView!
+    public var privacyLabel: UITextView!
     private var privacyStackView: UIStackView!
-    //MARK: - Variables
-    var passwordIsShown: Bool = false
+    weak var delegate: PersonalInfoViewDelegate?
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -46,6 +49,7 @@ class PersonalInfoView: UIView {
         setupSubmitButton()
         setupStack()
         setupSignUpButton()
+        setupPrivacyStackView()
         setupConstraints()
     }
     
@@ -64,7 +68,7 @@ class PersonalInfoView: UIView {
         stack = .init(axis: .vertical,
                          alignment: .fill,
                          spacing: 16,
-                         arrangedSubviews: [firstnameTextField, lastnameTextField, submitButton])
+                         arrangedSubviews: [firstnameTextField, lastnameTextField])
         addSubview(stack)
     }
     
@@ -79,6 +83,7 @@ class PersonalInfoView: UIView {
     
     private func setupSubmitButton() {
         submitButton.addTarget(self, action: #selector(submitButtonDidTouched), for: .touchUpInside)
+        addSubview(submitButton)
     }
     
     
@@ -93,13 +98,23 @@ class PersonalInfoView: UIView {
             make.leading.trailing.equalToSuperview().inset(60)
         }
         
+        privacyStackView.snp.makeConstraints { make in
+            make.top.equalTo(stack.snp.bottom).offset(24)
+            make.leading.trailing.equalTo(stack)
+        }
+        
         stack.snp.makeConstraints { make in
             make.top.equalTo(titleStack.snp.bottom).offset(40)
             make.leading.trailing.equalToSuperview().inset(32)
         }
         
+        submitButton.snp.makeConstraints { make in
+            make.top.equalTo(privacyStackView.snp.bottom).offset(20)
+            make.leading.trailing.equalTo(stack)
+        }
+        
         signUpButton.snp.makeConstraints { make in
-            make.top.equalTo(stack.snp.bottom).offset(18)
+            make.top.equalTo(submitButton.snp.bottom).offset(18)
             make.centerX.equalToSuperview()
         }
     }
@@ -108,6 +123,8 @@ class PersonalInfoView: UIView {
 // MARK: - privacy view
 extension PersonalInfoView {
     private func setupPrivacyStackView() {
+        setupPrivacyLabel()
+        setupPrivacyCheckBox()
         privacyStackView = UIStackView(alignment: .top,
                                        distribution: .fill,
                                        spacing: 10,
@@ -168,14 +185,19 @@ extension PersonalInfoView {
 }
 
 
-// MARK: -    @objc
+// MARK: - @objc
 extension PersonalInfoView {
     @objc private func signInButtonDidTouched() {
-        
+        delegate?.signInButtonDidTouched()
     }
     
     @objc private func submitButtonDidTouched() {
-
+        delegate?.submitButtonDidTouched(with: firstnameTextField.text,
+                                         lastName: lastnameTextField.text,
+                                         privacyAccepted: privacyCheckBox.checkState == .checked,
+                                         sender: submitButton
+                                         
+        )
     }
 }
 

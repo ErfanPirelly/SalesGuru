@@ -50,25 +50,26 @@ class ChatsVC: UIViewController {
 }
 
 private extension ChatsVC {
-    func presentConversation() {
-        let vc = ConversationVC()
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+
 }
 
 // MARK: -  view delegate
 extension ChatsVC: ChatViewDelegate {
+    func didSelect(chat with: RMChat) {
+        let vc = ConversationVC(viewModel: .init(chat: with))
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func addLeadDidTouched() {
+        Logger.log(.info, "add lead")
+    }
+    
     func didSelectFilter(with: IMConversationFilter) {
-        Logger.log(.info, with.rawValue)
+        viewModel.filter = with
+        customView.setData(data: viewModel.getData())
     }
     
-    func deSelectFilter(with: IMConversationFilter) {
-        Logger.log(.info, with.rawValue)
-    }
-    
-    func didSelectConversation() {
-        presentConversation()
-    }
+    func deSelectFilter(with: IMConversationFilter) {}
 }
 
 // MARK: - more actions

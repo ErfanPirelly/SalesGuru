@@ -13,10 +13,11 @@ protocol ConversationUserViewDelegate: AnyObject {
 
 class ConversationUserView: UIView {
     // MARK: - properties
+    private let avatarBackView = UIView()
     private let statusView = UIView()
     private let avatar = UIImageView()
     private let title = UILabel(font: .Fonts.bold(16), textColor: .ui.darkColor, alignment: .left)
-    private let dateLabel = UILabel(font: .Fonts.bold(12), textColor: .ui.darkColor.withAlphaComponent(0.8), alignment: .left)
+    private let leadLabel = UILabel(font: .Fonts.bold(12), textColor: .ui.darkColor.withAlphaComponent(0.8), alignment: .left)
     private let moreButton = UIButton(image: .get(image: .dots)!.withRenderingMode(.alwaysTemplate))
     private var stack: UIStackView!
     weak var delegate: ConversationUserViewDelegate?
@@ -42,10 +43,11 @@ class ConversationUserView: UIView {
     }
     
     private func setupAvatar() {
+        avatarBackView.translatesAutoresizingMaskIntoConstraints = false
+        avatarBackView.applyCorners(to: .all, with: 10)
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        avatar.backgroundColor = .ui.primaryBlue
-        avatar.applyCorners(to: .all, with: 10)
-        addSubview(avatar)
+        avatarBackView.addSubview(avatar)
+        addSubview(avatarBackView)
     }
     
     private func setupStatusView() {
@@ -61,9 +63,10 @@ class ConversationUserView: UIView {
     }
     
     private func setupStackView() {
-        stack = .init(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 0, arrangedSubviews: [title, dateLabel])
+        stack = .init(axis: .vertical, alignment: .leading, distribution: .equalSpacing, spacing: 0, arrangedSubviews: [title, leadLabel])
         addSubview(stack)
     }
+    
     private func setupMoreButton() {
         moreButton.addTarget(self, action: #selector(didTapMoreButton), for: .touchUpInside)
         moreButton.imageEdgeInsets = .init(top: 12, left: 18, bottom: 12, right: 18)
@@ -72,10 +75,14 @@ class ConversationUserView: UIView {
     }
 
     private func setupConstraints() {
-        avatar.snp.makeConstraints { make in
+        avatarBackView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(12)
             make.leading.equalToSuperview().inset(24)
             make.size.equalTo(48)
+        }
+        
+        avatar.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
         
         statusView.superview?.snp.makeConstraints { make in
@@ -101,9 +108,17 @@ class ConversationUserView: UIView {
         }
     }
     
-    func config(with user: Any?) {
-        self.title.text = "Shaun Zam"
-        self.dateLabel.text = "10:48 PM"
+    func config(with chat: RMChat) {
+        self.title.text = chat.name
+        self.leadLabel.text = chat.leadState?.title ?? ""
+        fillImageView(with: chat.leadState ?? .cold)
+    }
+    
+    
+    private func fillImageView(with lead: LeadState) {
+        avatar.image = lead.image
+        avatar.tintColor = .white
+        avatarBackView.backgroundColor = lead.color
     }
 }
 

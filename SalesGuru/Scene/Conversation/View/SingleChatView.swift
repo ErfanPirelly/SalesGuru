@@ -17,12 +17,13 @@ protocol SingleChatViewDelegate: ConversationNavigationBarViewDelegate {
 class SingleChatView: UIView {
     // MARK: - properties
     private let tableView = UITableView(frame: .zero, style: .grouped)
-    private let dataSource = MockData.conversationMessages
+    private var dataSource: [MessageSections] = []
     private let navBar = ConversationNavigationBarView()
     weak var delegate: SingleChatViewDelegate?
     private let inputBar = ChatInputBarView()
     private let keyboardManager = KeyboardManager()
     private var chatKeyboardObserver: ChatKeyboardObserver!
+    private var chat: RMChat?
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -93,6 +94,14 @@ class SingleChatView: UIView {
         chatKeyboardObserver = .init(textView: inputBar.textView, scrollView: tableView, textViewContainer: inputBar)
         chatKeyboardObserver.setupObserver()
     }
+    
+    func configView(with data: [MessageSections], for chat: RMChat) {
+        self.dataSource = data
+        self.chat = chat
+        navBar.config(with: chat)
+        self.tableView.reloadData()
+        self.tableView.scrollToLastItem()
+    }
 }
 
 extension SingleChatView: tableViewDelegate {
@@ -101,29 +110,33 @@ extension SingleChatView: tableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return dataSource[section].messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = dataSource[indexPath.section]
+        let data = dataSource[indexPath.section].messages[indexPath.row]
         let isMe = delegate?.isFromCurrentUser(at: indexPath) ?? false
         let position = delegate?.getPositionForMessage(at: indexPath) ?? .first
+        var cell: UITableViewCell
         
         if !isMe {
-            let cell = tableView.dequeueReusableCell(withIdentifier: ReceivedConversationMessageTVC.CellID, for: indexPath) as! ReceivedConversationMessageTVC
-            cell.fill(cell: data, position: position)
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: ReceivedConversationMessageTVC.CellID, for: indexPath) as! ReceivedConversationMessageTVC
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: SentConversationMessageTVC.CellID, for: indexPath) as! SentConversationMessageTVC
-            cell.fill(cell: data, position: position)
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: SentConversationMessageTVC.CellID, for: indexPath) as! SentConversationMessageTVC
         }
+        
+        if let cell = cell as? ConversationMessageCell {
+            cell.fill(cell: data, leadState: chat?.leadState ?? .cold, position: position)
+        }
+        
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ChatHeaderTVH.ViewID) as! ChatHeaderTVH
         let dateChanges = (delegate?.isDateChanges(at: IndexPath(row: 0, section: section)) ?? false)
-        view.fillView(with: "09:24, Monday")
+        let date = self.dataSource[section].date.dayChangeDateFormatter()
+        view.fillView(with: date)
         
         if dateChanges {
             return view
@@ -135,13 +148,10 @@ extension SingleChatView: tableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let sameUser = (delegate?.isPreviousMessageSameSender(at: IndexPath(row: 0, section: section)) ?? false)
         let dateChanges = (delegate?.isDateChanges(at: IndexPath(row: 0, section: section)) ?? false)
-        
         if dateChanges {
             return 74
-        } else if sameUser {
-            return 8
         } else {
-            return 32
+            return 8
         }
     }
     

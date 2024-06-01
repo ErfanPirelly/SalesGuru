@@ -50,6 +50,7 @@ class ConversationFilterView: UIView {
         collectionView.dataSource = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.allowsMultipleSelection = false
+        collectionView.selectItem(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .left)
         addSubview(collectionView)
     }
     
