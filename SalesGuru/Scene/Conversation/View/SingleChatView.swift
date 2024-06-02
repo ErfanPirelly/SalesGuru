@@ -7,7 +7,9 @@
 
 import UIKit
 
-protocol SingleChatViewDelegate: ConversationNavigationBarViewDelegate {
+protocol SingleChatViewDelegate: ConversationNavigationBarViewDelegate,
+                                 ChatInputBarViewDelegate,
+                                 ChatMoreViewDelegate {
     func isFromCurrentUser(at index: IndexPath) -> Bool
     func isDateChanges(at index: IndexPath) -> Bool
     func isPreviousMessageSameSender(at indexPath: IndexPath) -> Bool
@@ -16,19 +18,25 @@ protocol SingleChatViewDelegate: ConversationNavigationBarViewDelegate {
 
 class SingleChatView: UIView {
     // MARK: - properties
+    private let moreView = ChatMoreView()
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private var dataSource: [MessageSections] = []
     private let navBar = ConversationNavigationBarView()
-    weak var delegate: SingleChatViewDelegate?
     private let inputBar = ChatInputBarView()
     private let keyboardManager = KeyboardManager()
     private var chatKeyboardObserver: ChatKeyboardObserver!
     private var chat: RMChat?
+    weak var delegate: SingleChatViewDelegate? {
+        didSet {
+            inputBar.delegate = delegate
+        }
+    }
     
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupGesture()
         setupKeyboardManager()
     }
     
@@ -42,13 +50,25 @@ class SingleChatView: UIView {
         setupFilterView()
         setupTableView()
         setupInputBar()
+        setupMoreView()
         setupConstraints()
+    }
+    
+    private func setupGesture() {
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapGestureAction)))
     }
     
     private func setupFilterView() {
         navBar.translatesAutoresizingMaskIntoConstraints = false
         navBar.delegate = self
         addSubview(navBar)
+    }
+    
+    private func setupMoreView() {
+        moreView.translatesAutoresizingMaskIntoConstraints = false
+        moreView.alpha = 0
+        moreView.delegate = self
+        addSubview(moreView)
     }
     
     private func setupInputBar() {
@@ -83,6 +103,11 @@ class SingleChatView: UIView {
         
         inputBar.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        moreView.snp.makeConstraints { make in
+            make.top.equalTo(navBar.moreButton.snp.bottom).offset(12)
+            make.trailing.equalToSuperview().inset(9)
         }
     }
     
@@ -146,7 +171,6 @@ extension SingleChatView: tableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let sameUser = (delegate?.isPreviousMessageSameSender(at: IndexPath(row: 0, section: section)) ?? false)
         let dateChanges = (delegate?.isDateChanges(at: IndexPath(row: 0, section: section)) ?? false)
         if dateChanges {
             return 74
@@ -164,17 +188,42 @@ extension SingleChatView: tableViewDelegate {
     }
 }
 
-// MARK: - user view delegate
+// MARK: - gesture
+private extension SingleChatView {
+    @objc func tapGestureAction() {
+        if moreView.alpha == 1 {
+            moreView.fade(duration: 0.35, delay: 0, isIn: false)
+            navBar.moreButton.isSelected = false
+        }
+    }
+}
+// MARK: - nav delegate
 extension SingleChatView: ConversationNavigationBarViewDelegate {
     func backButtonDidTouched() {
         delegate?.backButtonDidTouched()
     }
     
     func moreButtonDidTouched() {
-        delegate?.moreButtonDidTouched()
+        moreView.fade(duration: 0.35, delay: 0, isIn: moreView.alpha == 0)
+        navBar.moreButton.isSelected = moreView.alpha == 1
     }
     
     func aiButtonDidTouched() {
         delegate?.aiButtonDidTouched()
+    }
+}
+
+// MARK: - more view delegate
+extension SingleChatView: ChatMoreViewDelegate {
+    func copyLinkDidTouched() {
+        moreView.fade(duration: 0.35, delay: 0, isIn: false)
+        navBar.moreButton.isSelected = false
+        delegate?.copyLinkDidTouched()
+    }
+    
+    func deleteChatDidTouched() {
+        moreView.fade(duration: 0.35, delay: 0, isIn: false)
+        navBar.moreButton.isSelected = false
+        delegate?.deleteChatDidTouched()
     }
 }

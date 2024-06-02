@@ -10,8 +10,8 @@ import UIKit
 class ChatsVC: UIViewController {
     // MARK: - properties
     private let customView = ChatsView()
-    public var output: Outputs?
     private let viewModel = ChatsVM()
+    public var output: Outputs?
     
     // MARK: - life cycle
     override func viewDidLoad() {
@@ -49,12 +49,25 @@ class ChatsVC: UIViewController {
     }
 }
 
-private extension ChatsVC {
-
-}
-
 // MARK: -  view delegate
 extension ChatsVC: ChatViewDelegate {
+    func refreshData() {
+        self.getData()
+    }
+    
+    func didSearch(with text: String?) {
+        viewModel.searchText = text?.lowercased()
+        customView.setData(data: viewModel.getData())
+    }
+    
+    func didSelectNotification() {
+        output?.action(.notification)
+    }
+    
+    func didSelectSetting() {
+        
+    }
+    
     func didSelect(chat with: RMChat) {
         let vc = ConversationVC(viewModel: .init(chat: with))
         self.navigationController?.pushViewController(vc, animated: true)
@@ -68,14 +81,12 @@ extension ChatsVC: ChatViewDelegate {
         viewModel.filter = with
         customView.setData(data: viewModel.getData())
     }
-    
-    func deSelectFilter(with: IMConversationFilter) {}
 }
 
 // MARK: - more actions
 extension ChatsVC {
     enum Actions {
-        
+        case notification
     }
     
     struct Outputs {

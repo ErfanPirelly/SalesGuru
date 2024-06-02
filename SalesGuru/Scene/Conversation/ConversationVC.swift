@@ -55,6 +55,23 @@ class ConversationVC: UIViewController {
 
 // MARK: - view delegate
 extension ConversationVC: SingleChatViewDelegate {
+    func copyLinkDidTouched() {
+        
+    }
+    
+    func deleteChatDidTouched() {
+        
+    }
+    
+    func sendMessage(with text: String) {
+        
+    }
+    
+    func aiTimerDidTap() {
+        let vc = DisableAIVC()
+        view.window?.rootViewController?.presentWithCenterPresentation(vc, isDismissable: true)
+    }
+    
     func isPreviousMessageSameSender(at indexPath: IndexPath) -> Bool {
         viewModel.isPreviousMessageSameSender(at: indexPath)
     }

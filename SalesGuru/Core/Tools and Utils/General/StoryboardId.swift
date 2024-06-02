@@ -7,4 +7,5 @@
 
 enum StoryboardId: String {
     case main = "Main"
+    case splash = "splash"
 }

@@ -9,7 +9,7 @@ import UIKit
 
 protocol ConversationFilterViewDelegate: AnyObject {
     func didSelectFilter(with: IMConversationFilter)
-    func deSelectFilter(with: IMConversationFilter)
+    func didSearch(with text: String?)
 }
 
 class ConversationFilterView: UIView {
@@ -66,8 +66,9 @@ class ConversationFilterView: UIView {
         searchBar.searchTextField.tintColor = .ui.gray4
         searchBar.searchTextField.backgroundColor = .clear
         searchBar.searchTextField.custom(placeholder: "Search", with: .ui.gray4)
-        searchBar.searchTextField.font = .Quicksand.semiBold(17)
-
+        searchBar.searchTextField.font = .Quicksand.light(17)
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
         searchBar.backgroundColor = color
         searchBar.tintColor = .ui.gray4
         searchBar.setMagnifyingGlassColorTo(color: .ui.gray4)
@@ -85,6 +86,28 @@ class ConversationFilterView: UIView {
             make.top.equalTo(searchBar.snp.bottom).offset(20)
             make.leading.trailing.bottom.equalToSuperview()
             make.height.equalTo(36)
+        }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension ConversationFilterView: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.delegate?.didSearch(with: searchBar.text)
+        self.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        self.delegate?.didSearch(with: nil)
+        self.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            self.delegate?.didSearch(with: nil)
+        } else {
+            self.delegate?.didSearch(with: searchText)
         }
     }
 }
@@ -108,9 +131,5 @@ extension ConversationFilterView: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.delegate?.didSelectFilter(with: dataSource[indexPath.row])
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        self.delegate?.deSelectFilter(with: dataSource[indexPath.row])
     }
 }

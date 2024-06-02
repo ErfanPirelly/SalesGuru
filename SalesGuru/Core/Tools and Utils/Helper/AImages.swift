@@ -6,11 +6,15 @@ enum AImages: String {
     case back = "back_ic"
     case cross = "cross_ic"
     case logo1 = "logo_ic"
+    case splashLogo = "Drivee_splash_ic"
     case dots = "dots_ic"
     case emptyBookmark = "empty_bookmark_ic"
     case play = "play_ic"
     case headerShape = "header_shape_ic"
     case folderAi = "folder_ai_ic"
+    case topPolygon = "top_polygon_ic"
+    case copy = "copy_ic"
+    case delete = "delete_ic"
     
     //MARK: - Authenticate
     case passwordVisibility = "passwordVisibility"

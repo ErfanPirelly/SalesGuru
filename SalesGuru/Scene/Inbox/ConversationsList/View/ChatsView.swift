@@ -9,18 +9,34 @@ import UIKit
 
 protocol ChatViewDelegate: ConversationFilterViewDelegate,
                            EmptyConversationViewDelegate,
-                           EmptyConversationViewDelegate {
+                           HeaderViewDelegate {
     func didSelect(chat with: RMChat)
+    func refreshData()
 }
 
 class ChatsView: UIView {
+    // MARK: - table view
+    private typealias Snapshot = NSDiffableDataSourceSnapshot<Section, RMChat>
+    private typealias DataSource = UITableViewDiffableDataSource<Section, RMChat>
+    private enum Section {
+         case main
+     }
+    
     // MARK: - properties
+    private let refreshController = UIRefreshControl()
     private let filterView = ConversationFilterView()
     private let tableView = UITableView()
     private let header = HeaderView()
-    weak var delegate: ChatViewDelegate?
+    weak var delegate: ChatViewDelegate? {
+        didSet {
+            header.delegate = delegate
+            filterView.delegate = delegate
+            emptyView.delegate = delegate
+        }
+    }
     private var chats: [RMChat] = []
     private let emptyView = EmptyConversationView()
+    private var dataSource: DataSource!
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -37,6 +53,7 @@ class ChatsView: UIView {
         setupHeaderView()
         setupEmptyView()
         setupTableView()
+        setupRefreshControl()
         setupFilterView()
         setupConstraints()
     }
@@ -48,7 +65,6 @@ class ChatsView: UIView {
     
     private func setupFilterView() {
         filterView.translatesAutoresizingMaskIntoConstraints = false
-        filterView.delegate = self
         addSubview(filterView)
     }
     
@@ -57,13 +73,19 @@ class ChatsView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ConversationTVC.self, forCellReuseIdentifier: ConversationTVC.CellID)
         tableView.delegate = self
-        tableView.dataSource = self
+        configureDataSource()
         tableView.backgroundColor = .white
         addSubview(tableView)
     }
 
+    private func setupRefreshControl() {
+        refreshController.beginRefreshing()
+        refreshController.tintColor = .ui.primaryBlue
+        refreshController.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.addSubview(refreshController)
+    }
+    
     private func setupEmptyView() {
-        emptyView.delegate = self
         emptyView.alpha = 0
         addSubview(emptyView)
     }
@@ -93,42 +115,46 @@ class ChatsView: UIView {
         emptyView.fade(duration: 0.2, delay: 0, isIn: data.isEmpty)
         tableView.fade(duration: 0.2, delay: 0, isIn: !data.isEmpty)
         self.chats = data
-        self.tableView.reloadData()
+        refreshController.endRefreshing()
+        header.stopIndicator()
+        applyInitialSnapshot(items: data)
+    }
+    
+   private func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource<Section, RMChat>(tableView: tableView) { (tableView, indexPath, item) -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTVC.CellID, for: indexPath) as! ConversationTVC
+            cell.fill(cell: item)
+            return cell
+        }
+    }
+    
+    private func applyInitialSnapshot(items: [RMChat]) {
+        var snapshot = Snapshot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(items, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    @objc private func refreshData() {
+        self.delegate?.refreshData()
     }
 }
 
-extension ChatsView: tableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        chats.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTVC.CellID, for: indexPath) as! ConversationTVC
-        let chat = chats[indexPath.row]
-        cell.fill(cell: chat)
-        return cell
-    }
- 
+extension ChatsView: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        chats.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTVC.CellID, for: indexPath) as! ConversationTVC
+//        let chat = chats[indexPath.row]
+//        cell.fill(cell: chat)
+//        return cell
+//    }
+// 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let chat = chats[indexPath.row]
+        guard let chat = dataSource.itemIdentifier(for: indexPath) else { return }
+//        let chat = chats[indexPath.row]
         delegate?.didSelect(chat: chat)
-    }
-}
-
-// MARK: - conversation filter delegate
-extension ChatsView: ConversationFilterViewDelegate {
-    func didSelectFilter(with: IMConversationFilter) {
-        delegate?.didSelectFilter(with: with)
-    }
-    
-    func deSelectFilter(with: IMConversationFilter) {
-        delegate?.deSelectFilter(with: with)
-    }
-}
-
-// MARK: - empty view delegate
-extension ChatsView: EmptyConversationViewDelegate {
-    func addLeadDidTouched() {
-        delegate?.addLeadDidTouched()
     }
 }

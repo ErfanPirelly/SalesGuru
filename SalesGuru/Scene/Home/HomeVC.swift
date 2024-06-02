@@ -45,9 +45,18 @@ class HomeVC: UIViewController {
     private func setupInboxVC() -> UIViewController {
         let vc = ChatsVC()
         vc.output = .init(action: { [weak self] actions in
-            
+            guard let self = self else { return }
+            switch actions {
+            case .notification:
+                self.openNotification()
+            }
         })
         let navigation = BaseNavigationController(rootViewController: vc)
         return navigation
+    }
+    
+    private func openNotification() {
+        let vc = NotificationVC()
+        self.presentWithSheetPresentation(vc, isDismissable: true)
     }
 }

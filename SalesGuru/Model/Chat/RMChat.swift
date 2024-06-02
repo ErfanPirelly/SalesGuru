@@ -46,7 +46,15 @@ enum LeadState: String, Codable {
     }
 }
 
-struct RMChat: Codable {
+struct RMChat: Codable, Hashable {
+    static func == (lhs: RMChat, rhs: RMChat) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     var id: String?
     let aiMode, appointment, appointmentIsSet : Bool?
     let appointmentTime: Double?
@@ -137,6 +145,13 @@ struct RMChat: Codable {
         self.unreadCounter = try? container.decodeIfPresent(Int.self, forKey: .unreadCounter)
         self.lastMessage = try? container.decodeIfPresent(LastMessage.self, forKey: .lastMessage)
         self.leadState = try? container.decodeIfPresent(LeadState.self, forKey: .leadState)
+    }
+    
+    func filter(with txt: String) -> Bool {
+        let content = lastMessage?.content?.lowercased().contains(txt) ?? false
+        let username = name?.lowercased().contains(txt) ?? false
+        let source = source?.lowercased().contains(txt) ?? false
+        return content || username || source
     }
 }
 

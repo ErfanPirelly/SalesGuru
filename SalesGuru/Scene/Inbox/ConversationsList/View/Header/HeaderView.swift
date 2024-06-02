@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol HeaderViewDelegate: AnyObject {
+    func didSelectNotification()
+    func didSelectSetting()
+}
+
 class HeaderView: UIView {
     // MARK: - properties
+    private let indicator = UIActivityIndicatorView(style: .medium)
     private let avatar = UIButton(type: .system)
     private let label = UILabel(text: "Chats", font: .Quicksand.bold(30), textColor: .white, alignment: .left)
     private let settingButton = UIButton(image: .get(image: .setting)!.withRenderingMode(.alwaysOriginal))
@@ -16,6 +22,7 @@ class HeaderView: UIView {
     private var stack: UIStackView!
     private var avatarStack: UIStackView!
     private let maskImage = UIImageView(image: .get(image: .headerShape))
+    weak var delegate: HeaderViewDelegate?
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -43,9 +50,19 @@ class HeaderView: UIView {
         maskImage.pinToEdge(on: self)
     }
     
+    private func setupActivityIndicator() {
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.tintColor = .ui.primaryBlue
+        indicator.color = .ui.primaryBlue
+        indicator.startAnimating()
+        indicator.hidesWhenStopped = true
+        avatar.addSubview(indicator)
+    }
+    
     private func setupAvatar() {
+        setupActivityIndicator()
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        avatar.backgroundColor = .ui.silverGray
+        avatar.backgroundColor = .white
         avatar.applyCorners(to: .all, with: 10)
         avatar.addTarget(self, action: #selector(avatarDidTouched), for: .touchUpInside)
     }
@@ -60,7 +77,7 @@ class HeaderView: UIView {
     private func setupSearchButton() {
         settingButton.backgroundColor = .black.withAlphaComponent(0.04)
         settingButton.applyCorners(to: .all, with: 10)
-        settingButton.addTarget(self, action: #selector(searchBtnDidTouched), for: .touchUpInside)
+        settingButton.addTarget(self, action: #selector(settingBtnDidTouched), for: .touchUpInside)
     }
     
     private func setupStackView() {
@@ -99,6 +116,14 @@ class HeaderView: UIView {
             make.centerY.equalTo(avatarStack)
             make.trailing.equalToSuperview().inset(24)
         }
+        
+        indicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+    
+    func stopIndicator() {
+        self.indicator.stopAnimating()
     }
 }
 
@@ -107,15 +132,11 @@ private extension HeaderView {
         print("avatarDidTouched")
     }
     
-    @objc func logoDidTouched() {
-        print("logoDidTouched")
-    }
-    
     @objc func notificationBtnDidTouched() {
-        print("notificationBtnDidTouched")
+        delegate?.didSelectNotification()
     }
     
-    @objc func searchBtnDidTouched() {
-        print("searchBtnDidTouched")
+    @objc func settingBtnDidTouched() {
+        delegate?.didSelectSetting()
     }
 }

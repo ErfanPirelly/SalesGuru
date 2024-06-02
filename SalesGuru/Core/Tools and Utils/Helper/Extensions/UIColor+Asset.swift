@@ -47,6 +47,9 @@ extension UIColor {
         /// #99B2C6
         let silverGray2 = UIColor(p3: "#99B2C6")
         
+        ///  #ADB5BD
+        let silverGray3 = UIColor(p3: "#ADB5BD")
+        
         /// #8E8E93
         let gray4 = UIColor(p3: "#8E8E93")
                 

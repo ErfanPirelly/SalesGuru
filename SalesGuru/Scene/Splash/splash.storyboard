@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Quicksand-Regular.ttf">
+            <string>Quicksand-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--SplashVC-->
+        <scene sceneID="VI7-gS-Mgg">
+            <objects>
+                <viewController storyboardIdentifier="SplashVC" id="9LF-si-3r1" customClass="SplashVC" customModule="SalesGuru" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QE6-7T-dWL">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Version label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3n-jO-fq3">
+                                <rect key="frame" x="157.66666666666666" y="746.66666666666663" width="77.666666666666657" height="16.333333333333371"/>
+                                <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="13"/>
+                                <color key="textColor" name="primary"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Drivee_splash_ic" translatesAutoresizingMaskIntoConstraints="NO" id="bZa-Hs-bto">
+                                <rect key="frame" x="74.666666666666686" y="329" width="244" height="88"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="F25-5Z-V6u">
+                                <rect key="frame" x="186.66666666666666" y="714.66666666666663" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="F25-5Z-V6u" secondAttribute="height" multiplier="1:1" id="AfQ-SE-eS9"/>
+                                    <constraint firstAttribute="width" constant="20" id="jjN-Wh-s93"/>
+                                </constraints>
+                                <color key="color" name="primary"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="shZ-6H-ZFM"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="F25-5Z-V6u" firstAttribute="centerX" secondItem="C3n-jO-fq3" secondAttribute="centerX" id="042-Sx-lJz"/>
+                            <constraint firstItem="C3n-jO-fq3" firstAttribute="centerX" secondItem="QE6-7T-dWL" secondAttribute="centerX" id="Ez7-7q-s29"/>
+                            <constraint firstItem="bZa-Hs-bto" firstAttribute="top" secondItem="shZ-6H-ZFM" secondAttribute="top" constant="270" id="aMj-ch-6ih"/>
+                            <constraint firstAttribute="bottom" secondItem="C3n-jO-fq3" secondAttribute="bottom" constant="89" id="l4h-ua-OOC"/>
+                            <constraint firstItem="bZa-Hs-bto" firstAttribute="centerX" secondItem="shZ-6H-ZFM" secondAttribute="centerX" id="p5W-zi-8HE"/>
+                            <constraint firstItem="F25-5Z-V6u" firstAttribute="bottom" secondItem="C3n-jO-fq3" secondAttribute="top" constant="-12" id="rNS-Pe-fUH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="indicator" destination="F25-5Z-V6u" id="5Tm-4x-psb"/>
+                        <outlet property="versionLabel" destination="C3n-jO-fq3" id="ScZ-xl-ZGb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ace-0d-s9n" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-630" y="-77"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Drivee_splash_ic" width="244" height="88"/>
+        <namedColor name="primary">
+            <color red="0.027450980392156862" green="0.64313725490196083" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

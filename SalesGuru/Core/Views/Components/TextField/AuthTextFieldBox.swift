@@ -28,7 +28,7 @@ class BoxTextField: UITextField {
 
 class AuthTextFieldBox: UIView {
     let textField = BoxTextField()
-    let title = UILabel(font: .Fonts.normal(12), textColor: UIColor(p3: "#8B8989"), alignment: .center)
+    let title = UILabel(font: .Quicksand.light(12), textColor: UIColor(p3: "#8B8989"), alignment: .center)
     private let borderColor = UIColor(p3: "#E0E4F5")
     
     var text: String {
@@ -49,7 +49,7 @@ class AuthTextFieldBox: UIView {
         textField.attributedPlaceholder = NSAttributedString(
             string: placeholder,
             attributes: [
-                NSAttributedString.Key.foregroundColor: UIColor.ui.silverGray
+                NSAttributedString.Key.foregroundColor: UIColor.ui.silverGray3
             ]
         )
         setupUI()
@@ -62,20 +62,18 @@ class AuthTextFieldBox: UIView {
     // MARK: - setup UI
     private func setupUI() {
         translatesAutoresizingMaskIntoConstraints = false
-        title.backgroundColor = .white
         title.isHidden = true
         
         addSubview(textField)
         addSubview(title)
+
         textField.backgroundColor = .init(p3: "#F7F7FC")
-        textField.addBorder(color: borderColor, thickness: 2)
         textField.applyCorners(to: .all, with: 18)
-        textField.backgroundColor = .white
         textField.textColor = .ui.darkColor
         textField.textAlignment = .left
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.font = .Fonts.normal(14)
+        textField.font = .Quicksand.semiBold(14)
         textField.translatesAutoresizingMaskIntoConstraints = false
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 62))
         leftView.backgroundColor = .clear
@@ -86,7 +84,7 @@ class AuthTextFieldBox: UIView {
         textField.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
             make.top.equalTo(title.snp.centerY)
-            make.height.equalTo(62)
+            make.height.equalTo(52)
         }
         
         title.snp.makeConstraints { make in

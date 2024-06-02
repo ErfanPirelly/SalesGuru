@@ -54,6 +54,7 @@ class CompanyInformationView: UIView {
         setupStackView()
         setupSubmitButton()
         setupSignInButton()
+        setupConstraints()
     }
     
     private func setupImageView() {
@@ -107,7 +108,7 @@ class CompanyInformationView: UIView {
         
         submitButton.snp.makeConstraints { make in
             make.top.equalTo(stack.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(48)
+            make.leading.trailing.equalTo(stack)
         }
         
         signInButton.snp.makeConstraints { make in

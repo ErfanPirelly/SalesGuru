@@ -95,17 +95,17 @@ class PersonalInfoView: UIView {
         
         titleStack.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(40)
-            make.leading.trailing.equalToSuperview().inset(60)
-        }
-        
-        privacyStackView.snp.makeConstraints { make in
-            make.top.equalTo(stack.snp.bottom).offset(24)
-            make.leading.trailing.equalTo(stack)
+            make.leading.trailing.equalToSuperview().inset(45)
         }
         
         stack.snp.makeConstraints { make in
             make.top.equalTo(titleStack.snp.bottom).offset(40)
             make.leading.trailing.equalToSuperview().inset(32)
+        }
+        
+        privacyStackView.snp.makeConstraints { make in
+            make.top.equalTo(stack.snp.bottom).offset(24)
+            make.leading.trailing.equalTo(stack)
         }
         
         submitButton.snp.makeConstraints { make in
@@ -123,8 +123,8 @@ class PersonalInfoView: UIView {
 // MARK: - privacy view
 extension PersonalInfoView {
     private func setupPrivacyStackView() {
-        setupPrivacyLabel()
         setupPrivacyCheckBox()
+        setupPrivacyLabel()
         privacyStackView = UIStackView(alignment: .top,
                                        distribution: .fill,
                                        spacing: 10,
@@ -151,10 +151,12 @@ extension PersonalInfoView {
     
     private func setupPrivacyLabel() {
         privacyLabel = UITextView()
+        privacyLabel.backgroundColor = .clear
         privacyLabel.isScrollEnabled = false
         privacyLabel.isEditable = false
         privacyLabel.isUserInteractionEnabled = true
         privacyLabel.translatesAutoresizingMaskIntoConstraints = false
+        privacyLabel.font = .Quicksand.medium(13)
         setTermsLabel(color: .ui.primaryBlue)
         privacyLabel.sizeToFit()
         privacyLabel.textContainerInset.top = 0
@@ -166,14 +168,14 @@ extension PersonalInfoView {
     func setTermsLabel(color: UIColor) {
         let text = "I Agree With Privacy Policy And Terms \nof Service  In Pirelly"
         let regularText = NSMutableAttributedString(string: text,
-                                                    attributes: [NSAttributedString.Key.font: UIFont.Fonts.medium(12),
+                                                    attributes: [NSAttributedString.Key.font: UIFont.Quicksand.medium(13),
                                                                  NSAttributedString.Key.foregroundColor: UIColor.ui.darkColor4.withAlphaComponent(0.72)])
         let range1 = (text as NSString).range(of: "Terms \nof Service")
         let range2 = (text as NSString).range(of: "Privacy Policy")
         regularText.addAttribute(NSAttributedString.Key.link, value: "terms", range: range1)
         regularText.addAttribute(NSAttributedString.Key.link, value: "privacy", range: range2)
-        regularText.addAttribute(NSAttributedString.Key.font, value: UIFont.Fonts.bold(12), range: range1)
-        regularText.addAttribute(NSAttributedString.Key.font, value: UIFont.Fonts.bold(12), range: range2)
+        regularText.addAttribute(NSAttributedString.Key.font, value: UIFont.Quicksand.bold(12), range: range1)
+        regularText.addAttribute(NSAttributedString.Key.font, value: UIFont.Quicksand.bold(12), range: range2)
         regularText.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range1)
         regularText.addAttribute(NSAttributedString.Key.foregroundColor, value: color, range: range2)
         privacyLabel.linkTextAttributes = [NSAttributedString.Key.foregroundColor: color]

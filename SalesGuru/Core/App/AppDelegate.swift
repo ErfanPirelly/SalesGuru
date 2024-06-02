@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CoreDependence(window).execute()
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = PersonalInformationVC(info: .init(privacyAccepted: false))
+        let view = SplashVC.instantiate(storyboard: .splash)
+        self.window?.rootViewController = view
         self.window?.makeKeyAndVisible()
         return true
     }

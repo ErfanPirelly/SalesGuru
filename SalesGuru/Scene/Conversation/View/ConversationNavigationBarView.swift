@@ -20,7 +20,7 @@ class ConversationNavigationBarView: UIView {
     private let username = UILabel(font: .Quicksand.bold(17), textColor: .ui.black, alignment: .left)
     private let subtitle = UILabel(font: .Quicksand.medium(13), textColor: .black.withAlphaComponent(0.35), alignment: .left)
     private let backButton = UIButton(image: .get(image: .back)!.withRenderingMode(.alwaysTemplate))
-    private let moreButton = UIButton(image: .get(image: .dots)!.withRenderingMode(.alwaysTemplate))
+    public let moreButton = NavBatButton(image: .get(image: .dots)!.withRenderingMode(.alwaysTemplate))
     private let searchButton = UIButton(image: .get(image: .search)!.withRenderingMode(.alwaysTemplate))
     private let aiButton = UIButton(image: .get(image: .folderAi)!.withRenderingMode(.alwaysTemplate))
     private var buttonsStack: UIStackView!
@@ -54,10 +54,21 @@ class ConversationNavigationBarView: UIView {
             $0.applyCorners(to: .all, with: 16)
             $0.tintColor = .ui.primaryBlue
         })
-        
-        moreButton.addTarget(self, action: #selector(moreButtonDidTouched), for: .touchUpInside)
         aiButton.addTarget(self, action: #selector(aiButtonDidTouched), for: .touchUpInside)
         searchButton.addTarget(self, action: #selector(searchButtonDidTouched), for: .touchUpInside)
+        setupMoreButton()
+    }
+    
+    private func setupMoreButton() {
+        moreButton.onSelected { button in
+            button.backgroundColor = .ui.primaryBlue
+            button.tintColor = .white
+        }.onDeselected { button in
+            button.backgroundColor = .ui.primaryBlue.withAlphaComponent(0.05)
+            button.tintColor = .ui.primaryBlue
+        }.onTouchUpInside {[weak self] _ in
+            self?.moreButtonDidTouched()
+        }
     }
 
     private func setupButtonStack() {

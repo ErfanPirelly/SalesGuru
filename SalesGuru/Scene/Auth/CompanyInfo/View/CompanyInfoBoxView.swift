@@ -20,10 +20,10 @@ protocol CompanyInformationSelectionBoxViewDelegate: AnyObject {
 class CompanyInformationSelectionBoxView: UIView {
     // MARK: - properties
     private let image = UIImageView(image: .init(systemName: "chevron.down"))
-    private let title = UILabel(font: .Fonts.normal(12), textColor: UIColor(p3: "#8B8989"), alignment: .center)
+    private let title = UILabel(font: .Quicksand.light(12), textColor: UIColor(p3: "#8B8989"), alignment: .center)
     private let card = UIView()
-    private let label = UILabel(font: .Fonts.normal(14),
-                                textColor: .ui.silverGray,
+    private let label = UILabel(font: .Quicksand.semiBold(14),
+                                textColor: .ui.silverGray3,
                                 alignment: .left)
     let type: CompanyInformationBox
     weak var delegate: CompanyInformationSelectionBoxViewDelegate?
@@ -44,12 +44,9 @@ class CompanyInformationSelectionBoxView: UIView {
     private func setupUI() {
         translatesAutoresizingMaskIntoConstraints = false
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(boxDidTouched)))
-        backgroundColor = .white
         
-        title.backgroundColor = .white
         title.isHidden = true
         title.text = type.rawValue
-        
         setupStack()
         addSubview(title)
         
@@ -60,7 +57,7 @@ class CompanyInformationSelectionBoxView: UIView {
         }
         
         card.snp.makeConstraints { make in
-            make.height.equalTo(62)
+            make.height.equalTo(52)
             make.leading.trailing.bottom.equalToSuperview()
             make.top.equalTo(title.snp.centerY)
         }
@@ -68,11 +65,12 @@ class CompanyInformationSelectionBoxView: UIView {
     
     private func setupStack() {
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.addBorder(color: UIColor(p3: "#E0E4F5"), thickness: 2)
         card.applyCorners(to: .all, with: 18)
+        card.backgroundColor = .init(p3: "#F7F7FC")
+        
         addSubview(card)
         
-        image.tintColor = .ui.silverGray
+        image.tintColor = .ui.darkColor.withAlphaComponent(0.2)
         let stack = UIStackView(arrangedSubviews: [label, image])
         
         image.snp.makeConstraints { make in

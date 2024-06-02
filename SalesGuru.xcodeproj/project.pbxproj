@@ -147,6 +147,10 @@
 		E414D7EB2BD7963A007A22D7 /* UIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414D7E82BD7963A007A22D7 /* UIConfig.swift */; };
 		E414D7ED2BD7967E007A22D7 /* RMAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414D7EC2BD7967E007A22D7 /* RMAppConfig.swift */; };
 		E414D7F02BD798E4007A22D7 /* IMPersonalInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E414D7EE2BD798E4007A22D7 /* IMPersonalInformation.swift */; };
+		E41B44F62C0C859700922382 /* DisableAIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41B44F52C0C859700922382 /* DisableAIView.swift */; };
+		E41B44F82C0C942C00922382 /* DisableAIVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41B44F72C0C942C00922382 /* DisableAIVC.swift */; };
+		E41B44FB2C0CA1FA00922382 /* ChatMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41B44FA2C0CA1FA00922382 /* ChatMoreView.swift */; };
+		E41B44FF2C0CABFB00922382 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41B44FE2C0CABFB00922382 /* CustomButton.swift */; };
 		E422AAF12BD68AC6006704A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E422AAF02BD68AC6006704A9 /* AppDelegate.swift */; };
 		E422AAFA2BD68AC7006704A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E422AAF92BD68AC7006704A9 /* Assets.xcassets */; };
 		E422AAFD2BD68AC7006704A9 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E422AAFC2BD68AC7006704A9 /* Base */; };
@@ -181,6 +185,12 @@
 		E442D36C2C0B2648004305BB /* CompanyInformationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442D36A2C0B2648004305BB /* CompanyInformationVM.swift */; };
 		E442D36E2C0B280B004305BB /* CompanyInformationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442D36D2C0B280B004305BB /* CompanyInformationValidator.swift */; };
 		E442D3702C0B2849004305BB /* CompanyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442D36F2C0B2849004305BB /* CompanyInfo.swift */; };
+		E442D3732C0B47C0004305BB /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442D3722C0B47C0004305BB /* SplashVC.swift */; };
+		E442D3752C0B492B004305BB /* splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E442D3742C0B492B004305BB /* splash.storyboard */; };
+		E442D37A2C0B5DC9004305BB /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442D3792C0B5DC9004305BB /* NotificationCell.swift */; };
+		E442D37D2C0B6006004305BB /* RMNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442D37C2C0B6006004305BB /* RMNotification.swift */; };
+		E442D37F2C0B611A004305BB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442D37E2C0B611A004305BB /* NotificationView.swift */; };
+		E442D3812C0B6A74004305BB /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E442D3802C0B6A74004305BB /* NotificationVC.swift */; };
 		E4500FCA2BF8C24100C94F0A /* UIsearchBAr+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4500FC92BF8C24100C94F0A /* UIsearchBAr+Color.swift */; };
 		E450A9732C071EA1007DC0D2 /* EmptyConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E450A9722C071EA1007DC0D2 /* EmptyConversationView.swift */; };
 		E474F0652C04F8FA0010489B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E474F0642C04F8FA0010489B /* GoogleService-Info.plist */; };
@@ -371,6 +381,10 @@
 		E414D7E82BD7963A007A22D7 /* UIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIConfig.swift; sourceTree = "<group>"; };
 		E414D7EC2BD7967E007A22D7 /* RMAppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RMAppConfig.swift; sourceTree = "<group>"; };
 		E414D7EE2BD798E4007A22D7 /* IMPersonalInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMPersonalInformation.swift; sourceTree = "<group>"; };
+		E41B44F52C0C859700922382 /* DisableAIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAIView.swift; sourceTree = "<group>"; };
+		E41B44F72C0C942C00922382 /* DisableAIVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableAIVC.swift; sourceTree = "<group>"; };
+		E41B44FA2C0CA1FA00922382 /* ChatMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMoreView.swift; sourceTree = "<group>"; };
+		E41B44FE2C0CABFB00922382 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		E422AAED2BD68AC6006704A9 /* SalesGuru.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SalesGuru.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E422AAF02BD68AC6006704A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E422AAF92BD68AC7006704A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -408,6 +422,12 @@
 		E442D36A2C0B2648004305BB /* CompanyInformationVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyInformationVM.swift; sourceTree = "<group>"; };
 		E442D36D2C0B280B004305BB /* CompanyInformationValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyInformationValidator.swift; sourceTree = "<group>"; };
 		E442D36F2C0B2849004305BB /* CompanyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfo.swift; sourceTree = "<group>"; };
+		E442D3722C0B47C0004305BB /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		E442D3742C0B492B004305BB /* splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = splash.storyboard; sourceTree = "<group>"; };
+		E442D3792C0B5DC9004305BB /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		E442D37C2C0B6006004305BB /* RMNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMNotification.swift; sourceTree = "<group>"; };
+		E442D37E2C0B611A004305BB /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		E442D3802C0B6A74004305BB /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		E4500FC92BF8C24100C94F0A /* UIsearchBAr+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIsearchBAr+Color.swift"; sourceTree = "<group>"; };
 		E450A9722C071EA1007DC0D2 /* EmptyConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyConversationView.swift; sourceTree = "<group>"; };
 		E474F0642C04F8FA0010489B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -784,6 +804,7 @@
 				E414D76A2BD792D9007A22D7 /* SubmitButton.swift */,
 				E414D76B2BD792D9007A22D7 /* TintButton.swift */,
 				E414D76C2BD792D9007A22D7 /* UITextImageButton.swift */,
+				E41B44FE2C0CABFB00922382 /* CustomButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -991,6 +1012,7 @@
 		E414D7D82BD79346007A22D7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E442D37B2C0B5FFB004305BB /* Notification */,
 				E442D34A2C09FF4A004305BB /* Message */,
 				E42F52C62C05EF7C00C93299 /* Chat */,
 				E40B9DC22BDEE82600AC78FB /* Mock */,
@@ -1054,6 +1076,39 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		E41B44F22C0C857100922382 /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				E41B44F42C0C858100922382 /* DisableAI */,
+				E41B44F32C0C857800922382 /* AISetting */,
+			);
+			path = AI;
+			sourceTree = "<group>";
+		};
+		E41B44F32C0C857800922382 /* AISetting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AISetting;
+			sourceTree = "<group>";
+		};
+		E41B44F42C0C858100922382 /* DisableAI */ = {
+			isa = PBXGroup;
+			children = (
+				E41B44F52C0C859700922382 /* DisableAIView.swift */,
+				E41B44F72C0C942C00922382 /* DisableAIVC.swift */,
+			);
+			path = DisableAI;
+			sourceTree = "<group>";
+		};
+		E41B44F92C0CA1E900922382 /* More */ = {
+			isa = PBXGroup;
+			children = (
+				E41B44FA2C0CA1FA00922382 /* ChatMoreView.swift */,
+			);
+			path = More;
+			sourceTree = "<group>";
+		};
 		E422AAE42BD68AC6006704A9 = {
 			isa = PBXGroup;
 			children = (
@@ -1101,6 +1156,7 @@
 		E422AB052BD68B4E006704A9 /* Resourses */ = {
 			isa = PBXGroup;
 			children = (
+				E422AAFB2BD68AC7006704A9 /* LaunchScreen.storyboard */,
 				E474F0642C04F8FA0010489B /* GoogleService-Info.plist */,
 				E481D22B2BD7EA6700C1A018 /* Fonts */,
 				E422AAFE2BD68AC7006704A9 /* Info.plist */,
@@ -1113,7 +1169,6 @@
 			isa = PBXGroup;
 			children = (
 				E414D7A82BD792D9007A22D7 /* Components */,
-				E422AAFB2BD68AC7006704A9 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1130,6 +1185,7 @@
 		E422AB082BD68C1B006704A9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				E442D3712C0B47B5004305BB /* Splash */,
 				E44177B42C00C8AB00819976 /* Auth */,
 				E4AA91F22BDFB75F00996A18 /* Conversation */,
 				E4B7D5632BDE4C8A00CFE478 /* Home */,
@@ -1270,6 +1326,49 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E442D3712C0B47B5004305BB /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				E442D3722C0B47C0004305BB /* SplashVC.swift */,
+				E442D3742C0B492B004305BB /* splash.storyboard */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		E442D3762C0B5DA9004305BB /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				E442D3772C0B5DB4004305BB /* View */,
+				E442D3802C0B6A74004305BB /* NotificationVC.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		E442D3772C0B5DB4004305BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E442D3782C0B5DB8004305BB /* Cell */,
+				E442D37E2C0B611A004305BB /* NotificationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E442D3782C0B5DB8004305BB /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				E442D3792C0B5DC9004305BB /* NotificationCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		E442D37B2C0B5FFB004305BB /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				E442D37C2C0B6006004305BB /* RMNotification.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		E474F0662C04FAEF0010489B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1337,6 +1436,7 @@
 		E481D2222BD7E89100C1A018 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				E442D3762C0B5DA9004305BB /* Notification */,
 				E4AA91F12BDFB74100996A18 /* ConversationsList */,
 			);
 			path = Inbox;
@@ -1438,6 +1538,8 @@
 		E4AA91F22BDFB75F00996A18 /* Conversation */ = {
 			isa = PBXGroup;
 			children = (
+				E41B44F92C0CA1E900922382 /* More */,
+				E41B44F22C0C857100922382 /* AI */,
 				E442D34D2C0A071B004305BB /* viewModel */,
 				E44177A52C00A75400819976 /* Manager */,
 				E4AA91F52BDFB77400996A18 /* View */,
@@ -1568,6 +1670,7 @@
 				E481D2392BD7EA7600C1A018 /* DMSans-ExtraBold.ttf in Resources */,
 				E481D23A2BD7EA7600C1A018 /* DMSans-SemiBold.ttf in Resources */,
 				E481D2372BD7EA7600C1A018 /* DMSans-Light.ttf in Resources */,
+				E442D3752C0B492B004305BB /* splash.storyboard in Resources */,
 				E4F0A30E2BF78D8800D0DF32 /* Quicksand-Light.ttf in Resources */,
 				E481D2382BD7EA7600C1A018 /* DMSans-Medium.ttf in Resources */,
 				E481D2352BD7EA7600C1A018 /* DMSans-Regular.ttf in Resources */,
@@ -1653,6 +1756,7 @@
 				E4FC5A182BD7ECA800B701FA /* TabbarVC.swift in Sources */,
 				E414D6C92BD78F20007A22D7 /* RequestSetup.swift in Sources */,
 				E481D22A2BD7E8FE00C1A018 /* SettinsVC.swift in Sources */,
+				E41B44F82C0C942C00922382 /* DisableAIVC.swift in Sources */,
 				E414D7C82BD792DA007A22D7 /* AEOTPTextFieldImplementation.swift in Sources */,
 				E414D7ED2BD7967E007A22D7 /* RMAppConfig.swift in Sources */,
 				E414D7552BD7917F007A22D7 /* UITableView.swift in Sources */,
@@ -1675,6 +1779,7 @@
 				E414D7A92BD792D9007A22D7 /* BackButton.swift in Sources */,
 				E414D7AA2BD792D9007A22D7 /* BaseButton.swift in Sources */,
 				E414D7C72BD792DA007A22D7 /* AEOTPTextFieldDelegate.swift in Sources */,
+				E442D3732C0B47C0004305BB /* SplashVC.swift in Sources */,
 				E414D73D2BD7917F007A22D7 /* Array+replaceItem.swift in Sources */,
 				E414D74B2BD7917F007A22D7 /* String+Localized.swift in Sources */,
 				E414D7C22BD792DA007A22D7 /* BaseTableViewCell.swift in Sources */,
@@ -1682,7 +1787,9 @@
 				E414D7D02BD792DA007A22D7 /* CustomUISwitch.swift in Sources */,
 				E49EC3462C02294B002C5DE7 /* UserFlow.swift in Sources */,
 				E49EC3442C02292A002C5DE7 /* AuthVC.swift in Sources */,
+				E442D37F2C0B611A004305BB /* NotificationView.swift in Sources */,
 				E442D3592C0B1C50004305BB /* PersonalInfoValidator.swift in Sources */,
+				E41B44F62C0C859700922382 /* DisableAIView.swift in Sources */,
 				E414D7CF2BD792DA007A22D7 /* CustomUISegmentedController.swift in Sources */,
 				E414D6FA2BD7911E007A22D7 /* DependenceProviders.swift in Sources */,
 				E414D75C2BD7917F007A22D7 /* UIView+corners.swift in Sources */,
@@ -1714,8 +1821,10 @@
 				E414D6DE2BD78F20007A22D7 /* FirebaseDataParser.swift in Sources */,
 				E414D7402BD7917F007A22D7 /* UIView+Frame.swift in Sources */,
 				E414D7622BD7917F007A22D7 /* LandscapeTransition.swift in Sources */,
+				E442D37D2C0B6006004305BB /* RMNotification.swift in Sources */,
 				E414D6E02BD78F20007A22D7 /* RestDataParser.swift in Sources */,
 				E44177B32C00BCDC00819976 /* NSNotification+Extensions.swift in Sources */,
+				E41B44FF2C0CABFB00922382 /* CustomButton.swift in Sources */,
 				E442D3612C0B25A7004305BB /* CompanyInfoVC.swift in Sources */,
 				E414D6C02BD78F20007A22D7 /* MuckDataGenerator.swift in Sources */,
 				E414D75A2BD7917F007A22D7 /* UIView.swift in Sources */,
@@ -1786,10 +1895,12 @@
 				E414D7492BD7917F007A22D7 /* String.swift in Sources */,
 				E414D7AC2BD792D9007A22D7 /* RoundedButton.swift in Sources */,
 				E442D34F2C0A072D004305BB /* ConversationVM.swift in Sources */,
+				E41B44FB2C0CA1FA00922382 /* ChatMoreView.swift in Sources */,
 				E414D6E12BD78F20007A22D7 /* ReusableView.swift in Sources */,
 				E414D73E2BD7917F007A22D7 /* Array+Safe.swift in Sources */,
 				E414D7B22BD792D9007A22D7 /* RoundedCollectionViewCell.swift in Sources */,
 				E414D6F92BD7911E007A22D7 /* CoreDependence.swift in Sources */,
+				E442D3812C0B6A74004305BB /* NotificationVC.swift in Sources */,
 				E4F0A3182BF8AEBB00D0DF32 /* ConversationUserView.swift in Sources */,
 				E414D73A2BD7917F007A22D7 /* ShablonImages.swift in Sources */,
 				E414D7472BD7917F007A22D7 /* Label.swift in Sources */,
@@ -1828,6 +1939,7 @@
 				E414D7582BD7917F007A22D7 /* UItextField+sideView.swift in Sources */,
 				E44177A42C00A15900819976 /* ChatInputBarView.swift in Sources */,
 				E442D3552C0B177B004305BB /* RegisterVM.swift in Sources */,
+				E442D37A2C0B5DC9004305BB /* NotificationCell.swift in Sources */,
 				E414D7D32BD792DA007A22D7 /* StackView.swift in Sources */,
 				E4F0A3122BF8A4BB00D0DF32 /* ConversationFilterView.swift in Sources */,
 				E414D7B52BD792D9007A22D7 /* RoundImageView.swift in Sources */,
@@ -1987,7 +2099,7 @@
 				INFOPLIST_FILE = SalesGuru/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Drivee AI";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LauncScreen.storyboard;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -2024,7 +2136,7 @@
 				INFOPLIST_FILE = SalesGuru/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Drivee AI";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LauncScreen.storyboard;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

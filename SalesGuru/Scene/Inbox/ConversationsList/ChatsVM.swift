@@ -12,6 +12,7 @@ final class ChatsVM: NSObject {
     let network = NetworkCore(database: .salesguru)
     var filter: IMConversationFilter = .all
     var data: [RMChat] = []
+    var searchText: String?
     
     // MARK: - method
     func getConversation(callback: @escaping (Result<[RMChat], Error>) -> Void) {
@@ -29,17 +30,25 @@ final class ChatsVM: NSObject {
     }
     
     func getData() -> [RMChat] {
+        var result: [RMChat]
+        
         switch filter {
         case .all:
-            return self.data
+            result = self.data
         case .appointment:
-            return self.data.filter({$0.appointmentIsSet ?? false})
+            result = self.data.filter({$0.appointmentIsSet ?? false})
         case .hot:
-            return self.data.filter({$0.leadState == .hot})
+            result = self.data.filter({$0.leadState == .hot})
         case .engaged:
-            return self.data.filter({$0.leadState == .engaged})
+            result = self.data.filter({$0.leadState == .engaged})
         case .cold:
-            return self.data.filter({$0.leadState == .cold})
+            result = self.data.filter({$0.leadState == .cold})
+        }
+        
+        if let txt = searchText {
+            return result.filter({$0.filter(with: txt)})
+        } else {
+            return result
         }
     }
 }
