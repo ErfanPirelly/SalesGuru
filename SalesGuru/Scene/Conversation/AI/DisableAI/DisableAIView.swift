@@ -13,7 +13,7 @@ class DisableAIView: UIView {
     private let title = UILabel(text: "AI will be disabled off for 3 minutes and then will resume operation", font: .Quicksand.semiBold(16), textColor: .init(p3: "#474747"), alignment: .center)
     private let checkBox = M13Checkbox()
     private let subtitle = UILabel(text: "Do not show this message again",
-                                   font: .Quicksand.light(12),
+                                   font: .Quicksand.normal(12),
                                    textColor: .ui.darkColor1,
                                    alignment: .left)
     private let cancelButton = UIButton(title: "Cancel",

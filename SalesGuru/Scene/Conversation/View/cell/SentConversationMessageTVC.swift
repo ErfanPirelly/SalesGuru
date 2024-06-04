@@ -9,10 +9,12 @@ import UIKit
 import SnapKit
 
 class SentConversationMessageTVC: UITableViewCell, ConversationMessageCell {
+    
     // MARK: - properties
+    var color: UIColor = .ui.primaryBlue
     static let CellID = "SentConversationMessageTVC"
     private let dateLabel = UILabel(font: .Quicksand.medium(11), textColor: .ui.silverGray2, alignment: .left)
-    private let card = UIView()
+    var card = UIView()
     private let contentLabel = UILabel(font: .Fonts.light(14), textColor: .white, alignment: .left)
     private var stack: UIStackView!
     public var message: RMMessage?

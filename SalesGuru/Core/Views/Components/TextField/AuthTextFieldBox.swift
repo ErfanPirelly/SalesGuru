@@ -28,7 +28,7 @@ class BoxTextField: UITextField {
 
 class AuthTextFieldBox: UIView {
     let textField = BoxTextField()
-    let title = UILabel(font: .Quicksand.light(12), textColor: UIColor(p3: "#8B8989"), alignment: .center)
+    let title = UILabel(font: .Quicksand.normal(12), textColor: UIColor(p3: "#8B8989"), alignment: .center)
     private let borderColor = UIColor(p3: "#E0E4F5")
     
     var text: String {

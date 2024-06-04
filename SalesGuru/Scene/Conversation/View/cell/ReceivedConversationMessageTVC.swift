@@ -17,16 +17,19 @@ enum MessagePosition {
 
 protocol ConversationMessageCell: AnyObject {
     var message: RMMessage? {get set}
+    var card: UIView {get}
+    var color: UIColor {get}
     func fill(cell with: RMMessage, leadState: LeadState, position: MessagePosition)
 }
 
 class ReceivedConversationMessageTVC: UITableViewCell, ConversationMessageCell {
+    var color: UIColor = .ui.darkColor3.withAlphaComponent(0.1)
     // MARK: - properties
     static let CellID = "RecivedConversationMessageTVC"
     private let avatarBackView = UIView()
     private let avatar = UIImageView()
-    private let dateLabel = UILabel(font: .Quicksand.light(11), textColor: .ui.silverGray2, alignment: .left)
-    private let card = UIView()
+    private let dateLabel = UILabel(font: .Quicksand.normal(11), textColor: .ui.silverGray2, alignment: .left)
+    var card = UIView()
     private let contentLabel = UILabel(font: .Fonts.light(14), textColor: .ui.darkColor1, alignment: .left)
     private var verticalStack: UIStackView!
     public var message: RMMessage?
@@ -73,7 +76,7 @@ class ReceivedConversationMessageTVC: UITableViewCell, ConversationMessageCell {
     
     private func setupCardView() {
         setupContent()
-        card.backgroundColor = .ui.darkColor3.withAlphaComponent(0.1)
+        card.backgroundColor = color
         card.translatesAutoresizingMaskIntoConstraints = false
         card.applyCorners(to: .all, with: 10)
     }

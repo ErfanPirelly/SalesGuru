@@ -13,6 +13,7 @@ final class NavBatButton: UIButton {
     private var onSelectedAction: NavBatButtonItemAction?
     private var onDeselectedAction: NavBatButtonItemAction?
     private var onEnabledAction: NavBatButtonItemAction?
+    private var onHighlightedAction: NavBatButtonItemAction?
     private var onDisabledAction: NavBatButtonItemAction?
     private var onTouchUpInsideAction: NavBatButtonItemAction?
     
@@ -22,14 +23,7 @@ final class NavBatButton: UIButton {
             return super.isHighlighted
         }
         set {
-            guard newValue != isHighlighted else { return }
             super.isHighlighted = newValue
-            if newValue {
-                onSelectedAction?(self)
-            } else {
-                onDeselectedAction?(self)
-            }
-            
         }
     }
     
@@ -54,19 +48,13 @@ final class NavBatButton: UIButton {
         }
     }
     
-    /// The image for the UIControlState.normal
-    var image: UIImage? {
-        get {
-            return image(for: .normal)
-        }
-        set {
-            setImage(newValue, for: .normal)
-        }
-    }
-    
     override var isSelected: Bool {
-        didSet {
-            if isSelected {
+        get {
+            return super.isSelected
+        }
+        
+        set {
+            if newValue {
                 onSelectedAction?(self)
             } else {
                 onDeselectedAction?(self)
@@ -74,6 +62,12 @@ final class NavBatButton: UIButton {
         }
     }
     
+    override var tintColor: UIColor! {
+        didSet {
+            self.imageView?.tintColor = tintColor
+            self.setTitleColor(tintColor, for: .normal)
+        }
+    }
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -95,6 +89,11 @@ final class NavBatButton: UIButton {
     
     func onSelected(_ action: @escaping NavBatButtonItemAction) -> Self {
         onSelectedAction = action
+        return self
+    }
+    
+    func onHighlighted(_ action: @escaping NavBatButtonItemAction) -> Self {
+        onHighlightedAction = action
         return self
     }
     

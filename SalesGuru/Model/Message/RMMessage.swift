@@ -49,6 +49,11 @@ struct RMMessage: Codable {
         self.timestamp = try? container.decodeIfPresent(Double.self, forKey: .timestamp)
         self.twilioID = try? container.decodeIfPresent(String.self, forKey: .twilioID)
     }
+    
+    
+    func contains(txt: String) -> Bool {
+        content?.lowercased().contains(txt.lowercased()) ?? false
+    }
 }
 
 struct AIHistory: Codable {

@@ -9,7 +9,8 @@ import UIKit
 
 protocol SingleChatViewDelegate: ConversationNavigationBarViewDelegate,
                                  ChatInputBarViewDelegate,
-                                 ChatMoreViewDelegate {
+                                 ChatMoreViewDelegate,
+                                 SearchResultViewDelegate {
     func isFromCurrentUser(at index: IndexPath) -> Bool
     func isDateChanges(at index: IndexPath) -> Bool
     func isPreviousMessageSameSender(at indexPath: IndexPath) -> Bool
@@ -23,12 +24,16 @@ class SingleChatView: UIView {
     private var dataSource: [MessageSections] = []
     private let navBar = ConversationNavigationBarView()
     private let inputBar = ChatInputBarView()
+    private let searchResult = SearchResultView()
+    private var bottomStack: UIStackView!
+    
     private let keyboardManager = KeyboardManager()
     private var chatKeyboardObserver: ChatKeyboardObserver!
     private var chat: RMChat?
     weak var delegate: SingleChatViewDelegate? {
         didSet {
             inputBar.delegate = delegate
+            searchResult.delegate = delegate
         }
     }
     
@@ -49,7 +54,7 @@ class SingleChatView: UIView {
         backgroundColor = .ui.backgroundColor4
         setupFilterView()
         setupTableView()
-        setupInputBar()
+        setupBottomStack()
         setupMoreView()
         setupConstraints()
     }
@@ -70,11 +75,7 @@ class SingleChatView: UIView {
         moreView.delegate = self
         addSubview(moreView)
     }
-    
-    private func setupInputBar() {
-        addSubview(inputBar)
-    }
-    
+
     private func setupTableView() {
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,6 +88,15 @@ class SingleChatView: UIView {
         tableView.backgroundColor = .clear
         tableView.contentInset.bottom = 24
         addSubview(tableView)
+    }
+    
+    private func setupBottomStack() {
+        bottomStack = .init(axis: .vertical,
+                            alignment: .fill,
+                            spacing: 0,
+                            arrangedSubviews: [searchResult, inputBar])
+        searchResult.isHidden = true
+        addSubview(bottomStack)
     }
 
     private func setupConstraints() {
@@ -101,7 +111,7 @@ class SingleChatView: UIView {
             make.bottom.equalToSuperview()
         }
         
-        inputBar.snp.makeConstraints { make in
+        bottomStack.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
         }
         
@@ -112,11 +122,11 @@ class SingleChatView: UIView {
     }
     
     private func setupKeyboardManager() {
-        keyboardManager.inputAccessoryView = inputBar
+        keyboardManager.inputAccessoryView = bottomStack
         keyboardManager.bind(to: tableView)
-        keyboardManager.bind(inputAccessoryView: inputBar)
+        keyboardManager.bind(inputAccessoryView: bottomStack)
      
-        chatKeyboardObserver = .init(textView: inputBar.textView, scrollView: tableView, textViewContainer: inputBar)
+        chatKeyboardObserver = .init(textView: inputBar.textView, scrollView: tableView, textViewContainer: bottomStack)
         chatKeyboardObserver.setupObserver()
     }
     
@@ -126,6 +136,22 @@ class SingleChatView: UIView {
         navBar.config(with: chat)
         self.tableView.reloadData()
         self.tableView.scrollToLastItem()
+    }
+    
+    func configSearchResult(all: Int) {
+        if all > 0 {
+            self.searchResult.config(all: all, current: 1)
+        } else {
+            self.searchResult.config(all: nil, current: 0)
+        }
+        self.inputBar.isHidden = true
+        self.searchResult.isHidden = false
+    }
+    
+    func clearSearchResult(hide: Bool) {
+        searchResult.clear()
+        self.searchResult.isHidden = hide
+        self.inputBar.isHidden = !hide
     }
 }
 
@@ -186,6 +212,29 @@ extension SingleChatView: tableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
     }
+    
+    func highlightResult(at indexPath: IndexPath, previousIndexPath: IndexPath? = nil) {
+        // Scroll to the result
+        UIView.animate(withDuration: 0.35) {
+            self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        } completion: { completed in
+            guard completed else {return}
+            // Highlight the new cell
+            let cell = self.tableView.cellForRow(at: indexPath) as? ConversationMessageCell
+            cell?.card.backgroundColor = .ui.silverGray3.withAlphaComponent(0.5)
+            // Remove highlight from the previous cell
+            if let previousIndexPath = previousIndexPath {
+                let previousCell = self.tableView.cellForRow(at: previousIndexPath) as? ConversationMessageCell
+                previousCell?.card.backgroundColor = previousCell?.color
+            }
+            
+            // Animate the highlight
+            UIView.animate(withDuration: 0.5) {
+                cell?.card.backgroundColor = cell?.color
+            }
+        }
+    }
+
 }
 
 // MARK: - gesture
@@ -195,10 +244,20 @@ private extension SingleChatView {
             moreView.fade(duration: 0.35, delay: 0, isIn: false)
             navBar.moreButton.isSelected = false
         }
+        
+        self.endEditing(true)
     }
 }
 // MARK: - nav delegate
 extension SingleChatView: ConversationNavigationBarViewDelegate {
+    func didEndSearching() {
+        delegate?.didEndSearching()
+    }
+    
+    func didSearch(with text: String?) {
+        delegate?.didSearch(with: text)
+    }
+    
     func backButtonDidTouched() {
         delegate?.backButtonDidTouched()
     }

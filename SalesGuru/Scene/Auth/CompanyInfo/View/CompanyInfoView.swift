@@ -17,7 +17,7 @@ class CompanyInformationView: UIView {
     // MARK: - properties
     private let imageView = UIImageView(image: .get(image: .companyInfo))
     private let titleLabel = UILabel(text: "Company Information", font: .Quicksand.bold(24), textColor: .ui.darkColor4, alignment: .center)
-    private let subtitle = UILabel(text: "Please confirm your country code and enter your phone number", font: .Quicksand.light(14), textColor: .ui.darkColor, alignment: .center)
+    private let subtitle = UILabel(text: "Please confirm your country code and enter your phone number", font: .Quicksand.normal(14), textColor: .ui.darkColor, alignment: .center)
     public let companyName = AuthTextFieldBox(placeholder: "Company name", title: "Company name")
     public let website = AuthTextFieldBox(placeholder: "Dealer website", title: "Website")
     public let dealerType = CompanyInformationSelectionBoxView(type: .dealer)

@@ -57,20 +57,23 @@ class ConversationFilterView: UIView {
     private func setupSearchBar() {
         searchBar.placeholder = "Search"
         let color = UIColor.black.withAlphaComponent(0.05)
-        
+        searchBar.searchTextField.clearButtonMode = .always
+
         searchBar.applyCorners(to: .all, with: 10)
-        searchBar.setPlaceholderTextColorTo(color: .ui.gray4)
         searchBar.backgroundImage = UIImage()
         searchBar.searchTextField.background = UIImage()
         searchBar.searchTextField.textColor = .black
-        searchBar.searchTextField.tintColor = .ui.gray4
         searchBar.searchTextField.backgroundColor = .clear
         searchBar.searchTextField.custom(placeholder: "Search", with: .ui.gray4)
-        searchBar.searchTextField.font = .Quicksand.light(17)
+        searchBar.searchTextField.font = .Quicksand.normal(17)
+        searchBar.searchTextField.tintColor = .ui.gray4
+        
         searchBar.delegate = self
-        searchBar.showsCancelButton = true
         searchBar.backgroundColor = color
         searchBar.tintColor = .ui.gray4
+        
+        searchBar.setPlaceholderTextColorTo(color: .ui.gray4)
+        searchBar.setTextFieldBackColor(color: .clear)
         searchBar.setMagnifyingGlassColorTo(color: .ui.gray4)
         addSubview(searchBar)
     }
@@ -108,6 +111,18 @@ extension ConversationFilterView: UISearchBarDelegate {
             self.delegate?.didSearch(with: nil)
         } else {
             self.delegate?.didSearch(with: searchText)
+        }
+        
+        if let searchTextField = searchBar.value(forKey: "searchField") as? UITextField,
+           let clearButton = searchTextField.value(forKey: "_clearButton")as? UIButton {
+            if let img3 = clearButton.image(for: .highlighted) {
+                clearButton.isHidden = false
+                let tintedClearImage = img3.withRenderingMode(.alwaysTemplate).withTintColor(.ui.gray4)
+                clearButton.setImage(tintedClearImage, for: .normal)
+                clearButton.setImage(tintedClearImage, for: .highlighted)
+            }else{
+                clearButton.isHidden = true
+            }
         }
     }
 }

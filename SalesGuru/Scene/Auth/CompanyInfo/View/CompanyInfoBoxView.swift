@@ -20,7 +20,7 @@ protocol CompanyInformationSelectionBoxViewDelegate: AnyObject {
 class CompanyInformationSelectionBoxView: UIView {
     // MARK: - properties
     private let image = UIImageView(image: .init(systemName: "chevron.down"))
-    private let title = UILabel(font: .Quicksand.light(12), textColor: UIColor(p3: "#8B8989"), alignment: .center)
+    private let title = UILabel(font: .Quicksand.normal(12), textColor: UIColor(p3: "#8B8989"), alignment: .center)
     private let card = UIView()
     private let label = UILabel(font: .Quicksand.semiBold(14),
                                 textColor: .ui.silverGray3,

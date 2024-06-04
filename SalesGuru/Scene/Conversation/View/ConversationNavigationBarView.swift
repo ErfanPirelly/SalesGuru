@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol ConversationNavigationBarViewDelegate: AnyObject {
     func backButtonDidTouched()
     func moreButtonDidTouched()
     func aiButtonDidTouched()
+    func didSearch(with text: String?)
+    func didEndSearching()
 }
 
 class ConversationNavigationBarView: UIView {
@@ -27,6 +30,12 @@ class ConversationNavigationBarView: UIView {
     private var stack: UIStackView!
     private var avatarStack: UIStackView!
     weak var delegate: ConversationNavigationBarViewDelegate?
+    private let searchBar = UISearchBar()
+    private var searchLeadingConstraints: Constraint!
+    private var searchWidthConstraints: Constraint!
+    private let onScreenSearchConst = 0
+    private let offScreenSearchConst = K.size.portrait.width
+    private var isSearchBarOn = false
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -45,6 +54,7 @@ class ConversationNavigationBarView: UIView {
         setupButtonStack()
         setupStack()
         setupAvatar()
+        setupSearchField()
         setupConstraints()
     }
     
@@ -60,7 +70,7 @@ class ConversationNavigationBarView: UIView {
     }
     
     private func setupMoreButton() {
-        moreButton.onSelected { button in
+        _ = moreButton.onSelected { button in
             button.backgroundColor = .ui.primaryBlue
             button.tintColor = .white
         }.onDeselected { button in
@@ -96,6 +106,30 @@ class ConversationNavigationBarView: UIView {
         addSubview(avatarStack)
     }
     
+    private func setupSearchField() {
+        searchBar.placeholder = "Search"
+        let color = UIColor.black.withAlphaComponent(0.05)
+        searchBar.searchTextField.clearButtonMode = .always
+
+        searchBar.applyCorners(to: .all, with: 10)
+        searchBar.backgroundImage = UIImage()
+        searchBar.searchTextField.background = UIImage()
+        searchBar.searchTextField.textColor = .black
+        searchBar.searchTextField.backgroundColor = .clear
+        searchBar.searchTextField.custom(placeholder: "Search", with: .ui.gray4)
+        searchBar.searchTextField.font = .Quicksand.normal(17)
+        searchBar.searchTextField.tintColor = .ui.gray4
+        
+        searchBar.delegate = self
+        searchBar.backgroundColor = .white
+        searchBar.tintColor = .ui.gray4
+        
+        searchBar.setPlaceholderTextColorTo(color: .ui.gray4)
+        searchBar.setTextFieldBackColor(color: color)
+        searchBar.setMagnifyingGlassColorTo(color: .ui.gray4)
+        addSubview(searchBar)
+        
+    }
     private func setupConstraints() {
         [moreButton, aiButton, searchButton, backButton].forEach({
             $0.snp.makeConstraints { make in
@@ -126,6 +160,13 @@ class ConversationNavigationBarView: UIView {
             make.centerY.equalTo(avatarStack)
             make.trailing.equalToSuperview().inset(16)
         }
+        
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(avatarStack)
+            make.bottom.equalToSuperview()
+            searchLeadingConstraints = make.leading.equalTo(avatarBackView).inset(K.size.portrait.width).constraint
+            searchWidthConstraints = make.width.equalTo(0).constraint
+        }
     }
     
     func config(with chat: RMChat) {
@@ -139,12 +180,26 @@ class ConversationNavigationBarView: UIView {
         avatar.tintColor = .white
         avatarBackView.backgroundColor = lead.color
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if self.buttonsStack.frame.origin != .zero {
+            let avatarX = avatarBackView.frame.minX
+            let buttonsX = buttonsStack.frame.maxX
+            self.searchWidthConstraints.update(offset: abs(buttonsX - avatarX))
+        }
+    }
 }
 
 // MARK: - @objc
 extension ConversationNavigationBarView {
     @objc private func backButtonDidTouched() {
-        delegate?.backButtonDidTouched()
+        if isSearchBarOn {
+            delegate?.didEndSearching()
+            showSearchBar(isOn: false)
+        } else {
+            delegate?.backButtonDidTouched()
+        }
     }
     
     @objc private func moreButtonDidTouched() {
@@ -152,10 +207,48 @@ extension ConversationNavigationBarView {
     }
     
     @objc private func searchButtonDidTouched() {
-        
+        showSearchBar(isOn: true)
     }
     
     @objc private func aiButtonDidTouched() {
         delegate?.aiButtonDidTouched()
+    }
+    
+    private func showSearchBar(isOn: Bool) {
+        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .linear) {
+            self.isSearchBarOn = isOn
+            self.searchLeadingConstraints.update(inset: isOn ? self.onScreenSearchConst : self.offScreenSearchConst)
+        }
+        animator.startAnimation()
+    }
+}
+
+
+// MARK: - UISearchBarDelegate
+extension ConversationNavigationBarView: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.delegate?.didSearch(with: searchBar.text)
+        self.endEditing(true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        self.delegate?.didSearch(with: nil)
+        showSearchBar(isOn: false)
+        self.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let searchTextField = searchBar.value(forKey: "searchField") as? UITextField,
+           let clearButton = searchTextField.value(forKey: "_clearButton")as? UIButton {
+            if let img3 = clearButton.image(for: .highlighted) {
+                clearButton.isHidden = false
+                let tintedClearImage = img3.withRenderingMode(.alwaysTemplate).withTintColor(.ui.gray4)
+                clearButton.setImage(tintedClearImage, for: .normal)
+                clearButton.setImage(tintedClearImage, for: .highlighted)
+            }else{
+                clearButton.isHidden = true
+            }
+        }
     }
 }

@@ -17,7 +17,7 @@ class EmptyConversationView: UIView {
     private let backgroundIcon = UIImageView(image: .get(image: .noMessageBackground))
     private let title = UILabel(text: "No message here", font: .Quicksand.bold(24), textColor: .ui.darkColor, alignment: .center)
     private let subtitle = UILabel(text: "You have not created any leads. Create your first lead now.",
-                                   font: .Quicksand.light(14),
+                                   font: .Quicksand.normal(14),
                                    textColor: .ui.darkColor,
                                    alignment: .center)
     

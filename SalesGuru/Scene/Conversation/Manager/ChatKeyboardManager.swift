@@ -14,6 +14,7 @@ class ChatKeyboardObserver: NSObject {
     let textView: UITextView
     let scrollView: UIScrollView
     let textViewContainer: UIView
+    
     init(textView: UITextView, scrollView: UIScrollView, textViewContainer: UIView) {
         self.textView = textView
         self.scrollView = scrollView

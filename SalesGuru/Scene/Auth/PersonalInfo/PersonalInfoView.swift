@@ -19,7 +19,7 @@ class PersonalInfoView: UIView {
     // MARK: - properties
     private let imageView = UIImageView(image: .get(image: .personalInfo))
     private let title = UILabel(text: "Enter Your personal info", font: .Quicksand.bold(24), textColor: .ui.darkColor, alignment: .center)
-    private let subtitle = UILabel(text: "Please confirm your country code and enter your phone number", font: .Quicksand.light(14), textColor: .ui.darkColor, alignment: .center)
+    private let subtitle = UILabel(text: "Please confirm your country code and enter your phone number", font: .Quicksand.normal(14), textColor: .ui.darkColor, alignment: .center)
     private var titleStack: UIStackView!
     private var stack: UIStackView!
     public let firstnameTextField = AuthTextFieldBox(placeholder: "Fist Name", title: "name")

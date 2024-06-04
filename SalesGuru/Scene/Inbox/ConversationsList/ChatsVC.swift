@@ -19,7 +19,8 @@ class ChatsVC: UIViewController {
         navigationController?.isNavigationBarHidden = true
         navigationController?.setNavigationBarHidden(true, animated: false)
         prepareUI()
-        getData()
+//        getData()
+        self.customView.setData(data: [])
     }
     
     // MARK: - prepare UI
@@ -74,7 +75,8 @@ extension ChatsVC: ChatViewDelegate {
     }
     
     func addLeadDidTouched() {
-        Logger.log(.info, "add lead")
+        let vc = CreateLeadMainVC()
+        self.view.window?.rootViewController?.presentWithSheetPresentation(vc, isDismissable: true)
     }
     
     func didSelectFilter(with: IMConversationFilter) {

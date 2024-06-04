@@ -12,6 +12,8 @@ class CustomUISwitch: UIControl {
     public var onTintColor: UIColor? = .ui.primaryBlue
     public var offTintColor: UIColor? = .ui.silverGray
     public var thumbTintColor: UIColor? = .white
+    public var thumbOffTintColor: UIColor? = .ui.darkColor1.withAlphaComponent(0.86)
+    
     public var thumbCornerRadius: CGFloat = 7
     public var thumbSize = CGSize(width: 14, height: 14)
     public var padding: CGFloat = 3
@@ -59,10 +61,8 @@ class CustomUISwitch: UIControl {
     public override func layoutSubviews() {
         super.layoutSubviews()
         if !self.isAnimating {
-            self.layer.cornerRadius = 7
+            self.layer.cornerRadius = bounds.size.height/2
             self.backgroundColor = self.isOn.value ? self.onTintColor : self.offTintColor
-            
-            
             // thumb management
             let thumbSize = self.thumbSize != CGSize.zero ? self.thumbSize : CGSize(width: self.bounds.size.height - 3,
                                                                                     height: self.bounds.height - 3)
@@ -87,11 +87,14 @@ class CustomUISwitch: UIControl {
         let value = self.isOn.value
         self.isOn.accept(!value)
         self.isAnimating = true
-        UIView.animate(withDuration: self.animationDuration, delay: 0, usingSpringWithDamping: 0.7,
-                       initialSpringVelocity: 0.5, options: [.curveEaseOut,
-                                                             .beginFromCurrentState], animations: {
-                                                                 self.thumbView.frame.origin.x = self.isOn.value ? self.onPoint.x : self.offPoint.x
-                                                                 self.backgroundColor = self.isOn.value ? self.onTintColor : self.offTintColor
+        UIView.animate(withDuration: self.animationDuration,
+                       delay: 0, usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0.5,
+                       options: [.curveEaseOut, .beginFromCurrentState],
+                       animations: {
+            self.thumbView.frame.origin.x = self.isOn.value ? self.onPoint.x : self.offPoint.x
+            self.backgroundColor = self.isOn.value ? self.onTintColor : self.offTintColor
+            self.thumbView.backgroundColor = self.isOn.value ? self.thumbTintColor : self.thumbOffTintColor
         }, completion: { _ in
             self.isAnimating = false
             self.sendActions(for: .valueChanged)

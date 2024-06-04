@@ -18,7 +18,7 @@ class LoginView: UIView {
     // MARK: - properties
     private let imageView = UIImageView(image: .get(image: .login))
     private let title = UILabel(text: "Welome to Drivee 👋", font: .Quicksand.bold(24), textColor: .ui.darkColor, alignment: .center)
-    private let subtitle = UILabel(text: "Please enter email and password of your account", font: .Quicksand.light(14), textColor: .ui.darkColor, alignment: .center)
+    private let subtitle = UILabel(text: "Please enter email and password of your account", font: .Quicksand.normal(14), textColor: .ui.darkColor, alignment: .center)
     private var titleStack: UIStackView!
     private var stack: UIStackView!
     private let emailTextField = AuthTextFieldBox(placeholder: "Email", title: "Email")
