@@ -111,6 +111,7 @@ extension ChatInputBarView: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == emptyTextColor {
             textView.text = ""
+            textView.textColor = .ui.darkColor
         }
     }
     

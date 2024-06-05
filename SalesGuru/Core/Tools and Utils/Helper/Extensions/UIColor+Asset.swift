@@ -88,5 +88,8 @@ extension UIColor {
         
         /// #F1F7FB
         let backgroundColor4 = UIColor(p3: "#F1F7FB")
+        
+        /// #F7F7FC
+        let BoxBackgroundColor = UIColor(p3: "#F7F7FC")
     }
 }

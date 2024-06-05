@@ -11,10 +11,18 @@ class CreateLeadMainVC: UIViewController {
     // MARK: - properties
     private let customView = CreateLeadMainView()
     
+    // keyboard
+    private let keyboardManager = KeyboardManager()
+    
     // MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupKeyboardManager()
     }
     
     // MARK: - prepare UI
@@ -22,6 +30,11 @@ class CreateLeadMainVC: UIViewController {
         view.addSubview(customView)
         customView.delegate = self
         customView.pinToEdge(on: view)
+    }
+    
+    private func setupKeyboardManager() {
+        keyboardManager.inputAccessoryView = view
+        keyboardManager.bind(inputAccessoryView: view)
     }
 }
 

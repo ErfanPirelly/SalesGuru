@@ -26,7 +26,7 @@ class CreateLeadMainView: UIView {
             }
         }
     }
-    
+
     // MARK: - properties
     private let disableColor = UIColor(p3: "#0D0A19")
     private let panView = PanView()
@@ -36,14 +36,19 @@ class CreateLeadMainView: UIView {
                                             size: .init(width: 0, height: 52),
                                             textColor: .white,
                                             fillColor: .ui.primaryBlue, text: Text(text: "Submit", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
-    private let progressBar = UIProgressView(progressViewStyle: .bar)
+    private let progressBar = UIProgressView(progressViewStyle: .default)
     private let infoButton = UIButton(title: "Personal Info", titleColor: .ui.darkColor, font: .Fonts.bold(14))
     private let aiSettingButton = UIButton(title: "Ai Settings", titleColor: UIColor(p3: "#0D0A19"), font: .Fonts.medium(14))
     private var buttonStack: UIStackView!
     private var progressStack: UIStackView!
     private let container = UIView()
+    private let personalInfoView = LeadProfileInfoView()
+    private let aiSetting = CreateLeadAISettingView()
+    private var containerStack: UIStackView!
+    
     // constraints
     private var containerHeightConstraint: Constraint!
+    private var containerStackLeadingConstraint: Constraint!
     
     // variable
     weak var delegate: CreateLeadMainViewDelegate?
@@ -73,6 +78,7 @@ class CreateLeadMainView: UIView {
         setupProgressStack()
         setupTitleStack()
         setupContainer()
+        setupContainerSubviews()
         setupSubmitButton()
         setupConstraints()
     }
@@ -111,7 +117,7 @@ class CreateLeadMainView: UIView {
     
     private func setupContainer() {
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = .gray
+        container.backgroundColor = .white
         container.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
         addSubview(container)
     }
@@ -121,6 +127,14 @@ class CreateLeadMainView: UIView {
         backgroundColor = .white
         setContentHuggingPriority(UILayoutPriority(rawValue: 1), for: .vertical)
         applyCorners(to: .top, with: 45)
+    }
+    
+    private func setupContainerSubviews() {
+        aiSetting.translatesAutoresizingMaskIntoConstraints = false
+        containerStack = .init(alignment: .top,
+                               distribution: .fillEqually,
+                               spacing: 0, arrangedSubviews: [personalInfoView, aiSetting])
+        container.addSubview(containerStack)
     }
     
     private func setupConstraints() {
@@ -149,14 +163,22 @@ class CreateLeadMainView: UIView {
             make.leading.trailing.equalToSuperview().inset(33)
             make.bottom.equalToSuperview().inset(UIView.safeArea.bottom + 16)
         }
+        
+        containerStack.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.width.equalTo(K.size.portrait.width * 2)
+            containerStackLeadingConstraint = make.leading.equalToSuperview().constraint
+        }
     }
     
     func updateState(to state: State) {
         guard self.state != state else { return }
         self.state = state
-        
-        let animator = UIViewPropertyAnimator(duration: 0.5, curve: .linear) {
+        let leadingInset = state == .personalInfo ? 0 : -K.size.portrait.width
+        let animator = UIViewPropertyAnimator(duration: 0.35, curve: .linear) {
+            self.progressBar.setProgress(state == .personalInfo ? 0.5 : 1, animated: true)
             self.containerHeightConstraint.update(offset: state.containerHeight)
+            self.containerStackLeadingConstraint.update(inset: leadingInset)
             self.layoutIfNeeded()
             self.delegate?.stateDidUpdated(to: state)
         }

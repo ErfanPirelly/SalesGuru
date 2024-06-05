@@ -34,7 +34,7 @@ struct AppConfig {
         keyboardManager.toolbarBarTintColor = .ui.primaryBack
         keyboardManager.toolbarDoneBarButtonItemText = "Done"
         keyboardManager.enableAutoToolbar = true
-        keyboardManager.disabledToolbarClasses = [ConversationVC.self]
+        keyboardManager.disabledToolbarClasses = [ConversationVC.self, CreateLeadMainVC.self]
     }
     
     

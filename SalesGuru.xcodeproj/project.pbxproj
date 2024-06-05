@@ -226,6 +226,9 @@
 		E4A133542C0E0D930079B37C /* BaseProfileInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A133532C0E0D930079B37C /* BaseProfileInfoCell.swift */; };
 		E4A133582C0F67FB0079B37C /* CreateLeadMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A133572C0F67FB0079B37C /* CreateLeadMainView.swift */; };
 		E4A1335A2C0F73610079B37C /* CreateLeadMainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A133592C0F73610079B37C /* CreateLeadMainVC.swift */; };
+		E4A1335C2C10815C0079B37C /* LeadProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1335B2C10815C0079B37C /* LeadProfileInfoView.swift */; };
+		E4A1335E2C1087F00079B37C /* CreateLeadAISettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1335D2C1087F00079B37C /* CreateLeadAISettingView.swift */; };
+		E4A133602C1098300079B37C /* AuthTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1335F2C1098300079B37C /* AuthTextView.swift */; };
 		E4AA91EA2BDFA40B00996A18 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91E92BDFA40B00996A18 /* SettingsView.swift */; };
 		E4AA91ED2BDFAC6E00996A18 /* SettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91EC2BDFAC6E00996A18 /* SettingVM.swift */; };
 		E4AA91F02BDFAE7400996A18 /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91EF2BDFAE7400996A18 /* SettingsTVC.swift */; };
@@ -472,6 +475,9 @@
 		E4A133532C0E0D930079B37C /* BaseProfileInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseProfileInfoCell.swift; sourceTree = "<group>"; };
 		E4A133572C0F67FB0079B37C /* CreateLeadMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeadMainView.swift; sourceTree = "<group>"; };
 		E4A133592C0F73610079B37C /* CreateLeadMainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeadMainVC.swift; sourceTree = "<group>"; };
+		E4A1335B2C10815C0079B37C /* LeadProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadProfileInfoView.swift; sourceTree = "<group>"; };
+		E4A1335D2C1087F00079B37C /* CreateLeadAISettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeadAISettingView.swift; sourceTree = "<group>"; };
+		E4A1335F2C1098300079B37C /* AuthTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTextView.swift; sourceTree = "<group>"; };
 		E4AA91E92BDFA40B00996A18 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E4AA91EC2BDFAC6E00996A18 /* SettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVM.swift; sourceTree = "<group>"; };
 		E4AA91EF2BDFAE7400996A18 /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
@@ -938,6 +944,7 @@
 				E414D7922BD792D9007A22D7 /* BaseTextField.swift */,
 				E414D7932BD792D9007A22D7 /* PickerViewTextField.swift */,
 				E414D7942BD792D9007A22D7 /* RightViewTextField.swift */,
+				E4A1335F2C1098300079B37C /* AuthTextView.swift */,
 			);
 			path = TextField;
 			sourceTree = "<group>";
@@ -1594,6 +1601,8 @@
 			isa = PBXGroup;
 			children = (
 				E4A133572C0F67FB0079B37C /* CreateLeadMainView.swift */,
+				E4A1335B2C10815C0079B37C /* LeadProfileInfoView.swift */,
+				E4A1335D2C1087F00079B37C /* CreateLeadAISettingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1862,6 +1871,7 @@
 				E414D7552BD7917F007A22D7 /* UITableView.swift in Sources */,
 				E414D7612BD7917F007A22D7 /* Utills.swift in Sources */,
 				E442D3572C0B1AA2004305BB /* PersonalInformationVC.swift in Sources */,
+				E4A1335E2C1087F00079B37C /* CreateLeadAISettingView.swift in Sources */,
 				E414D7632BD7917F007A22D7 /* Validator.swift in Sources */,
 				E49EC3492C022A44002C5DE7 /* UIViewController+Error.swift in Sources */,
 				E48325582C0DBFCF009E8C7C /* AISettingView.swift in Sources */,
@@ -1898,6 +1908,7 @@
 				E414D7372BD7917E007A22D7 /* SheetModalPresentationController.swift in Sources */,
 				E4AA91EA2BDFA40B00996A18 /* SettingsView.swift in Sources */,
 				E442D3672C0B261C004305BB /* DealerTypeVC.swift in Sources */,
+				E4A133602C1098300079B37C /* AuthTextView.swift in Sources */,
 				E414D7DD2BD7935F007A22D7 /* RMEmpty.swift in Sources */,
 				E414D74F2BD7917F007A22D7 /* UIColor+HEX.swift in Sources */,
 				E40CDBD72BE0E2C2003E9E59 /* SentConversationMessageTVC.swift in Sources */,
@@ -1926,6 +1937,7 @@
 				E442D37D2C0B6006004305BB /* RMNotification.swift in Sources */,
 				E414D6E02BD78F20007A22D7 /* RestDataParser.swift in Sources */,
 				E44177B32C00BCDC00819976 /* NSNotification+Extensions.swift in Sources */,
+				E4A1335C2C10815C0079B37C /* LeadProfileInfoView.swift in Sources */,
 				E41B44FF2C0CABFB00922382 /* CustomButton.swift in Sources */,
 				E442D3612C0B25A7004305BB /* CompanyInfoVC.swift in Sources */,
 				E414D6C02BD78F20007A22D7 /* MuckDataGenerator.swift in Sources */,
