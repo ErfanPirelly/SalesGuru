@@ -10,6 +10,7 @@ import SnapKit
 
 protocol CreateLeadMainViewDelegate: AnyObject {
     func stateDidUpdated(to state: CreateLeadMainView.State)
+    func submitButtonDidTouched(with profile: IMLeadProfileInfo, setting: IMLeadAISetting)
 }
 
 class CreateLeadMainView: UIView {
@@ -184,12 +185,29 @@ class CreateLeadMainView: UIView {
         }
         animator.startAnimation()
     }
+    
+    func startLoading() {
+        self.submitButton.lock()
+    }
+    
+    func stopLoading() {
+        self.submitButton.unlock()
+    }
 }
 
 // MARK: - objc
 extension CreateLeadMainView {
     @objc func submitButtonDidTouched() {
-        
+        if state == .personalInfo {
+            if personalInfoView.getValue() != nil {
+                self.updateState(to: .aiSetting)
+            }
+        } else {
+            if let profile = personalInfoView.getValue(), let ai = aiSetting.getValue() {
+                self.delegate?.submitButtonDidTouched(with: profile, setting: ai)
+                self.startLoading()
+            }
+        }
     }
     
     @objc func infoButtonDidTouched() {

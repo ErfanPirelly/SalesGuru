@@ -12,7 +12,7 @@ import RxCocoa
 class CreateLeadAISettingView: UIView {
     // MARK: - properties
     private let bag = DisposeBag()
-    private let scrollView = UIScrollView()
+//    private let scrollView = UIScrollView()
     public let vinNumberTextField = AuthTextFieldBox(placeholder: "Vin Number", title: "VIN")
     public let leadDescriptionTextView = AuthTextView(placeholder: "Describe your lead", title: "Description")
     private let testDriveView = UIView()
@@ -41,7 +41,6 @@ class CreateLeadAISettingView: UIView {
     private func setupUI() {
         backgroundColor = .white
         translatesAutoresizingMaskIntoConstraints = false
-        setupScrollView()
         setupStackView()
         setupConstraints()
     }
@@ -74,29 +73,49 @@ class CreateLeadAISettingView: UIView {
     private func setupStackView() {
         setupTestDrive()
         stack = .init(axis: .vertical, alignment: .fill, distribution: .equalSpacing, spacing: 17, arrangedSubviews: [vinNumberTextField, leadDescriptionTextView, testDriveView])
-        scrollView.addSubview(stack)
+        addSubview(stack)
     }
     
-    private func setupScrollView() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.keyboardDismissMode = .onDrag
-        scrollView.rx.observe(\.contentSize).asDriver(onErrorJustReturn: .zero).drive(onNext: {[weak self] size in
-            guard let self = self else { return }
-            Logger.log(.info, size)
-        }).disposed(by: bag)
-        addSubview(scrollView)
-    }
+//    private func setupScrollView() {
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
+//        scrollView.keyboardDismissMode = .onDrag
+//        scrollView.rx.observe(\.contentSize).asDriver(onErrorJustReturn: .zero).drive(onNext: {[weak self] size in
+//            guard let self = self else { return }
+//            Logger.log(.info, size)
+//        }).disposed(by: bag)
+//        addSubview(scrollView)
+//    }
     
     private func setupConstraints() {
-        scrollView.pinToEdge(on: self)
+//        scrollView.pinToEdge(on: self)
         stack.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(32)
             make.width.equalTo(K.size.portrait.width - 64)
         }
+//        
+//        scrollView.snp.makeConstraints { make in
+//
+//        }
+    }
+    
+    func getValue() -> IMLeadAISetting? {
+        let vin = vinNumberTextField.text
+        let description = leadDescriptionTextView.text
+        let vinValidator = Validator.textLimit(min: 17, max: 17)
+        let textValidator = Validator.textLimit(min: 10, max: 140)
+        var data: IMLeadAISetting?
         
-        scrollView.snp.makeConstraints { make in
-            make.height.equalTo(351)
+        if !vinValidator.validate(value: vin) {
+            vinNumberTextField.showError()
+            CustomToast(view: self).show(error: "vin number must be 17 characters")
+        } else if !textValidator.validate(value: description) {
+            leadDescriptionTextView.showError()
+            CustomToast(view: self).show(error: "description must be greater than 10 characters")
+        } else {
+            data = .init(vin: vin, description: description, testDrive: switchView.isOn.value)
         }
+        
+        return data
     }
 }

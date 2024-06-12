@@ -19,7 +19,7 @@ extension Date {
         let dateFormatter = DateFormatter()
 //        dateFormatter.timeZone = .init(secondsFromGMT: 0)
         if calendar.isDateInToday(self) {
-            dateFormatter.dateFormat = "hh:mm A"
+            dateFormatter.dateFormat = "hh:mm a".capitalized
             
         } else if let oneWeekAgo = calendar.date(byAdding: .weekOfYear, value: -1, to: Date()), self > oneWeekAgo {
             dateFormatter.dateFormat = "hh:mm a, EEEE"

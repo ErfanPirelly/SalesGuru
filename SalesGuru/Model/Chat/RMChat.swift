@@ -46,7 +46,7 @@ enum LeadState: String, Codable {
     }
 }
 
-struct RMChat: Codable, Hashable {
+struct RMChat: RMKeyIDModel, Hashable {
     static func == (lhs: RMChat, rhs: RMChat) -> Bool {
         lhs.id == rhs.id
     }
@@ -184,6 +184,15 @@ struct RMChatParser: FirebaseParser {
             return nil
         }
         callback(.success(carsArray))
+    }
+}
+
+
+struct RMSingleChatParser: FirebaseParser {
+    typealias T = RMChat
+    
+    func parseData(data: Any, callback: @escaping ((Result<RMChat, any Error>) -> Void)) {
+        parseOnEndedStatus(data: data, callback: callback)
     }
 }
 

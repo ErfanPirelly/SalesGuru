@@ -75,6 +75,7 @@ class AuthTextFieldBox: UIView {
         textField.autocorrectionType = .no
         textField.font = .Quicksand.semiBold(14)
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.delegate = self
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 62))
         leftView.backgroundColor = .clear
         
@@ -105,9 +106,14 @@ class AuthTextFieldBox: UIView {
         self.title.isHidden = true
         self.title.textColor = UIColor(p3: "#8B8989")
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        _ = self.textField.becomeFirstResponder()
+        return super.becomeFirstResponder()
+    }
 }
 
-extension AuthTextFieldBox: TextFieldResponderDelegate {
+extension AuthTextFieldBox: TextFieldResponderDelegate, UITextFieldDelegate {
     func didBecomeFirstResponder() {
         self.textField.layer.borderColor = UIColor.ui.primaryBlue.cgColor
         self.title.textColor = UIColor(p3: "#8B8989")
@@ -120,5 +126,15 @@ extension AuthTextFieldBox: TextFieldResponderDelegate {
         self.title.textColor = UIColor(p3: "#8B8989")
     }
     
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = tag + 1
+        
+        if let nextResponder = superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+
+        return true
+    }
 }

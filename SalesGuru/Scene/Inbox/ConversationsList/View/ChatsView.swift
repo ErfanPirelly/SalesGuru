@@ -37,6 +37,7 @@ class ChatsView: UIView {
     private var chats: [RMChat] = []
     private let emptyView = EmptyConversationView()
     private var dataSource: DataSource!
+    private let plusButton = UIButton(title: "+", titleColor: .white, font: .Fonts.medium(30))
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -55,6 +56,7 @@ class ChatsView: UIView {
         setupTableView()
         setupRefreshControl()
         setupFilterView()
+        setupAddButton()
         setupConstraints()
     }
     
@@ -90,6 +92,13 @@ class ChatsView: UIView {
         addSubview(emptyView)
     }
     
+    private func setupAddButton() {
+        plusButton.applyCorners(to: .all, with: 29)
+        plusButton.backgroundColor = .ui.primaryBlue
+        plusButton.addTarget(self, action: #selector(plusButtonDidTouched), for: .touchUpInside)
+        addSubview(plusButton)
+    }
+    
     private func setupConstraints() {
         header.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
@@ -108,6 +117,12 @@ class ChatsView: UIView {
         emptyView.snp.makeConstraints { make in
             make.center.equalTo(tableView)
             make.width.equalTo(262)
+        }
+        
+        plusButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(24)
+            make.size.equalTo(58)
+            make.bottom.equalToSuperview().inset(32)
         }
     }
     
@@ -138,23 +153,15 @@ class ChatsView: UIView {
     @objc private func refreshData() {
         self.delegate?.refreshData()
     }
+    
+    @objc private func plusButtonDidTouched() {
+        self.delegate?.addLeadDidTouched()
+    }
 }
 
 extension ChatsView: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        chats.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTVC.CellID, for: indexPath) as! ConversationTVC
-//        let chat = chats[indexPath.row]
-//        cell.fill(cell: chat)
-//        return cell
-//    }
-// 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let chat = dataSource.itemIdentifier(for: indexPath) else { return }
-//        let chat = chats[indexPath.row]
         delegate?.didSelect(chat: chat)
     }
 }

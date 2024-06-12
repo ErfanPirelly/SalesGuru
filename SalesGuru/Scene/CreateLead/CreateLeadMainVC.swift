@@ -10,6 +10,7 @@ import UIKit
 class CreateLeadMainVC: UIViewController {
     // MARK: - properties
     private let customView = CreateLeadMainView()
+    private let viewModel = CreateLeadVM()
     
     // keyboard
     private let keyboardManager = KeyboardManager()
@@ -40,6 +41,18 @@ class CreateLeadMainVC: UIViewController {
 
 // MARK: - view delegate
 extension CreateLeadMainVC: CreateLeadMainViewDelegate {
+    func submitButtonDidTouched(with profile: IMLeadProfileInfo, setting: IMLeadAISetting) {
+        viewModel.createLead(with: profile, aiSetting: setting) { [weak self] error in
+            guard let self = self else { return }
+            self.customView.stopLoading()
+            if error == nil {
+                self.dismiss(animated: true)
+            } else {
+                self.showError(message: error!.localizedDescription)
+            }
+        }
+    }
+    
     func stateDidUpdated(to state: CreateLeadMainView.State) {
         let presenter = presentationController
         presenter?.containerViewWillLayoutSubviews()

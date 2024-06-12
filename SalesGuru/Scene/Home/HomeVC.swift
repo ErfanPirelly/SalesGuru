@@ -11,6 +11,7 @@ class HomeVC: UIViewController {
     // MARK: - properties
     private let customView = HomeView()
     private var tabBarVC: TabbarVC?
+    private let deepLink: DeepLinkDependency = inject()
     
     // MARK: - life cycle
     override func viewDidLoad() {
@@ -27,6 +28,11 @@ class HomeVC: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.scrollEdgeAppearance = .none
         navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        deepLink.handleDeepLink()
     }
     
     private func setupTabBar() {

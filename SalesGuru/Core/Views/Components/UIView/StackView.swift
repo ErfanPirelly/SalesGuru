@@ -19,5 +19,11 @@ extension UIStackView {
         self.alignment = alignment
         self.distribution = distribution
         self.spacing = spacing
+        
+        for (index, value) in arrangedSubviews.enumerated() {
+            if value.tag == 0 {
+                value.tag = index
+            }
+        }
     }
 }

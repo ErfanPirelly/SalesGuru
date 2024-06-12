@@ -13,6 +13,7 @@ struct MockData {
     static let passwod = "123456"
     static let uid = "Riuk4w3AeeczuqTYjSCRcPsanDC2"
     static let conversationFilters = IMConversationFilter.allCases
+    static let carLeadData = IMLeadCarInfo(make: "2020", model: "Benz", mileage: 125000, year: 2020, source: "Manual", price: "40K")
     
     static let notifications: [RMNotification] = [
         .init(username: "Shaun",

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class ConversationVC: UIViewController {
     // MARK: - properties
@@ -29,19 +30,36 @@ class ConversationVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
+        if viewModel.chat == nil {
+            self.viewModel.getChat { [weak self] chat in
+                guard let self = self else { return }
+                if chat == nil {
+                    self.showError(message: "There is no conversation with this information", duration: 2)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {[weak self] in
+                        guard let self = self else { return }
+                        self.backButtonDidTouched()
+                    }
+                }
+                self.configView()
+            }
+        }
         viewModel.getMessages { [weak self] result in
             guard let self = self else { return }
             
             switch result {
-            case .success(let success):
-                self.customView.configView(with: success, for: self.viewModel.chat)
+            case .success:
+                self.configView()
                 
             case .failure(let failure):
                 Logger.log(.error, failure.localizedDescription)
                 self.showError(message: failure.localizedDescription)
             }
         }
-        
+    }
+    
+    func configView() {
+        guard let messages = viewModel.messageList, let chat = viewModel.chat else {return}
+        self.customView.configView(with: messages, for: chat)
     }
     
     // MARK: - prepare UI
@@ -53,6 +71,25 @@ class ConversationVC: UIViewController {
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(CustomTabBarView.Height)
         }
+    }
+    
+    override func showError(message: String, duration: TimeInterval = ToastManager.shared.duration) {
+        var style = ToastStyle()
+        style.backgroundColor = .ui.cancel
+        style.titleFont = .Fonts.bold(17)
+        style.messageFont = .Fonts.normal(14)
+        style.titleAlignment = .center
+        style.messageAlignment = .center
+        style.messageColor = .ui.white
+        style.titleColor = .ui.white
+        style.maxWidthPercentage = 0.94
+        style.verticalPadding = 24
+        
+        self.customView.makeToast(message,
+                            duration: duration,
+                            position: .bottom,
+                            title: "Error",
+                            style: style, completion: nil)
     }
 }
 
@@ -85,9 +122,9 @@ extension ConversationVC: SearchResultViewDelegate {
     }
     
     func setupSearchData() {
-        guard let searchTxt = searchTxt else { return }
+        guard let searchTxt = searchTxt, let messageList = viewModel.messageList else { return }
         var messages: [IndexPath] = []
-        for (sectionIndex, section) in viewModel.messageList.enumerated() {
+        for (sectionIndex, section) in messageList.enumerated() {
             for (messageIndex, message) in section.messages.enumerated() {
                 if message.contains(txt: searchTxt) {
                     messages.append(IndexPath(row: messageIndex, section: sectionIndex))
@@ -132,7 +169,8 @@ extension ConversationVC: ConversationNavigationBarViewDelegate {
     }
     
     func aiButtonDidTouched() {
-        let vc = AISettingVC(settings: viewModel.chat.getAISetting(), chatId: viewModel.chat.id ?? "")
+        guard let chat = viewModel.chat else {return}
+        let vc = AISettingVC(settings: chat.getAISetting(), chatId:  chat.id ?? "")
         view.window?.rootViewController?.presentWithSheetPresentation(vc, isDismissable: true)
     }
 }
@@ -140,7 +178,26 @@ extension ConversationVC: ConversationNavigationBarViewDelegate {
 // MARK: - input bar delegate
 extension ConversationVC: ChatInputBarViewDelegate {
     func sendMessage(with text: String) {
+        let id = UUID().uuidString
+        let tempMessage = RMMessage(id: id, content: text, receive: false, timestamp: Date().timeIntervalSince1970 * 1000)
+        if let index = self.viewModel.replaceMessage(message: tempMessage).findMessageIndex(with: id) {
+            self.customView.insertMessage(to: viewModel.messageList ?? [], index: index)
+        }
         
+        viewModel.sendMessage(with: text) { [weak self] message in
+            guard let self = self else { return }
+            if var newMessage = message {
+                newMessage.id = id
+                let datSource = self.viewModel.replaceMessage(message: newMessage).messageList ?? []
+                self.customView.updateDataSource(with: datSource)
+            } else {
+                self.showError(message: "Something went wrong!")
+                if let index = viewModel.findMessageIndex(with: id) {
+                    let dataSource = self.viewModel.deleteMessage(with: id).messageList ?? []
+                    self.customView.removeMessage(for: dataSource, index: index)
+                }
+            }
+        }
     }
     
     func aiTimerDidTap() {

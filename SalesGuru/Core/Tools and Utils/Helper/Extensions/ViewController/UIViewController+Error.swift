@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Toast_Swift
 
 extension UIViewController {
-    func showError(message: String) {
-        CustomToast(view: self.view).show(error: message)
+   @objc func showError(message: String, duration: TimeInterval = ToastManager.shared.duration) {
+        CustomToast(view: self.view).show(error: message, duration)
     }
 }

@@ -100,10 +100,9 @@ extension ChatInputBarView {
     }
     
     @objc private func sendButtonDidTouched() {
-        guard textView.textColor == emptyTextColor else {return}
+        guard textView.textColor != emptyTextColor else {return}
         self.delegate?.sendMessage(with: textView.text.trimmingCharacters(in: .whitespacesAndNewlines))
-        self.textView.text = placeholder
-        self.textView.textColor = emptyTextColor
+        self.textView.text = ""
     }
 }
 
@@ -116,9 +115,8 @@ extension ChatInputBarView: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        self.buttonEnabled = !textView.text.isEmpty && textView.textColor == emptyTextColor
+        self.buttonEnabled = !textView.text.isEmpty && textView.textColor != emptyTextColor
     }
-    
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {

@@ -21,6 +21,7 @@ final class ChatsVM: NSObject {
             
             switch result {
             case .success(let data):
+                Logger.log(.info, data.first?.id)
                 self.data = data.filter({$0.lastMessage != nil}).sorted(by: {$0.timestamp > $1.timestamp})
                 callback(.success(self.getData()))
             case .failure(let failure):
@@ -31,7 +32,6 @@ final class ChatsVM: NSObject {
     
     func getData() -> [RMChat] {
         var result: [RMChat]
-        
         switch filter {
         case .all:
             result = self.data

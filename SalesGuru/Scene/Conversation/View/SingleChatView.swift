@@ -108,7 +108,7 @@ class SingleChatView: UIView {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(navBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(bottomStack.snp.top)
         }
         
         bottomStack.snp.makeConstraints { make in
@@ -152,6 +152,31 @@ class SingleChatView: UIView {
         searchResult.clear()
         self.searchResult.isHidden = hide
         self.inputBar.isHidden = !hide
+    }
+    
+    func insertMessage(to dataSource: [MessageSections], index: IndexPath, scrollToIndex: Bool = true) {
+        self.dataSource = dataSource
+        self.tableView.performBatchUpdates {
+            self.tableView.insertRows(at: [index], with: .right)
+        } completion: { completed in
+            if completed {
+                self.tableView.scrollToRow(at: index, at: .bottom, animated: true)
+            }
+        }
+    }
+    
+    func removeMessage(for dataSource: [MessageSections], index: IndexPath) {
+        self.dataSource = dataSource
+        self.tableView.performBatchUpdates {
+            self.tableView.deleteRows(at: [index], with: .right)
+        }
+    }
+    
+    func updateDataSource(with dataSource: [MessageSections], reloadData: Bool = false) {
+        self.dataSource = dataSource
+        if reloadData {
+            self.tableView.reloadData()
+        }
     }
 }
 

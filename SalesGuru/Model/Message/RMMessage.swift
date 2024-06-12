@@ -12,16 +12,25 @@ struct MessageSections {
     let id = UUID()
     let date: Date
     var messages: [RMMessage]
+    
+    func containMessage(with id: String?) -> Bool {
+        messages.contains(where: {$0.id == id})
+    }
+    
+    mutating func replace(message: RMMessage) {
+        self.messages.replaceOrAppend(message, firstMatchingKeyPath: \.id)
+    }
 }
 
 struct RMMessage: Codable {
-    let history: AIHistory?
-    let content: String?
-    let read, receive: Bool?
-    let sender: String?
-    let status: Int?
-    let timestamp: Double?
-    let twilioID: String?
+    var id: String?
+    var history: AIHistory?
+    var content: String?
+    var read, receive: Bool?
+    var sender: String?
+    var status: Int?
+    var timestamp: Double?
+    var twilioID: String?
     
     var date: Date {
         return Date(timeIntervalSince1970: (timestamp ?? 0)/1000)
@@ -36,6 +45,15 @@ struct RMMessage: Codable {
         case status
         case timestamp
         case twilioID
+    }
+    
+    
+    init(id: String, content: String, receive: Bool, timestamp: Double) {
+        self.id = id
+        self.content = content
+        self.receive = receive
+        self.timestamp = timestamp
+        self.sender = "Sender"
     }
     
     init(from decoder: any Decoder) throws {
@@ -74,10 +92,11 @@ struct RMMessageParser: FirebaseParser {
         }
         
         let decoder = JSONDecoder()
-        let carsArray = dictionary.compactMap { (_, value) -> RMMessage? in
+        let carsArray = dictionary.compactMap { (key, value) -> RMMessage? in
             if let dictionary = value as? [String: Any],
                let jsonData = try? JSONSerialization.data(withJSONObject: dictionary),
-               let message = try? decoder.decode(RMMessage.self, from: jsonData) {
+               var message = try? decoder.decode(RMMessage.self, from: jsonData) {
+                message.id = key
                 return message
             }
             return nil
@@ -86,4 +105,8 @@ struct RMMessageParser: FirebaseParser {
     }
     
     
+}
+
+struct RMSingleMessageParser: FirebaseParser {
+    typealias T = RMMessage
 }

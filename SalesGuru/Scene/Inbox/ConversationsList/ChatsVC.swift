@@ -19,8 +19,7 @@ class ChatsVC: UIViewController {
         navigationController?.isNavigationBarHidden = true
         navigationController?.setNavigationBarHidden(true, animated: false)
         prepareUI()
-//        getData()
-        self.customView.setData(data: [])
+        getData()
     }
     
     // MARK: - prepare UI

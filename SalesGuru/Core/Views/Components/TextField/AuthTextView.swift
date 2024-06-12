@@ -97,6 +97,11 @@ class AuthTextView: UIView {
         self.title.isHidden = true
         self.title.textColor = UIColor(p3: "#8B8989")
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        _ = self.textView.becomeFirstResponder()
+        return super.becomeFirstResponder()
+    }
 }
 
 // MARK: - responder delegate

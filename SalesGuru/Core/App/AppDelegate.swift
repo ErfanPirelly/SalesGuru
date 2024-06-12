@@ -18,12 +18,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppConfig.config()
         // MARK: - Firebase Config
         AppConfig.configureFirebase(notification: self, messagingDelegate: self, application: application)
-        CoreDependence(window).execute()
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        CoreDependence(window).execute()
         let view = SplashVC.instantiate(storyboard: .splash)
         self.window?.rootViewController = view
         self.window?.makeKeyAndVisible()
+        return true
+    }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity,
+     restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        guard let url = userActivity.webpageURL else {return false}
+        let deepLink: DeepLinkDependency = inject()
+        
+        let host = url.host
+        let chatID = url.lastPathComponent
+        deepLink.setDeepLink(deepLink: .chat(view: ChatDeepLinkView(id: chatID)))
         return true
     }
 }

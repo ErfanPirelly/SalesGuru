@@ -196,6 +196,7 @@
 		E474F0652C04F8FA0010489B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E474F0642C04F8FA0010489B /* GoogleService-Info.plist */; };
 		E474F0692C04FB420010489B /* RegisterWithEmailPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474F0682C04FB420010489B /* RegisterWithEmailPasswordView.swift */; };
 		E474F06C2C04FCE90010489B /* PersonalInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E474F06B2C04FCE90010489B /* PersonalInfoView.swift */; };
+		E47F3B202C174F930030FE30 /* CreateLeadVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F3B1F2C174F930030FE30 /* CreateLeadVM.swift */; };
 		E481D2192BD7DDD800C1A018 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481D2182BD7DDD800C1A018 /* CustomTabBarView.swift */; };
 		E481D21C2BD7DE0300C1A018 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481D21B2BD7DE0300C1A018 /* HomeVM.swift */; };
 		E481D21E2BD7DEBB00C1A018 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481D21D2BD7DEBB00C1A018 /* TabBarItem.swift */; };
@@ -216,11 +217,17 @@
 		E483255D2C0DC779009E8C7C /* AISettingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E483255C2C0DC779009E8C7C /* AISettingVC.swift */; };
 		E483255F2C0DC7BF009E8C7C /* IMAISetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E483255E2C0DC7BF009E8C7C /* IMAISetting.swift */; };
 		E48325622C0DCF08009E8C7C /* AISettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48325612C0DCF08009E8C7C /* AISettingVM.swift */; };
+		E49427562C19E6890024E707 /* RMLead.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49427552C19E6890024E707 /* RMLead.swift */; };
+		E49427582C19F4F10024E707 /* RMJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49427572C19F4F10024E707 /* RMJSON.swift */; };
+		E494275A2C1A0FFB0024E707 /* RMKeyIDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49427592C1A0FFB0024E707 /* RMKeyIDModel.swift */; };
 		E49EC33E2C0226F8002C5DE7 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EC33D2C0226F8002C5DE7 /* LoginVM.swift */; };
 		E49EC3412C02283B002C5DE7 /* SMLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EC3402C02283B002C5DE7 /* SMLogin.swift */; };
 		E49EC3442C02292A002C5DE7 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EC3432C02292A002C5DE7 /* AuthVC.swift */; };
 		E49EC3462C02294B002C5DE7 /* UserFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EC3452C02294B002C5DE7 /* UserFlow.swift */; };
 		E49EC3492C022A44002C5DE7 /* UIViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49EC3482C022A44002C5DE7 /* UIViewController+Error.swift */; };
+		E4A0A2E52C1600340008FEC4 /* DeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A0A2E42C1600340008FEC4 /* DeepLink.swift */; };
+		E4A0A2E72C16036B0008FEC4 /* DeeplinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A0A2E62C16036B0008FEC4 /* DeeplinkView.swift */; };
+		E4A0A2EB2C1609090008FEC4 /* CustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A0A2EA2C1609090008FEC4 /* CustomEvent.swift */; };
 		E4A1334C2C0DE62D0079B37C /* ChatSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1334B2C0DE62D0079B37C /* ChatSearchBar.swift */; };
 		E4A1334F2C0E01810079B37C /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1334E2C0E01810079B37C /* SearchResultView.swift */; };
 		E4A133542C0E0D930079B37C /* BaseProfileInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A133532C0E0D930079B37C /* BaseProfileInfoCell.swift */; };
@@ -229,6 +236,7 @@
 		E4A1335C2C10815C0079B37C /* LeadProfileInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1335B2C10815C0079B37C /* LeadProfileInfoView.swift */; };
 		E4A1335E2C1087F00079B37C /* CreateLeadAISettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1335D2C1087F00079B37C /* CreateLeadAISettingView.swift */; };
 		E4A133602C1098300079B37C /* AuthTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A1335F2C1098300079B37C /* AuthTextView.swift */; };
+		E4A133632C11B0D60079B37C /* IMCreateLead.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A133622C11B0D60079B37C /* IMCreateLead.swift */; };
 		E4AA91EA2BDFA40B00996A18 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91E92BDFA40B00996A18 /* SettingsView.swift */; };
 		E4AA91ED2BDFAC6E00996A18 /* SettingVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91EC2BDFAC6E00996A18 /* SettingVM.swift */; };
 		E4AA91F02BDFAE7400996A18 /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4AA91EF2BDFAE7400996A18 /* SettingsTVC.swift */; };
@@ -445,6 +453,7 @@
 		E474F0642C04F8FA0010489B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E474F0682C04FB420010489B /* RegisterWithEmailPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterWithEmailPasswordView.swift; sourceTree = "<group>"; };
 		E474F06B2C04FCE90010489B /* PersonalInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoView.swift; sourceTree = "<group>"; };
+		E47F3B1F2C174F930030FE30 /* CreateLeadVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeadVM.swift; sourceTree = "<group>"; };
 		E481D2182BD7DDD800C1A018 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		E481D21B2BD7DE0300C1A018 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 		E481D21D2BD7DEBB00C1A018 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
@@ -465,11 +474,17 @@
 		E483255C2C0DC779009E8C7C /* AISettingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISettingVC.swift; sourceTree = "<group>"; };
 		E483255E2C0DC7BF009E8C7C /* IMAISetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMAISetting.swift; sourceTree = "<group>"; };
 		E48325612C0DCF08009E8C7C /* AISettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISettingVM.swift; sourceTree = "<group>"; };
+		E49427552C19E6890024E707 /* RMLead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMLead.swift; sourceTree = "<group>"; };
+		E49427572C19F4F10024E707 /* RMJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMJSON.swift; sourceTree = "<group>"; };
+		E49427592C1A0FFB0024E707 /* RMKeyIDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMKeyIDModel.swift; sourceTree = "<group>"; };
 		E49EC33D2C0226F8002C5DE7 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		E49EC3402C02283B002C5DE7 /* SMLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMLogin.swift; sourceTree = "<group>"; };
 		E49EC3432C02292A002C5DE7 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
 		E49EC3452C02294B002C5DE7 /* UserFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFlow.swift; sourceTree = "<group>"; };
 		E49EC3482C022A44002C5DE7 /* UIViewController+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Error.swift"; sourceTree = "<group>"; };
+		E4A0A2E42C1600340008FEC4 /* DeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLink.swift; sourceTree = "<group>"; };
+		E4A0A2E62C16036B0008FEC4 /* DeeplinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkView.swift; sourceTree = "<group>"; };
+		E4A0A2EA2C1609090008FEC4 /* CustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEvent.swift; sourceTree = "<group>"; };
 		E4A1334B2C0DE62D0079B37C /* ChatSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSearchBar.swift; sourceTree = "<group>"; };
 		E4A1334E2C0E01810079B37C /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		E4A133532C0E0D930079B37C /* BaseProfileInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseProfileInfoCell.swift; sourceTree = "<group>"; };
@@ -478,6 +493,7 @@
 		E4A1335B2C10815C0079B37C /* LeadProfileInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadProfileInfoView.swift; sourceTree = "<group>"; };
 		E4A1335D2C1087F00079B37C /* CreateLeadAISettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLeadAISettingView.swift; sourceTree = "<group>"; };
 		E4A1335F2C1098300079B37C /* AuthTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTextView.swift; sourceTree = "<group>"; };
+		E4A133622C11B0D60079B37C /* IMCreateLead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMCreateLead.swift; sourceTree = "<group>"; };
 		E4AA91E92BDFA40B00996A18 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E4AA91EC2BDFAC6E00996A18 /* SettingVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingVM.swift; sourceTree = "<group>"; };
 		E4AA91EF2BDFAE7400996A18 /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
@@ -1037,6 +1053,7 @@
 		E414D7D82BD79346007A22D7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E4A133612C11B0CC0079B37C /* Lead */,
 				E442D37B2C0B5FFB004305BB /* Notification */,
 				E442D34A2C09FF4A004305BB /* Message */,
 				E42F52C62C05EF7C00C93299 /* Chat */,
@@ -1054,6 +1071,8 @@
 				E414D7EC2BD7967E007A22D7 /* RMAppConfig.swift */,
 				E414D7D92BD7935F007A22D7 /* RMEmpty.swift */,
 				E414D7DA2BD7935F007A22D7 /* RMError.swift */,
+				E49427572C19F4F10024E707 /* RMJSON.swift */,
+				E49427592C1A0FFB0024E707 /* RMKeyIDModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1077,7 +1096,9 @@
 		E414D7E62BD79622007A22D7 /* Dependency */ = {
 			isa = PBXGroup;
 			children = (
+				E4A0A2E32C1600180008FEC4 /* Deeplink */,
 				E414D7E92BD7963A007A22D7 /* Config */,
+				E4A0A2EA2C1609090008FEC4 /* CustomEvent.swift */,
 			);
 			path = Dependency;
 			sourceTree = "<group>";
@@ -1541,6 +1562,15 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		E4A0A2E32C1600180008FEC4 /* Deeplink */ = {
+			isa = PBXGroup;
+			children = (
+				E4A0A2E42C1600340008FEC4 /* DeepLink.swift */,
+				E4A0A2E62C16036B0008FEC4 /* DeeplinkView.swift */,
+			);
+			path = Deeplink;
+			sourceTree = "<group>";
+		};
 		E4A133492C0DE51B0079B37C /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -1593,6 +1623,7 @@
 			children = (
 				E4A133562C0F67A40079B37C /* View */,
 				E4A133592C0F73610079B37C /* CreateLeadMainVC.swift */,
+				E47F3B1F2C174F930030FE30 /* CreateLeadVM.swift */,
 			);
 			path = CreateLead;
 			sourceTree = "<group>";
@@ -1605,6 +1636,15 @@
 				E4A1335D2C1087F00079B37C /* CreateLeadAISettingView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E4A133612C11B0CC0079B37C /* Lead */ = {
+			isa = PBXGroup;
+			children = (
+				E4A133622C11B0D60079B37C /* IMCreateLead.swift */,
+				E49427552C19E6890024E707 /* RMLead.swift */,
+			);
+			path = Lead;
 			sourceTree = "<group>";
 		};
 		E4AA91E82BDFA3FE00996A18 /* View */ = {
@@ -1867,6 +1907,7 @@
 				E481D22A2BD7E8FE00C1A018 /* SettinsVC.swift in Sources */,
 				E41B44F82C0C942C00922382 /* DisableAIVC.swift in Sources */,
 				E414D7C82BD792DA007A22D7 /* AEOTPTextFieldImplementation.swift in Sources */,
+				E4A0A2E72C16036B0008FEC4 /* DeeplinkView.swift in Sources */,
 				E414D7ED2BD7967E007A22D7 /* RMAppConfig.swift in Sources */,
 				E414D7552BD7917F007A22D7 /* UITableView.swift in Sources */,
 				E414D7612BD7917F007A22D7 /* Utills.swift in Sources */,
@@ -1926,10 +1967,12 @@
 				E414D6BB2BD78F20007A22D7 /* CustomErrorWithActionCode.swift in Sources */,
 				E414D7342BD7917E007A22D7 /* AImages.swift in Sources */,
 				E414D7CE2BD792DA007A22D7 /* UICollectionView.swift in Sources */,
+				E47F3B202C174F930030FE30 /* CreateLeadVM.swift in Sources */,
 				E414D6C42BD78F20007A22D7 /* AuthManager.swift in Sources */,
 				E414D7452BD7917F007A22D7 /* DefaultManagerExtension.swift in Sources */,
 				E4F0A31C2BF8AFA300D0DF32 /* SingleChatView.swift in Sources */,
 				E42F52C32C05E68100C93299 /* FirebaseRoutes.swift in Sources */,
+				E4A0A2E52C1600340008FEC4 /* DeepLink.swift in Sources */,
 				E414D7DE2BD7935F007A22D7 /* RMError.swift in Sources */,
 				E414D6DE2BD78F20007A22D7 /* FirebaseDataParser.swift in Sources */,
 				E414D7402BD7917F007A22D7 /* UIView+Frame.swift in Sources */,
@@ -1938,6 +1981,7 @@
 				E414D6E02BD78F20007A22D7 /* RestDataParser.swift in Sources */,
 				E44177B32C00BCDC00819976 /* NSNotification+Extensions.swift in Sources */,
 				E4A1335C2C10815C0079B37C /* LeadProfileInfoView.swift in Sources */,
+				E4A0A2EB2C1609090008FEC4 /* CustomEvent.swift in Sources */,
 				E41B44FF2C0CABFB00922382 /* CustomButton.swift in Sources */,
 				E442D3612C0B25A7004305BB /* CompanyInfoVC.swift in Sources */,
 				E414D6C02BD78F20007A22D7 /* MuckDataGenerator.swift in Sources */,
@@ -1962,6 +2006,7 @@
 				E49EC33E2C0226F8002C5DE7 /* LoginVM.swift in Sources */,
 				E40B9DBE2BDE802E00AC78FB /* ConversationTVC.swift in Sources */,
 				E414D7BD2BD792DA007A22D7 /* LabelRegular.swift in Sources */,
+				E49427582C19F4F10024E707 /* RMJSON.swift in Sources */,
 				E414D6DF2BD78F20007A22D7 /* LoadView.swift in Sources */,
 				E414D6D72BD78F20007A22D7 /* CustomToast.swift in Sources */,
 				E414D7CD2BD792DA007A22D7 /* ViewControllerTitle.swift in Sources */,
@@ -2037,7 +2082,9 @@
 				E414D6C62BD78F20007A22D7 /* ResponseModel.swift in Sources */,
 				E414D7B92BD792D9007A22D7 /* BaseLabel.swift in Sources */,
 				E44177BA2C00CB4500819976 /* AuthTextFieldBox.swift in Sources */,
+				E49427562C19E6890024E707 /* RMLead.swift in Sources */,
 				E44177BC2C00D0A800819976 /* LoginVC.swift in Sources */,
+				E4A133632C11B0D60079B37C /* IMCreateLead.swift in Sources */,
 				E414D74D2BD7917F007A22D7 /* UIButton+UIImage.swift in Sources */,
 				E481D2272BD7E8D200C1A018 /* CalendarVC.swift in Sources */,
 				E474F06C2C04FCE90010489B /* PersonalInfoView.swift in Sources */,
@@ -2061,6 +2108,7 @@
 				E442D3552C0B177B004305BB /* RegisterVM.swift in Sources */,
 				E442D37A2C0B5DC9004305BB /* NotificationCell.swift in Sources */,
 				E414D7D32BD792DA007A22D7 /* StackView.swift in Sources */,
+				E494275A2C1A0FFB0024E707 /* RMKeyIDModel.swift in Sources */,
 				E4F0A3122BF8A4BB00D0DF32 /* ConversationFilterView.swift in Sources */,
 				E414D7B52BD792D9007A22D7 /* RoundImageView.swift in Sources */,
 				E481D2212BD7E01100C1A018 /* TabBarItemView.swift in Sources */,

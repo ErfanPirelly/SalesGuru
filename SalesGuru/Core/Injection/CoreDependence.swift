@@ -13,10 +13,14 @@ class CoreDependence: DependenceProviders {
         let defaultsStore = UserManager()
         let fileManager = FileManagerService.shared
         let authManager = AuthManager(userManager: defaultsStore)
+        let customEvent = CustomEvent(window: window)
+        let deepLink = DeepLinkDependency(event: customEvent)
         
         registerService(service: fileManager)
         registerService(service: authManager)
         registerService(service: defaultsStore)
+        registerService(service: customEvent)
+        registerService(service: deepLink)
     }
 }
 

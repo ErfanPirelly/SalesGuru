@@ -19,7 +19,6 @@ final class CustomToast: NSObject {
 // MARK: - Methods
 
 extension CustomToast {
-    
     func show(error message: String?,_ duration: TimeInterval = ToastManager.shared.duration) {
         var style = ToastStyle()
         style.backgroundColor = .ui.cancel
@@ -61,6 +60,7 @@ extension CustomToast {
         style.messageAlignment = .center
         style.messageColor = .ui.white
         style.titleColor = .ui.white
+        
         self.view.makeToast(message, duration: duration,
                             position: .bottom,
                             title: nil,
