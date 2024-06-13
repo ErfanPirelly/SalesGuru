@@ -86,7 +86,7 @@ class SingleChatView: UIView {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        tableView.contentInset.bottom = 24
+        tableView.contentInset.bottom = 48
         addSubview(tableView)
     }
     

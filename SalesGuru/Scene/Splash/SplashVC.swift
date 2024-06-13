@@ -11,6 +11,7 @@ class SplashVC: UIViewController {
     // MARK: - properties
     @IBOutlet weak var versionLabel: UILabel!
     private let userManager: UserManager = inject()
+    private let auth: AuthManager = inject()
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     // MARK: - life cycle
@@ -21,7 +22,7 @@ class SplashVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Logger.log(.info, userManager.email, userManager.uid)
+        Logger.log(.info, auth.auth.currentUser?.email, auth.auth.currentUser?.uid)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 #if DEBUG
             self.testFlow()

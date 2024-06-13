@@ -10,6 +10,7 @@ import FirebaseStorage
 
 enum FirebaseDatabase: String {
     case salesguru = "https://salesguru.firebaseio.com/"
+    case test = "https://salesagent-testt.firebaseio.com/"
     
     var databaseReference: DatabaseReference {
         return Database.database(url: self.rawValue).reference()
@@ -104,11 +105,10 @@ extension NetworkCore {
     func setValueAndObserve<T: FirebaseParser>(_ dump: T, for path: String, data: Any, callback: @escaping ((Result<T.T, Error>) -> Void)) {
         Logger.log(.info, "clicked for \(path)")
         guard let pushID = databaseRef.child(path).childByAutoId().key else { return }
-        Logger.log(.info, "recieved key for \(path)")
-        
         let childPath = path+"/\(pushID)"
+        Logger.log(.info, "recieved key for \(childPath)")
         databaseRef.child(childPath).setValue(data) { error, _ in
-            Logger.log(.info, "value did set for \(path)")
+            Logger.log(.info, "value did set for \(childPath)")
             if error == nil {
                 self.observe(dump, childPath: childPath, callback: callback)
             } else {

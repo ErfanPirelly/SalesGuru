@@ -20,26 +20,7 @@ protocol FirebaseParser {
 extension FirebaseParser {
     func parseData(data: Any, callback: @escaping ((Result<T, Error>) -> Void)) {
         Logger.log(.info, data)
-        guard let dictionary = data as? Dictionary<String, Any>,
-              let responseModel = DictionaryMapper.decodeDictionaryToModel(dictionary, type: ResponseModel.self),
-              let status = responseModel.status
-        else {
-            Logger.log(.error, "there is no status")
-            return
-        }
-        
-        switch status {
-        case .ended:
-            if let responseData = dictionary["responseData"] {
-                self.parseOnEndedStatus(data: responseData, callback: callback)
-            } else {
-                self.parseOnEndedStatus(data: dictionary, callback: callback)
-            }
-            return
-        case .error:
-            parseError(for: dictionary, callback: callback)
-        case .pending: return
-        }
+        parseOnEndedStatus(data: data, callback: callback)
     }
 
     func parseError(for dictionary: Dictionary<String, Any>, callback: @escaping (Result<T, Error>) -> Void) {

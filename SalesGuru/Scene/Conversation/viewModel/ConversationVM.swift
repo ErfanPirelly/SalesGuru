@@ -62,7 +62,7 @@ final class ConversationVM: NSObject {
             "read": true,
             "sender": "Sender"
         ]
-        let path = FirebaseRoutes.messageRoute()
+        let path = FirebaseRoutes.messageRoute(id: self.id)
         network.setValueAndObserve(RMSingleMessageParser(), for: path, data: data) { [weak self] result in
             guard let self = self else { return }
             switch result {

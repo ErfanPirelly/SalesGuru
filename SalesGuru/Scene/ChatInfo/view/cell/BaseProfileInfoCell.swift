@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum ProfileInfoCellType {
+enum ChatInfoCellType {
     case lead
     case singleRightIcon
     case solid
@@ -19,21 +19,21 @@ enum ProfileInfoCellType {
 
 class BaseProfileInfoCell: UITableViewCell {
     // MARK: - properties
-    static let CellID = "BaseProfileInfoCell"
     private var stack: UIStackView!
-    private let title = UILabel(font: .Quicksand.normal(17),
+    let title = UILabel(font: .Quicksand.normal(17),
                                 textColor: .ui.darkColor1,
                                 alignment: .left)
     open var rightStacK: UIStackView!
-    private let rightIcon = UIImageView(image: .init(systemName: "chevron.right"))
-    private let lightLabel = UILabel(font: .Quicksand.normal(17),
+    let rightIcon = UIImageView(image: .init(systemName: "chevron.right"))
+    let lightLabel = UILabel(font: .Quicksand.normal(17),
                                      textColor: .ui.darkColor1.withAlphaComponent(0.35),
                                      alignment: .center)
-    private let leadIcon = UIImageView()
-    private let darkLabel = UILabel(font: .Quicksand.medium(12),
+    let leadIcon = UIImageView()
+    let darkLabel = UILabel(font: .Quicksand.medium(12),
                                     textColor: .ui.darkColor1,
                                     alignment: .center)
-    private let rightButton = NavBatButton(type: .system)
+    let rightButton = NavBatButton(type: .system)
+    var model: UIModelChatProtocol?
     
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -47,11 +47,7 @@ class BaseProfileInfoCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        leadIcon.isHidden = true
-        darkLabel.isHidden = true
-        rightButton.isHidden = true
-        lightLabel.isHidden = true
-        rightIcon.isHidden = true
+        hideViews()
     }
     
     // MARK: - prepare UI
@@ -73,6 +69,8 @@ class BaseProfileInfoCell: UITableViewCell {
     }
     
     private func setupRightStack() {
+        rightIcon.tintColor = .ui.darkColor1.withAlphaComponent(0.2)
+        rightButton.isUserInteractionEnabled = false
         rightStacK = .init(distribution: .equalCentering, spacing: 4, arrangedSubviews: [leadIcon, lightLabel, darkLabel, rightButton, rightIcon])
     }
     
@@ -87,32 +85,18 @@ class BaseProfileInfoCell: UITableViewCell {
         rightButton.applyCorners(to: .all, with: 16)
     }
     
+    private func hideViews() {
+        leadIcon.isHidden = true
+        darkLabel.isHidden = true
+        rightButton.isHidden = true
+        lightLabel.isHidden = true
+        rightIcon.isHidden = true
+    }
     
-    func fill(cell with: ProfileInfoCellType) {
-        switch with {
-        case .lead:
-            leadIcon.isHidden = false
-            lightLabel.isHidden = false
-            rightIcon.isHidden = false
-            
-        case .singleRightIcon:
-            rightIcon.isHidden = false
-            
-        case .solid:
-            darkLabel.isHidden = false
-            
-        case .singleButton:
-            rightButton.isHidden = false
-            
-        case .textButton:
-            rightButton.isHidden = false
-            lightLabel.isHidden = false
-            
-        case .textRightIcon:
-            rightIcon.isHidden = false
-            lightLabel.isHidden = false
-            
-        case .empty: break
-        }
+    func fill(cell with: UIModelChatProtocol) {
+        hideViews()
+        self.title.textColor = .ui.darkColor1
+        self.title.text = with.title
+        self.model = with
     }
 }

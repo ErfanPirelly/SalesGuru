@@ -10,10 +10,11 @@ import Foundation
 struct RMLeadModel: Codable {
     var VINNumber, dealerName, email: String?
     var firstName, lastName, make: String?
-    var mileage, model, phoneNumber: String?
-    var priceOnWebsite, source: String?
+    var model, phoneNumber: String?
+    var priceOnWebsite, mileage: Int?
+    var source: String?
     var timestamp: Double?
-    var year: String?
+    var year: Int?
     var isCarSold: Bool?
     
     // decoding extra variables
@@ -31,23 +32,30 @@ struct RMLeadModel: Codable {
    
         self.model = try? container.decodeIfPresent(String.self, forKey: .model)
         self.phoneNumber = try? container.decodeIfPresent(String.self, forKey: .phoneNumber)
-        self.priceOnWebsite = try? container.decodeIfPresent(String.self, forKey: .priceOnWebsite)
+        
         self.source = try? container.decodeIfPresent(String.self, forKey: .source)
         self.timestamp = try? container.decodeIfPresent(Double.self, forKey: .timestamp)
         
         // year
         if let yearStr = try? container.decodeIfPresent(String.self, forKey: .year) {
-            self.year = yearStr
-        } else if let year =  try? container.decodeIfPresent(String.self, forKey: .year) {
-            self.year = "\(year)"
+            self.year = Int(yearStr)
+        } else if let year =  try? container.decodeIfPresent(Int.self, forKey: .year) {
+            self.year = year
         }
         
         // milage
         if let mileageStr = try? container.decodeIfPresent(String.self, forKey: .mileage) {
-            self.mileage = mileageStr
-        } else if let mileage =  try? container.decodeIfPresent(String.self, forKey: .mileage) {
-            self.mileage = "\(mileage)"
+            self.mileage = Int(mileageStr)
+        } else if let mileage =  try? container.decodeIfPresent(Int.self, forKey: .mileage) {
+            self.mileage = mileage
         }
+        
+        if let priceStr = try? container.decodeIfPresent(String.self, forKey: .priceOnWebsite) {
+            self.priceOnWebsite = Int(priceStr)
+        } else if let price = try? container.decodeIfPresent(Int.self, forKey: .priceOnWebsite) {
+            self.priceOnWebsite = price
+        }
+        
         self.isCarSold = try? container.decodeIfPresent(Bool.self, forKey: .isCarSold)
     }
 }

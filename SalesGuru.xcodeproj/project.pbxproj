@@ -255,6 +255,18 @@
 		E4F0A3142BF8A4C900D0DF32 /* ConversationFilterCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F0A3132BF8A4C900D0DF32 /* ConversationFilterCVC.swift */; };
 		E4F0A3162BF8A8D800D0DF32 /* IMConversationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F0A3152BF8A8D800D0DF32 /* IMConversationFilter.swift */; };
 		E4F0A31C2BF8AFA300D0DF32 /* SingleChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F0A31B2BF8AFA300D0DF32 /* SingleChatView.swift */; };
+		E4F1E6842C1B260200B96587 /* ChatProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6832C1B260200B96587 /* ChatProfileVM.swift */; };
+		E4F1E6862C1B26F600B96587 /* UIModelChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6852C1B26F600B96587 /* UIModelChat.swift */; };
+		E4F1E6882C1B33B700B96587 /* ChatLeadTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6872C1B33B700B96587 /* ChatLeadTVC.swift */; };
+		E4F1E68A2C1B345300B96587 /* ChatSolidTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6892C1B345300B96587 /* ChatSolidTVC.swift */; };
+		E4F1E68C2C1B34D100B96587 /* ChatSingleButtonTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E68B2C1B34D100B96587 /* ChatSingleButtonTVC.swift */; };
+		E4F1E68E2C1B350400B96587 /* ChatSingleRightIconTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E68D2C1B350400B96587 /* ChatSingleRightIconTVC.swift */; };
+		E4F1E6902C1B352300B96587 /* ChatTextButtonTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E68F2C1B352300B96587 /* ChatTextButtonTVC.swift */; };
+		E4F1E6922C1B355900B96587 /* ChatTextRightIconTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6912C1B355900B96587 /* ChatTextRightIconTVC.swift */; };
+		E4F1E6942C1B359200B96587 /* ChatEmptyTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6932C1B359200B96587 /* ChatEmptyTVC.swift */; };
+		E4F1E6962C1B367700B96587 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6952C1B367700B96587 /* ChatInfoView.swift */; };
+		E4F1E6982C1B392100B96587 /* ChatInfoTVH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6972C1B392100B96587 /* ChatInfoTVH.swift */; };
+		E4F1E69A2C1B3A4D00B96587 /* ChatInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6992C1B3A4D00B96587 /* ChatInfoVC.swift */; };
 		E4FC5A182BD7ECA800B701FA /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FC5A172BD7ECA800B701FA /* TabbarVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -512,6 +524,18 @@
 		E4F0A3132BF8A4C900D0DF32 /* ConversationFilterCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationFilterCVC.swift; sourceTree = "<group>"; };
 		E4F0A3152BF8A8D800D0DF32 /* IMConversationFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMConversationFilter.swift; sourceTree = "<group>"; };
 		E4F0A31B2BF8AFA300D0DF32 /* SingleChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleChatView.swift; sourceTree = "<group>"; };
+		E4F1E6832C1B260200B96587 /* ChatProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatProfileVM.swift; sourceTree = "<group>"; };
+		E4F1E6852C1B26F600B96587 /* UIModelChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModelChat.swift; sourceTree = "<group>"; };
+		E4F1E6872C1B33B700B96587 /* ChatLeadTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLeadTVC.swift; sourceTree = "<group>"; };
+		E4F1E6892C1B345300B96587 /* ChatSolidTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSolidTVC.swift; sourceTree = "<group>"; };
+		E4F1E68B2C1B34D100B96587 /* ChatSingleButtonTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSingleButtonTVC.swift; sourceTree = "<group>"; };
+		E4F1E68D2C1B350400B96587 /* ChatSingleRightIconTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSingleRightIconTVC.swift; sourceTree = "<group>"; };
+		E4F1E68F2C1B352300B96587 /* ChatTextButtonTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextButtonTVC.swift; sourceTree = "<group>"; };
+		E4F1E6912C1B355900B96587 /* ChatTextRightIconTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextRightIconTVC.swift; sourceTree = "<group>"; };
+		E4F1E6932C1B359200B96587 /* ChatEmptyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatEmptyTVC.swift; sourceTree = "<group>"; };
+		E4F1E6952C1B367700B96587 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
+		E4F1E6972C1B392100B96587 /* ChatInfoTVH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoTVH.swift; sourceTree = "<group>"; };
+		E4F1E6992C1B3A4D00B96587 /* ChatInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoVC.swift; sourceTree = "<group>"; };
 		E4FC5A172BD7ECA800B701FA /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1236,7 +1260,7 @@
 			isa = PBXGroup;
 			children = (
 				E4A133552C0F67980079B37C /* CreateLead */,
-				E4A133502C0E0D640079B37C /* Profile */,
+				E4A133502C0E0D640079B37C /* ChatInfo */,
 				E4A133492C0DE51B0079B37C /* Common */,
 				E442D3712C0B47B5004305BB /* Splash */,
 				E44177B42C00C8AB00819976 /* Auth */,
@@ -1265,6 +1289,7 @@
 			children = (
 				E42F52C72C05EFA200C93299 /* RMChat.swift */,
 				E483255E2C0DC7BF009E8C7C /* IMAISetting.swift */,
+				E4F1E6852C1B26F600B96587 /* UIModelChat.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1575,7 +1600,6 @@
 			isa = PBXGroup;
 			children = (
 				E4A1334A2C0DE5260079B37C /* Confirnations */,
-				E4A133532C0E0D930079B37C /* BaseProfileInfoCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1595,18 +1619,21 @@
 			path = search;
 			sourceTree = "<group>";
 		};
-		E4A133502C0E0D640079B37C /* Profile */ = {
+		E4A133502C0E0D640079B37C /* ChatInfo */ = {
 			isa = PBXGroup;
 			children = (
 				E4A133512C0E0D760079B37C /* view */,
+				E4F1E6832C1B260200B96587 /* ChatProfileVM.swift */,
 			);
-			path = Profile;
+			path = ChatInfo;
 			sourceTree = "<group>";
 		};
 		E4A133512C0E0D760079B37C /* view */ = {
 			isa = PBXGroup;
 			children = (
 				E4A133522C0E0D7D0079B37C /* cell */,
+				E4F1E6952C1B367700B96587 /* ChatInfoView.swift */,
+				E4F1E6992C1B3A4D00B96587 /* ChatInfoVC.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1614,6 +1641,15 @@
 		E4A133522C0E0D7D0079B37C /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				E4F1E6872C1B33B700B96587 /* ChatLeadTVC.swift */,
+				E4F1E6932C1B359200B96587 /* ChatEmptyTVC.swift */,
+				E4F1E68D2C1B350400B96587 /* ChatSingleRightIconTVC.swift */,
+				E4F1E68F2C1B352300B96587 /* ChatTextButtonTVC.swift */,
+				E4F1E6912C1B355900B96587 /* ChatTextRightIconTVC.swift */,
+				E4F1E68B2C1B34D100B96587 /* ChatSingleButtonTVC.swift */,
+				E4A133532C0E0D930079B37C /* BaseProfileInfoCell.swift */,
+				E4F1E6892C1B345300B96587 /* ChatSolidTVC.swift */,
+				E4F1E6972C1B392100B96587 /* ChatInfoTVH.swift */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -1924,6 +1960,8 @@
 				E414D7562BD7917F007A22D7 /* UITextField.swift in Sources */,
 				E481D21C2BD7DE0300C1A018 /* HomeVM.swift in Sources */,
 				E414D75E2BD7917F007A22D7 /* UIViewController.swift in Sources */,
+				E4F1E6982C1B392100B96587 /* ChatInfoTVH.swift in Sources */,
+				E4F1E68A2C1B345300B96587 /* ChatSolidTVC.swift in Sources */,
 				E414D7442BD7917F007A22D7 /* Decodable.swift in Sources */,
 				E44177B72C00C9E800819976 /* LoginView.swift in Sources */,
 				E42F52C82C05EFA200C93299 /* RMChat.swift in Sources */,
@@ -1931,6 +1969,7 @@
 				E414D7A92BD792D9007A22D7 /* BackButton.swift in Sources */,
 				E414D7AA2BD792D9007A22D7 /* BaseButton.swift in Sources */,
 				E414D7C72BD792DA007A22D7 /* AEOTPTextFieldDelegate.swift in Sources */,
+				E4F1E6842C1B260200B96587 /* ChatProfileVM.swift in Sources */,
 				E442D3732C0B47C0004305BB /* SplashVC.swift in Sources */,
 				E414D73D2BD7917F007A22D7 /* Array+replaceItem.swift in Sources */,
 				E414D74B2BD7917F007A22D7 /* String+Localized.swift in Sources */,
@@ -1941,6 +1980,7 @@
 				E49EC3442C02292A002C5DE7 /* AuthVC.swift in Sources */,
 				E442D37F2C0B611A004305BB /* NotificationView.swift in Sources */,
 				E442D3592C0B1C50004305BB /* PersonalInfoValidator.swift in Sources */,
+				E4F1E6922C1B355900B96587 /* ChatTextRightIconTVC.swift in Sources */,
 				E41B44F62C0C859700922382 /* DisableAIView.swift in Sources */,
 				E414D7CF2BD792DA007A22D7 /* CustomUISegmentedController.swift in Sources */,
 				E414D6FA2BD7911E007A22D7 /* DependenceProviders.swift in Sources */,
@@ -1966,7 +2006,9 @@
 				E414D7542BD7917F007A22D7 /* UIScreen.swift in Sources */,
 				E414D6BB2BD78F20007A22D7 /* CustomErrorWithActionCode.swift in Sources */,
 				E414D7342BD7917E007A22D7 /* AImages.swift in Sources */,
+				E4F1E6962C1B367700B96587 /* ChatInfoView.swift in Sources */,
 				E414D7CE2BD792DA007A22D7 /* UICollectionView.swift in Sources */,
+				E4F1E68C2C1B34D100B96587 /* ChatSingleButtonTVC.swift in Sources */,
 				E47F3B202C174F930030FE30 /* CreateLeadVM.swift in Sources */,
 				E414D6C42BD78F20007A22D7 /* AuthManager.swift in Sources */,
 				E414D7452BD7917F007A22D7 /* DefaultManagerExtension.swift in Sources */,
@@ -2015,8 +2057,10 @@
 				E414D7532BD7917F007A22D7 /* UINavigationController.swift in Sources */,
 				E42F52C52C05E6D800C93299 /* ChatsVM.swift in Sources */,
 				E414D7BC2BD792D9007A22D7 /* LabelMedium.swift in Sources */,
+				E4F1E6862C1B26F600B96587 /* UIModelChat.swift in Sources */,
 				E4F0A3162BF8A8D800D0DF32 /* IMConversationFilter.swift in Sources */,
 				E414D7B02BD792D9007A22D7 /* UITextImageButton.swift in Sources */,
+				E4F1E6942C1B359200B96587 /* ChatEmptyTVC.swift in Sources */,
 				E481D2242BD7E8A500C1A018 /* ChatsVC.swift in Sources */,
 				E414D7C62BD792DA007A22D7 /* AEOTPTextField.swift in Sources */,
 				E4AA91FA2BDFB79700996A18 /* ReceivedConversationMessageTVC.swift in Sources */,
@@ -2062,6 +2106,7 @@
 				E414D6E12BD78F20007A22D7 /* ReusableView.swift in Sources */,
 				E414D73E2BD7917F007A22D7 /* Array+Safe.swift in Sources */,
 				E414D7B22BD792D9007A22D7 /* RoundedCollectionViewCell.swift in Sources */,
+				E4F1E68E2C1B350400B96587 /* ChatSingleRightIconTVC.swift in Sources */,
 				E414D6F92BD7911E007A22D7 /* CoreDependence.swift in Sources */,
 				E442D3812C0B6A74004305BB /* NotificationVC.swift in Sources */,
 				E4A1334F2C0E01810079B37C /* SearchResultView.swift in Sources */,
@@ -2074,6 +2119,7 @@
 				E414D6D62BD78F20007A22D7 /* AlertManager.swift in Sources */,
 				E414D7BE2BD792DA007A22D7 /* LabelSemiBold.swift in Sources */,
 				E414D74E2BD7917F007A22D7 /* UIColor+Asset.swift in Sources */,
+				E4F1E6902C1B352300B96587 /* ChatTextButtonTVC.swift in Sources */,
 				E414D7B32BD792D9007A22D7 /* AnimatedImageView.swift in Sources */,
 				E481D21E2BD7DEBB00C1A018 /* TabBarItem.swift in Sources */,
 				E414D7602BD7917F007A22D7 /* UIWindow.swift in Sources */,
@@ -2098,6 +2144,7 @@
 				E414D6BD2BD78F20007A22D7 /* CustomDateFormatter.swift in Sources */,
 				E414D7352BD7917E007A22D7 /* CenterModalPresentationController.swift in Sources */,
 				E40B9DC42BDEE83300AC78FB /* MockData.swift in Sources */,
+				E4F1E6882C1B33B700B96587 /* ChatLeadTVC.swift in Sources */,
 				E414D7C42BD792DA007A22D7 /* RoundedTableViewCell.swift in Sources */,
 				E414D7CC2BD792DA007A22D7 /* RightViewTextField.swift in Sources */,
 				E483255B2C0DBFDE009E8C7C /* AISettingCell.swift in Sources */,
@@ -2106,6 +2153,7 @@
 				E414D7582BD7917F007A22D7 /* UItextField+sideView.swift in Sources */,
 				E44177A42C00A15900819976 /* ChatInputBarView.swift in Sources */,
 				E442D3552C0B177B004305BB /* RegisterVM.swift in Sources */,
+				E4F1E69A2C1B3A4D00B96587 /* ChatInfoVC.swift in Sources */,
 				E442D37A2C0B5DC9004305BB /* NotificationCell.swift in Sources */,
 				E414D7D32BD792DA007A22D7 /* StackView.swift in Sources */,
 				E494275A2C1A0FFB0024E707 /* RMKeyIDModel.swift in Sources */,

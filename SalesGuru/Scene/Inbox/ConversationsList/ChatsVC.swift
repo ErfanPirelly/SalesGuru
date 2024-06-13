@@ -69,7 +69,9 @@ extension ChatsVC: ChatViewDelegate {
     }
     
     func didSelect(chat with: RMChat) {
-        let vc = ConversationVC(viewModel: .init(chat: with))
+        let vc = ChatInfoVC(viewModel: .init(chat: with))
+        
+//        let vc = ConversationVC(viewModel: .init(chat: with))
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

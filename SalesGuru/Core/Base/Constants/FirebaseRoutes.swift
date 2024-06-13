@@ -19,13 +19,9 @@ struct FirebaseRoutes {
         return "/conversations/\(uid)"
     }
     
-    static func messageRoute(id: String? = nil) -> String {
+    static func messageRoute(id: String) -> String {
         let uid = userManager.uid ?? ""
-        var path = "/messages/\(uid)"
-        if let id = id {
-           path += "/\(id)"
-        }
-        return path
+        return "/messages/\(uid)/\(id)"
     }
     
     static func createLead() -> String {

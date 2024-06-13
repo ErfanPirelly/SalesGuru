@@ -1,0 +1,25 @@
+//
+//  UIModelChat.swift
+//  SalesGuru
+//
+//  Created by Erfan mac mini on 6/13/24.
+//
+
+import Foundation
+
+protocol UIModelChatProtocol {
+    var type: ChatInfoCellType {get set}
+    var title: String {get set}
+}
+
+
+struct UIModelChat: UIModelChatProtocol {
+    var type: ChatInfoCellType
+    var title: String
+    var value: Any
+}
+
+struct UIModelChatSection {
+    let title: String
+    let rows: [UIModelChatProtocol]
+}

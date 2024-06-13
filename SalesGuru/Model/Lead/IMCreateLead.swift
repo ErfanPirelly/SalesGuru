@@ -24,7 +24,7 @@ struct IMLeadCarInfo {
     let mileage: Int
     let year: Int
     let source: String
-    let price: String
+    let price: Int
 }
 
 
@@ -38,7 +38,7 @@ extension RMLeadModel {
             self.firstName = firstName
         }
         self.lastName = nameComponent.joined(separator: " ")
-        
+        self.phoneNumber = personalInfo.phoneNumber
         // ai setting
         self.description = setting.description
         self.VINNumber = setting.vin
@@ -47,8 +47,9 @@ extension RMLeadModel {
         // car
         self.make = car.make
         self.model = car.model
-        self.year = "\(car.year)"
+        self.year = car.year
         self.source = car.source
+        self.mileage = car.mileage
         self.priceOnWebsite = car.price
     }
     
