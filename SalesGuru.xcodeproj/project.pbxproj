@@ -267,6 +267,8 @@
 		E4F1E6962C1B367700B96587 /* ChatInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6952C1B367700B96587 /* ChatInfoView.swift */; };
 		E4F1E6982C1B392100B96587 /* ChatInfoTVH.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6972C1B392100B96587 /* ChatInfoTVH.swift */; };
 		E4F1E69A2C1B3A4D00B96587 /* ChatInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6992C1B3A4D00B96587 /* ChatInfoVC.swift */; };
+		E4F1E69F2C1C6DF300B96587 /* ChatInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E69E2C1C6DF300B96587 /* ChatInfoHeaderView.swift */; };
+		E4F1E6A12C1C6EAB00B96587 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F1E6A02C1C6EAB00B96587 /* GradientView.swift */; };
 		E4FC5A182BD7ECA800B701FA /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FC5A172BD7ECA800B701FA /* TabbarVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -536,6 +538,8 @@
 		E4F1E6952C1B367700B96587 /* ChatInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoView.swift; sourceTree = "<group>"; };
 		E4F1E6972C1B392100B96587 /* ChatInfoTVH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoTVH.swift; sourceTree = "<group>"; };
 		E4F1E6992C1B3A4D00B96587 /* ChatInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoVC.swift; sourceTree = "<group>"; };
+		E4F1E69E2C1C6DF300B96587 /* ChatInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInfoHeaderView.swift; sourceTree = "<group>"; };
+		E4F1E6A02C1C6EAB00B96587 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		E4FC5A172BD7ECA800B701FA /* TabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1034,6 +1038,7 @@
 			children = (
 				E414D7A02BD792D9007A22D7 /* PanView.swift */,
 				E414D7A12BD792D9007A22D7 /* StackView.swift */,
+				E4F1E6A02C1C6EAB00B96587 /* GradientView.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1634,6 +1639,7 @@
 				E4A133522C0E0D7D0079B37C /* cell */,
 				E4F1E6952C1B367700B96587 /* ChatInfoView.swift */,
 				E4F1E6992C1B3A4D00B96587 /* ChatInfoVC.swift */,
+				E4F1E69E2C1C6DF300B96587 /* ChatInfoHeaderView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -2056,6 +2062,7 @@
 				E414D7BB2BD792D9007A22D7 /* LabelLight.swift in Sources */,
 				E414D7532BD7917F007A22D7 /* UINavigationController.swift in Sources */,
 				E42F52C52C05E6D800C93299 /* ChatsVM.swift in Sources */,
+				E4F1E69F2C1C6DF300B96587 /* ChatInfoHeaderView.swift in Sources */,
 				E414D7BC2BD792D9007A22D7 /* LabelMedium.swift in Sources */,
 				E4F1E6862C1B26F600B96587 /* UIModelChat.swift in Sources */,
 				E4F0A3162BF8A8D800D0DF32 /* IMConversationFilter.swift in Sources */,
@@ -2114,6 +2121,7 @@
 				E414D7472BD7917F007A22D7 /* Label.swift in Sources */,
 				E4AA91F42BDFB77100996A18 /* ConversationVC.swift in Sources */,
 				E4B7D5612BDE426500CFE478 /* HeaderView.swift in Sources */,
+				E4F1E6A12C1C6EAB00B96587 /* GradientView.swift in Sources */,
 				E481D2192BD7DDD800C1A018 /* CustomTabBarView.swift in Sources */,
 				E414D7C02BD792DA007A22D7 /* BasePickerView.swift in Sources */,
 				E414D6D62BD78F20007A22D7 /* AlertManager.swift in Sources */,

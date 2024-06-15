@@ -23,6 +23,18 @@ enum LeadState: String, Codable {
             return "Cold Lead"
         }
     }
+    
+    var chatInfoStr: String {
+        switch self {
+        case .engaged:
+            return "Re Engaged"
+        case .hot:
+            return "Hot"
+        case .cold:
+            return "Cold"
+        }
+    }
+    
     var image: UIImage? {
         switch self {
         case .engaged:
@@ -39,9 +51,17 @@ enum LeadState: String, Codable {
         case .engaged:
             return .ui.green1
         case .hot:
-            return .ui.red1
+            return .ui.red
         case .cold:
             return .ui.primaryBlue
+        }
+    }
+    
+    var secondaryColor: UIColor {
+        switch self {
+        case .engaged: return .init(p3: "#45DB9C")
+        case .hot: return .init(p3: "#CD2929")
+        case .cold: return .init(p3: "#0087D3")
         }
     }
 }

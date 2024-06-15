@@ -33,6 +33,6 @@ class ChatInfoVC: UIViewController {
         view.backgroundColor = .white
         view.addSubview(customView)
         customView.pinToEdge(on: view)
-        customView.config(view: viewModel.generateUIModels())
+        customView.config(view: viewModel.generateUIModels(), headerInfo: viewModel.getHeaderInfo())
     }
 }

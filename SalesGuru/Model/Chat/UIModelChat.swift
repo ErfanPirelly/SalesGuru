@@ -10,6 +10,7 @@ import Foundation
 protocol UIModelChatProtocol {
     var type: ChatInfoCellType {get set}
     var title: String {get set}
+    var value: Any {get set}
 }
 
 
@@ -22,4 +23,12 @@ struct UIModelChat: UIModelChatProtocol {
 struct UIModelChatSection {
     let title: String
     let rows: [UIModelChatProtocol]
+}
+
+struct UIMChatInfo {
+    let lead: LeadState
+    let email: String
+    let phone: String
+    let respondTime: String
+    let userName: String
 }

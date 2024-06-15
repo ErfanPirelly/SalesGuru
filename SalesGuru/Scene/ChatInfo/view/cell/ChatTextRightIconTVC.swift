@@ -16,7 +16,8 @@ final class ChatTextRightIconTVC: BaseProfileInfoCell {
         super.fill(cell: with)
         rightIcon.isHidden = false
         lightLabel.isHidden = false
+        if let value = with.value as? Bool {
+            self.lightLabel.text = value ? "On" : "Off"
+        }
     }
 }
-
-

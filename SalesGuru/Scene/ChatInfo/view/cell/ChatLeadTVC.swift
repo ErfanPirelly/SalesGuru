@@ -15,5 +15,10 @@ final class ChatLeadTVC: BaseProfileInfoCell {
         leadIcon.isHidden = false
         lightLabel.isHidden = false
         rightIcon.isHidden = false
+        if let lead = with.value as? LeadState {
+            self.leadIcon.image = lead.image?.withRenderingMode(.alwaysTemplate)
+            self.leadIcon.tintColor = lead.color
+            self.lightLabel.text = lead.chatInfoStr
+        }
     }
 }

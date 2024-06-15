@@ -16,6 +16,11 @@ final class ChatTextButtonTVC: BaseProfileInfoCell {
         super.fill(cell: with)
         rightButton.isHidden = false
         lightLabel.isHidden = false
+        
+        if let dic = with.value as? Dictionary<String, String> {
+            self.lightLabel.text = dic.first?.key ?? ""
+            self.rightButton.setImage(.get(image: .copy)?.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
     }
 }
 

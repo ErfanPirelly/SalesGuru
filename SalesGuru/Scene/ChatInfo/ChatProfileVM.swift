@@ -28,9 +28,9 @@ final class ChatInfoVM: NSObject {
             UIModelChat(type: .solid, title: "Start Chat", value: Date(timeIntervalSince1970: chat.startChatTs ?? 0).conversationDateFormatter()),
             UIModelChat(type: .solid, title: "Location", value: chat.city ?? "Unknown"),
             UIModelChat(type: .singleButton,
-                  title: (chat.appointmentIsSet ?? false) ? "No appointment booked" : "Appointment booked",
+                        title: (chat.appointmentIsSet ?? false) ? "Appointment booked" : "No appointment booked",
                   value: chat.appointmentIsSet),
-            UIModelChat(type: .textButton, title: "conversion link", value: conversationLink),
+            UIModelChat(type: .textButton, title: "conversion link", value: ["Copy": conversationLink]),
         ])
         
         let privacy = UIModelChatSection(title: "Privacy", rows: [
@@ -39,5 +39,9 @@ final class ChatInfoVM: NSObject {
         ])
         
         return [leadSetting, leadInfo, privacy]
+    }
+    
+    func getHeaderInfo() -> UIMChatInfo {
+        .init(lead: chat.leadState ?? .cold, email: "no email did set", phone: "no phone number", respondTime: "no response time", userName: chat.name ?? "Unknown")
     }
 }

@@ -9,11 +9,14 @@ import Foundation
 
 final class ChatSolidTVC: BaseProfileInfoCell {
     // MARK: - properties
-    static let CellID = "ChatLeadTVC"
+    static let CellID = "ChatSolidTVC"
     
     // MARK: - init
     override func fill(cell with: UIModelChatProtocol) {
         super.fill(cell: with)
         darkLabel.isHidden = false
+        if let value = with.value as? String {
+            darkLabel.text = value
+        }
     }
 }

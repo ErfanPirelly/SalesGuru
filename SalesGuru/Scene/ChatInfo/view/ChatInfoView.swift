@@ -9,8 +9,9 @@ import UIKit
 
 final class ChatInfoView: UIView {
     // MARK: - properties
-    let tableView = UITableView()
-    var dataSource: [UIModelChatSection] = []
+    private let header = ChatInfoHeaderView()
+    private let tableView = UITableView()
+    private var dataSource: [UIModelChatSection] = []
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -24,10 +25,16 @@ final class ChatInfoView: UIView {
     
     // MARK: - setup UI
     private func setupUI() {
+        backgroundColor = .ui.backgroundColor2
+        setupHeaderView()
         setupTableView()
         setupConstraints()
     }
     
+    private func setupHeaderView() {
+        header.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(header)
+    }
     
     private func setupTableView() {
         tableView.separatorStyle = .none
@@ -42,15 +49,26 @@ final class ChatInfoView: UIView {
         tableView.register(ChatInfoTVH.self, forHeaderFooterViewReuseIdentifier: ChatInfoTVH.ViewID)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .white
+        tableView.contentInset.bottom = UIView.safeArea.bottom + 12
+        tableView.backgroundView?.applyCorners(to: .all, with: 16)
         addSubview(tableView)
     }
     
     private func setupConstraints() {
-        tableView.pinToEdge(on: self)
+        header.snp.makeConstraints { make in
+            make.top.leading.trailing.equalToSuperview()
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(header.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
     
-    func config(view with: [UIModelChatSection]) {
+    func config(view with: [UIModelChatSection], headerInfo: UIMChatInfo) {
+        self.header.config(view: headerInfo)
         self.dataSource = with
         self.tableView.reloadData()
     }
@@ -105,5 +123,9 @@ extension ChatInfoView: tableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 24
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
     }
 }

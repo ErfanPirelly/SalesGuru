@@ -45,5 +45,10 @@ enum AImages: String {
     case notification = "notification_ic"
     case setting = "setting_ic"
     // MARK: - settings
-    
+    // MARK: - chat info
+    case noAppointment = "no_appoinment_ic"
+    case bookedAppointment = "bookd_appointment_ic"
+    case responseTime = "response_time_ic"
+    case email = "email_ic"
+    case phone = "phone_ic"
 }

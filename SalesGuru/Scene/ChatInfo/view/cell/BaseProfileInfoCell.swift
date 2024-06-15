@@ -48,6 +48,9 @@ class BaseProfileInfoCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         hideViews()
+        rightButton.setImage(nil, for: .normal)
+        lightLabel.text = ""
+        darkLabel.text = ""
     }
     
     // MARK: - prepare UI
@@ -69,14 +72,17 @@ class BaseProfileInfoCell: UITableViewCell {
     }
     
     private func setupRightStack() {
+        leadIcon.translatesAutoresizingMaskIntoConstraints = false
         rightIcon.tintColor = .ui.darkColor1.withAlphaComponent(0.2)
         rightButton.isUserInteractionEnabled = false
         rightStacK = .init(distribution: .equalCentering, spacing: 4, arrangedSubviews: [leadIcon, lightLabel, darkLabel, rightButton, rightIcon])
+        rightStacK.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
     
     private func setupStack() {
         setupRightStack()
-        stack = .init(distribution: .fill, spacing: 8, arrangedSubviews: [title, rightStacK])
+        title.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        stack = .init(distribution: .equalSpacing, spacing: 8, arrangedSubviews: [title, rightStacK])
         contentView.addSubview(stack)
     }
     
