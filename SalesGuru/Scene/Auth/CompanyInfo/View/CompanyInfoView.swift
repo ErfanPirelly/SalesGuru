@@ -25,7 +25,7 @@ class CompanyInformationView: UIView {
     public let inventory = CompanyInformationSelectionBoxView(type: .inventory)
     private var titleStack: UIStackView!
     private var stack: UIStackView!
-    public var submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 60), textColor: .white, fillColor: .ui.primaryBlue, text: Text(text: "Submit", font: .Quicksand.semiBold(16), textColor: .white, alignment: .center))
+    public var submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 60), textColor: .white, fillColor: .ui.primaryBlue, text: CustomText(text: "Submit", font: .Quicksand.semiBold(16), textColor: .white, alignment: .center))
     private var signInButton: UIButton!
     
     weak var delegate: CompanyInformationViewDelegate? {

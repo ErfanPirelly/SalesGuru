@@ -16,16 +16,16 @@ protocol LoginViewDelegate: AnyObject {
 
 class LoginView: UIView {
     // MARK: - properties
-    private let imageView = UIImageView(image: .get(image: .login))
+    private let imageView = UIImageView(image: .get(image: .logo1))
     private let title = UILabel(text: "Welome to Drivee 👋", font: .Quicksand.bold(24), textColor: .ui.darkColor, alignment: .center)
     private let subtitle = UILabel(text: "Please enter email and password of your account", font: .Quicksand.normal(14), textColor: .ui.darkColor, alignment: .center)
     private var titleStack: UIStackView!
     private var stack: UIStackView!
     private let emailTextField = AuthTextFieldBox(placeholder: "Email", title: "Email")
     private let passwordTextField = AuthTextFieldBox(placeholder: "Password", title: "Password")
-    private let submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 52), textColor: .white, fillColor: .ui.primaryBlue, text: Text(text: "Sign In", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
+    private let submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 52), textColor: .white, fillColor: .ui.primaryBlue, text: CustomText(text: "Sign In", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
     private var passwordShowStatusImageView: UIImageView!
-    private var signUpButton: UIButton!
+//    private var signUpButton: UIButton!
     
     //MARK: - Variables
     var passwordIsShown: Bool = false
@@ -49,7 +49,7 @@ class LoginView: UIView {
         setupPasswordTextField()
         setupSubmitButton()
         setupStack()
-        setupSignUpButton()
+//        setupSignUpButton()
         setupConstraints()
     }
     
@@ -92,14 +92,14 @@ class LoginView: UIView {
         addSubview(stack)
     }
     
-    private func setupSignUpButton() {
-        let attr = "Don't Have an Account? <em>Register</em>"
-            .highlightingTag("em", font: .Quicksand.semiBold(12), color: .ui.primaryBlue)
-        signUpButton = UIButton(type: .system, attributedTitle: attr, titleColor: .ui.darkColor4.withAlphaComponent(0.72), font: .Quicksand.medium(12))
-        
-        signUpButton.addTarget(self, action: #selector(signUpButtonDidTouched), for: .touchUpInside)
-        addSubview(signUpButton)
-    }
+//    private func setupSignUpButton() {
+//        let attr = "Don't Have an Account? <em>Register</em>"
+//            .highlightingTag("em", font: .Quicksand.semiBold(12), color: .ui.primaryBlue)
+//        signUpButton = UIButton(type: .system, attributedTitle: attr, titleColor: .ui.darkColor4.withAlphaComponent(0.72), font: .Quicksand.medium(12))
+//        
+//        signUpButton.addTarget(self, action: #selector(signUpButtonDidTouched), for: .touchUpInside)
+//        addSubview(signUpButton)
+//    }
     
     private func setupSubmitButton() {
         submitButton.addTarget(self, action: #selector(submitButtonDidTouched), for: .touchUpInside)
@@ -120,11 +120,6 @@ class LoginView: UIView {
         stack.snp.makeConstraints { make in
             make.top.equalTo(titleStack.snp.bottom).offset(40)
             make.leading.trailing.equalToSuperview().inset(32)
-        }
-        
-        signUpButton.snp.makeConstraints { make in
-            make.top.equalTo(stack.snp.bottom).offset(18)
-            make.centerX.equalToSuperview()
         }
     }
 }

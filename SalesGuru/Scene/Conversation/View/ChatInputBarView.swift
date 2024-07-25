@@ -10,17 +10,21 @@ import UIKit
 protocol ChatInputBarViewDelegate: AnyObject {
     func sendMessage(with text: String)
     func aiTimerDidTap()
+    func didEndTimer()
 }
 
 class ChatInputBarView: UIView {
     // MARK: - properties
     private let sendButton = UIButton(image: .init(systemName: "paperplane.fill"))
-    private let aiTimerButton = UIButton(image: .get(image: .aiTimer))
+    private let aiTimerButton = UIButton(image: .get(image: .aiTimer)?.withRenderingMode(.alwaysOriginal))
+    private let aiTimerLabel = UILabel(font: .Fonts.bold(8), textColor: .ui.primaryBlue, alignment: .center)
     public let textView = UITextView()
     private var stack: UIStackView!
     private let emptyTextColor = UIColor(p3: "#ADB5BD")
     private let placeholder = "type something.."
     weak var delegate: ChatInputBarViewDelegate?
+    private var timer: Timer?
+    private var remaining: Int?
     
     private var buttonEnabled = false {
         didSet {
@@ -50,12 +54,17 @@ class ChatInputBarView: UIView {
     }
     
     private func setupButtons() {
-        aiTimerButton.tintColor = .black.withAlphaComponent(0.26)
-        aiTimerButton.addTarget(self, action: #selector(aiTimerButtonDidTouched), for: .touchUpInside)
-        aiTimerButton.imageEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
-        
+        setupAiButton()
         sendButton.tintColor = .ui.primaryBlue
         sendButton.addTarget(self, action: #selector(sendButtonDidTouched), for: .touchUpInside)
+    }
+    
+    func setupAiButton() {
+        aiTimerButton.addTarget(self, action: #selector(aiTimerButtonDidTouched), for: .touchUpInside)
+        aiTimerButton.imageEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
+        aiTimerLabel.isUserInteractionEnabled = false
+//        aiTimesLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(aiTimerButtonDidTouched)))
+        addSubview(aiTimerLabel)
     }
     
     private func setupTextView() {
@@ -86,12 +95,59 @@ class ChatInputBarView: UIView {
             make.size.equalTo(32)
         }
         
+        aiTimerLabel.snp.makeConstraints { make in
+            make.leading.equalTo(aiTimerButton.snp.centerX)
+            make.bottom.equalTo(aiTimerButton)
+        }
+        
         sendButton.snp.makeConstraints { make in
             make.size.equalTo(32)
         }
     }
 }
 
+// MARK: - timer
+extension ChatInputBarView {
+    func configTempAI(disabled: Bool, remaining: Int?) {
+        self.aiTimerLabel.isHidden = !disabled
+        let image: UIImage? = .get(image: disabled ? .aiDisableTimer : .aiTimer)
+        self.aiTimerButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
+        
+        if let time = remaining, disabled {
+            self.remaining = time
+            setupTimer(start: true)
+        } else {
+            setupTimer(start: false)
+        }
+    }
+    
+    private func setupTimer(start: Bool) {
+        if !start {
+            self.timer?.invalidate()
+            self.timer = nil
+        } else {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+        }
+    }
+    
+    @objc private func timerAction() {
+        guard let remaining = remaining else {
+            setupTimer(start: false)
+            return
+        }
+        
+        self.remaining! -= 1
+        if remaining >= 1 {
+            let min = remaining / 60
+            let seconds = remaining % 60
+            self.aiTimerLabel.text = String(format: "%d:%02d", min, seconds)
+        } else {
+            self.configTempAI(disabled: false, remaining: nil)
+            delegate?.didEndTimer()
+        }
+        
+    }
+}
 
 // MARK: - objc
 extension ChatInputBarView {

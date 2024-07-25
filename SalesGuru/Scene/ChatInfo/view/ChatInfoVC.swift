@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class ChatInfoVC: UIViewController {
     // MARK: - properties
@@ -32,7 +33,65 @@ class ChatInfoVC: UIViewController {
     private func prepareUI() {
         view.backgroundColor = .white
         view.addSubview(customView)
+        customView.delegate = self
         customView.pinToEdge(on: view)
-        customView.config(view: viewModel.generateUIModels(), headerInfo: viewModel.getHeaderInfo())
+        configView(loading: true)
+        
+        viewModel.getLead { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let success):
+                self.configView()
+            case .failure(let failure):
+                self.showError(message: failure.localizedDescription)
+            }
+        }
+    }
+    
+    func configView(loading: Bool = false) {
+        customView.config(view: viewModel.generateUIModels(), headerInfo: viewModel.getHeaderInfo(), loading: loading)
+    }
+}
+
+// MARK: - view delegate
+extension ChatInfoVC: ChatInfoViewDelegate {
+    func emailButtonDidTouched() {
+        
+    }
+    
+    func phoneButtonDidTouched() {
+        
+    }
+    
+    func backButtonDidTouched() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func didSelectCarInfo() {
+        let viewModel = CarInfoVM(id: self.viewModel.id)
+        let vc = UIHostingController(rootView: CarInfoView(viewModel: viewModel) {[weak self] in
+            guard let self = self else { return }
+            self.navigationController?.popViewController(animated: true)
+        })
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func didSelectChatLead() {
+        let viewModel = ChatLeadVM(id: self.viewModel.id)
+        viewModel.delegate = self
+        let vc = UIHostingController(rootView: ChatLeadView(viewModel: viewModel,
+                                                            selectedLead: self.viewModel.leadState) {[weak self] in
+            guard let self = self else { return }
+            self.navigationController?.popViewController(animated: true)
+        })
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension ChatInfoVC: ChatLeadVMDelegate {
+    func updated(chat lead: LeadState) {
+        viewModel.updated(chat: lead)
+        configView()
     }
 }

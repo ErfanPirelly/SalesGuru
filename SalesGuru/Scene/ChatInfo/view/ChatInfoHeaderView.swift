@@ -7,34 +7,24 @@
 
 import UIKit
 
+protocol ChatInfoHeaderViewDelegate: AnyObject {
+    func emailButtonDidTouched()
+    func phoneButtonDidTouched()
+    func backButtonDidTouched()
+}
+
 class ChatInfoHeaderView: UIView {
     // MARK: - properties
-    private let backgroundMaskView = UIImageView(image: .get(image: .headerShape))
     private let backButton = UIButton(image: .get(image: .back)?.withRenderingMode(.alwaysTemplate))
     private let imageView = UIImageView()
     private let backImageView = GradientView()
     private let usernameLabel = UILabel(font: .Quicksand.bold(24), textColor: .white, alignment: .center)
-    private let responseTimeLabel = UILabel(font: .Fonts.medium(10), textColor: .ui.primaryBlue, alignment: .left)
     private let emailLabel = UILabel(font: .Fonts.medium(12), textColor: .white, alignment: .left)
     private let phoneLabel = UILabel(font: .Fonts.medium(12), textColor: .white, alignment: .left)
     private var stack: UIStackView!
     private var buttonStack: UIStackView!
+    weak var delegate: ChatInfoHeaderViewDelegate?
     
-    private lazy var responseTimeView: UIView = {
-       let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        view.applyCorners(to: .all, with: 4)
-        let icon = UIImageView(image: .get(image: .responseTime))
-        let stack = UIStackView(spacing: 10, arrangedSubviews: [icon, responseTimeLabel])
-        view.addSubview(stack)
-        stack.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(8)
-            make.leading.equalToSuperview().inset(7)
-            make.trailing.equalToSuperview().inset(16)
-        }
-        return view
-    }()
     
     private lazy var emailButton: UITextImageButton = {
         let btn = UITextImageButton(image: .get(image: .email), label: emailLabel)
@@ -59,7 +49,6 @@ class ChatInfoHeaderView: UIView {
     }()
     private var primaryColor: UIColor = .ui.primaryBlue {
         didSet {
-            self.responseTimeLabel.textColor = primaryColor
             self.backgroundColor = primaryColor
             self.backImageView.startColor = primaryColor
         }
@@ -78,9 +67,8 @@ class ChatInfoHeaderView: UIView {
     // MARK: - setup UI
     private func setupUI() {
         applyCorners(to: .bottom, with: 40)
-        addSubview(backgroundMaskView)
-        setupBackButton()
         setupStack()
+        setupBackButton()
         setupConstraints()
     }
     
@@ -91,10 +79,9 @@ class ChatInfoHeaderView: UIView {
         stack = .init(axis: .vertical, alignment: .center, distribution: .equalSpacing, spacing: 10, arrangedSubviews: [
             backImageView,
             usernameLabel,
-            responseTimeView,
             buttonStack
         ])
-        stack.setCustomSpacing(18, after: responseTimeView)
+        stack.setCustomSpacing(18, after: usernameLabel)
         addSubview(stack)
     }
     
@@ -118,6 +105,7 @@ class ChatInfoHeaderView: UIView {
     }
     
     private func setupBackButton() {
+        backButton.tintColor = .white
         backButton.addTarget(self, action: #selector(backButtonDidTouched), for: .touchUpInside)
         addSubview(backButton)
     }
@@ -133,7 +121,6 @@ class ChatInfoHeaderView: UIView {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(32)
         }
-        backgroundMaskView.pinToEdge(on: self)
     }
     
     
@@ -141,25 +128,32 @@ class ChatInfoHeaderView: UIView {
         self.usernameLabel.text = with.userName
         self.emailLabel.text = with.email
         self.phoneLabel.text = with.phone
-        self.responseTimeLabel.text = "Response time 7 seconds"
         
         self.imageView.image = with.lead.image
         self.primaryColor = with.lead.color
         self.backImageView.endColor = with.lead.secondaryColor
+    }
+    
+    func loading(is loading: Bool) {
+        if loading {
+            self.backImageView.lock()
+        } else {
+            self.backImageView.unlock()
+        }
     }
 }
 
 // MARK: - objc
 extension ChatInfoHeaderView {
     @objc private func emailButtonDidTouched() {
-        
+        delegate?.emailButtonDidTouched()
     }
     
     @objc private func phoneButtonDidTouched() {
-        
+        delegate?.phoneButtonDidTouched()
     }
     
     @objc private func backButtonDidTouched() {
-        
+        delegate?.backButtonDidTouched()
     }
 }

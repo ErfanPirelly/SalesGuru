@@ -8,7 +8,7 @@
 import UIKit
 
 // hot, cold, contactAttemped
-enum LeadState: String, Codable {
+enum LeadState: String, Codable, CaseIterable {
     case engaged = "contactAttemped"
     case hot
     case cold
@@ -46,6 +46,17 @@ enum LeadState: String, Codable {
         }
     }
     
+    var swiftUIImage: String {
+        switch self {
+        case .engaged:
+            return AImages.sun.rawValue
+        case .hot:
+            return AImages.flame.rawValue
+        case .cold:
+            return AImages.ice.rawValue
+        }
+    }
+    
     var color: UIColor {
         switch self {
         case .engaged:
@@ -68,32 +79,32 @@ enum LeadState: String, Codable {
 
 struct RMChat: RMKeyIDModel, Hashable {
     static func == (lhs: RMChat, rhs: RMChat) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id && lhs.leadState?.rawValue == rhs.leadState?.rawValue
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-    
+
     var id: String?
-    let aiMode, appointment, appointmentIsSet : Bool?
-    let appointmentTime: Double?
-    let city: String?
-    let followUp: Bool?
-    let followUpCounter: Double?
-    let followUpEnabled: Bool?
-    let followUpMessage: String?
-    let followUpMessgesLength: Double?
-    let followUpTime: String?
-    let isCarSold, isEngaged: Bool?
-    let name: String?
-    let read, sleepStatus: Bool?
-    let source: String?
-    let startChatTs: Double?
-    let unreadCounter: Int?
-    let lastMessage: LastMessage?
-    let leadState: LeadState?
-    
+    var AIMode, appointment, appointmentIsSet, AITemporaryDisable : Bool?
+    var appointmentTime: Double?
+    var city: String?
+    var followUp: Bool?
+    var followUpCounter: Double?
+    var followUpEnabled: Bool?
+    var followUpMessage: String?
+    var followUpMessgesLength: Double?
+    var followUpTime: String?
+    var isCarSold, isEngaged: Bool?
+    var name: String?
+    var read, sleepStatus: Bool?
+    var source: String?
+    var startChatTs: Double?
+    var unreadCounter: Int?
+    var lastMessage: LastMessage?
+    var leadState: LeadState?
+
     var timestamp: Double {
         return (lastMessage?.timestamp ?? 0) / 1000
     }
@@ -101,6 +112,7 @@ struct RMChat: RMKeyIDModel, Hashable {
     init(aiMode: Bool? = nil,
          appointment: Bool? = nil,
          appointmentIsSet: Bool? = nil,
+         AITemporaryDisable: Bool? = nil,
          appointmentTime: Double? = nil,
          city: String? = nil,
          followUp: Bool? = nil,
@@ -120,7 +132,7 @@ struct RMChat: RMKeyIDModel, Hashable {
          lastMessage: LastMessage? = nil,
          leadState: LeadState? = nil) {
         self.lastMessage = lastMessage
-        self.aiMode = aiMode
+        self.AIMode = aiMode
         self.appointment = appointment
         self.appointmentIsSet = appointmentIsSet
         self.appointmentTime = appointmentTime
@@ -140,13 +152,15 @@ struct RMChat: RMKeyIDModel, Hashable {
         self.startChatTs = startChatTs
         self.unreadCounter = unreadCounter
         self.leadState = leadState
+        self.AITemporaryDisable = AITemporaryDisable
     }
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.aiMode = try? container.decode(Bool.self, forKey: .aiMode)
+        self.AIMode = try? container.decode(Bool.self, forKey: .AIMode)
         self.appointment = try? container.decode(Bool.self, forKey: .appointment)
         self.appointmentIsSet = try? container.decode(Bool.self, forKey: .appointmentIsSet)
+        self.AITemporaryDisable = try? container.decode(Bool.self, forKey: .AITemporaryDisable)
         self.appointmentTime = try? container.decodeIfPresent(Double.self, forKey: .appointmentTime)
         self.city = try? container.decodeIfPresent(String.self, forKey: .city)
         self.followUp = try? container.decodeIfPresent(Bool.self, forKey: .followUp)

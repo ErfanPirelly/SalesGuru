@@ -27,7 +27,7 @@ class SplashVC: UIViewController {
 #if DEBUG
             self.testFlow()
 #else
-            self.getApiVersion()
+            self.getUser()
 #endif
         }
     }
@@ -40,7 +40,7 @@ class SplashVC: UIViewController {
     
     private func getUser() {
         if let uid = userManager.uid, userManager.isUserLoggedIn {
-
+            presentHome()
         } else {
             goToLogin()
         }
@@ -56,14 +56,16 @@ class SplashVC: UIViewController {
     
     private func goToUpdateProfile() {}
     
-    private func goToUpdateCompanyInformation() { }
+    private func goToUpdateCompanyInformation() {}
     
-    private func goToLogin() {}
+    private func goToLogin() {
+        let vc = LoginVC()
+        self.view.window?.switchRootViewController(vc, options: .curveEaseInOut)
+    }
     
     private func presentForceUpdate() {}
     
     private func getApiVersion() {}
-    
 }
 
 

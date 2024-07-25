@@ -36,7 +36,7 @@ class CreateLeadMainView: UIView {
     private let submitButton = CustomButton(style: .fill,
                                             size: .init(width: 0, height: 52),
                                             textColor: .white,
-                                            fillColor: .ui.primaryBlue, text: Text(text: "Submit", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
+                                            fillColor: .ui.primaryBlue, text: CustomText(text: "Submit", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
     private let progressBar = UIProgressView(progressViewStyle: .default)
     private let infoButton = UIButton(title: "Personal Info", titleColor: .ui.darkColor, font: .Fonts.bold(14))
     private let aiSettingButton = UIButton(title: "Ai Settings", titleColor: UIColor(p3: "#0D0A19"), font: .Fonts.medium(14))

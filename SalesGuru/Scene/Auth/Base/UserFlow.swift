@@ -76,7 +76,8 @@ extension UserFlowPresenter {
 //            action(.updateProfile(info: info))
 //        } else {
 //        }
-        getUser(uid: user.uid)
+//        getUser(uid: user.uid)
+        action(.home)
     }
     
     public func getUser(uid: String) {

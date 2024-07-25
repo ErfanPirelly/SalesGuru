@@ -14,13 +14,9 @@ final class ConversationVM: NSObject {
     var messageList: [MessageSections]?
     var chat: RMChat?
     let id: String
+    weak var delegate: ChatUpdatedDelegate?
     
     // MARK: - init
-    init(chat: RMChat) {
-        self.id = chat.id ?? ""
-        self.chat = chat
-    }
-    
     init(id: String) {
         self.id = id
     }
@@ -30,7 +26,6 @@ final class ConversationVM: NSObject {
         let path = FirebaseRoutes.messageRoute(id: self.id)
         network.observe(RMMessageParser(), childPath: path) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
             case .success(let data):
                 self.data = data.sorted(by: {($0.timestamp ?? 0) < ($1.timestamp ?? 0)})
@@ -41,12 +36,17 @@ final class ConversationVM: NSObject {
             }
         }
     }
+    
     func getChat(callback: @escaping ((RMChat?) -> Void)) {
         let path = FirebaseRoutes.conversationList + "/" + id
-        network.observe(RMSingleChatParser(), childPath: path) { result in
+        network.observe(RMSingleChatParser(), childPath: path) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let data):
-                self.chat = data
+                var chat = data
+                chat.id = self.id
+                self.chat = chat
+                self.read()
                 callback(data)
             case .failure(let failure):
                 Logger.log(.error, failure.localizedDescription)
@@ -70,11 +70,37 @@ final class ConversationVM: NSObject {
                 var message = success
                 message.id = UUID().uuidString
                 callback(message)
+                if let chat = self.chat {
+                    self.delegate?.chatUpdated(with: chat)
+                }
             case .failure(let failure):
                 Logger.log(.error, failure.localizedDescription)
                 callback(nil)
             }
         }
+    }
+    
+    func updatedViewModel(with chat: RMChat) -> Self {
+        self.chat = chat
+        self.delegate?.chatUpdated(with: chat)
+        return self
+    }
+    
+    func read() {
+        let path = FirebaseRoutes.conversationList + "/\(id)"
+        network.setValue(for: path, data: ["read": true], callback: {[weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                Logger.log(.success, path, true)
+                self.chat?.unreadCounter = 0
+                if let chat = chat {
+                    self.delegate?.chatUpdated(with: chat)
+                }
+            case .failure(let failure):
+                Logger.log(.error, failure.localizedDescription)
+            }
+        })
     }
 }
 
@@ -137,6 +163,19 @@ extension ConversationVM {
             return self.replaceSection(section: section)
         }
         return self
+    }
+    
+    func toggleTempAI() {
+        let path = FirebaseRoutes.conversationList + "/\(self.id)/"+"AITemporaryDisable"
+        let data = chat?.AITemporaryDisable ?? false
+        network.setValue(for: path, data: data, callback: { result in
+            switch result {
+            case .success(let success):
+                Logger.log(.success, path, success)
+            case .failure(let failure):
+                Logger.log(.error, path, failure)
+            }
+        })
     }
 }
 

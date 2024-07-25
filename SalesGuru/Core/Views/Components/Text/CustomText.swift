@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Text {
+struct CustomText {
     let text: String?
     let attributedText: NSAttributedString?
     let font: UIFont

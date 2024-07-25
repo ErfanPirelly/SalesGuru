@@ -161,4 +161,27 @@ extension UIView {
         }
     }
     
+    
+    func dimming() {
+        let id = "dimmingViewID"
+        guard !subviews.contains(where: {$0.restorationIdentifier == id}) else {return}
+        let dimmingView = UIView()
+        dimmingView.translatesAutoresizingMaskIntoConstraints = false
+        
+        dimmingView.backgroundColor = .black
+        dimmingView.frame = self.bounds
+        dimmingView.alpha = 0.2
+        dimmingView.restorationIdentifier = id
+        addSubview(dimmingView)
+    }
+    
+    func removeDime() {
+        let id = "dimmingViewID"
+        guard let dimmingView = subviews.first(where: {$0.restorationIdentifier == id}) else { return }
+        UIView.animate(withDuration: 0.2, animations: {
+            dimmingView.alpha = 0.0
+        }) { _ in
+            dimmingView.removeFromSuperview()
+        }
+    }
 }

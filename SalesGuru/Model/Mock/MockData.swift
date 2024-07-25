@@ -40,6 +40,33 @@ struct MockData {
                   content: "New message",
                   date: "2m"),
     ]
+    
+    
+    static var CarInfoSectioned: [CarInfoSectioned] {
+        let carInfoSection = SalesGuru.CarInfoSectioned(title: "Car Info", data: [
+            .init(title: "Year", value: "2020", image: AImages.carInfoYear.rawValue),
+            .init(title: "Make", value: "BMW", image: AImages.carInfoMake.rawValue),
+            .init(title: "Model", value: "X4", image: AImages.carInfoModel_Milage.rawValue),
+            .init(title: "Mileage", value:  "50000", image: AImages.carInfoModel_Milage.rawValue),
+            .init(title: "Price", value:  "650000", image: AImages.carInfoPrice.rawValue),
+        ])
+        
+        let carNumberSection = SalesGuru.CarInfoSectioned(title: "Car Number", data: [
+            .init(title: "VIN number", value: "Vin NUmber", image: nil),
+            .init(title: "Stock number", value: "stock", image: nil),
+        ])
+        
+        return [carInfoSection, carNumberSection]
+    }
+    
+    
+    static var leads: [LeadState] {
+        [
+            .hot,
+            .cold,
+            .engaged
+        ]
+    }
 }
 
 

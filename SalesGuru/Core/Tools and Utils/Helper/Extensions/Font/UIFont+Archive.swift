@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import SwiftUI
+
 
 extension UIFont {
-    struct Fonts {
+    struct Fonts{
         static func bold(_ size: CGFloat) -> UIFont {
             return UIFont(name: "DMSans-Bold", size: size)!
         }

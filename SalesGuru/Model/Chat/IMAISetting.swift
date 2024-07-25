@@ -38,9 +38,23 @@ enum AISettingType {
             return "Al follow up for online reviews"
         }
     }
+    
+    var node: String {
+        switch self {
+        case .enabled:
+            return "AIMode"
+        case .followUp:
+            return "followUpEnabled"
+        case .sold:
+            return "isCarSold"
+        case .onlineReview:
+            return "AIMode"
+        }
+    }
 }
 
 struct IMAISetting {
+    let id = UUID()
     let type: AISettingType
     var isOn: Bool
     var title: String {
@@ -55,10 +69,9 @@ struct IMAISetting {
 
 extension RMChat {
     func getAISetting() -> [IMAISetting] {
-        return [.init(type: .enabled, isOn: aiMode ?? false),
+        return [.init(type: .enabled, isOn: AIMode ?? false),
                 .init(type: .followUp, isOn: followUpEnabled ?? false),
-                .init(type: .sold, isOn: isCarSold ?? false),
-                .init(type: .onlineReview, isOn: false),
+                .init(type: .sold, isOn: isCarSold ?? false)
         ]
     }
 }

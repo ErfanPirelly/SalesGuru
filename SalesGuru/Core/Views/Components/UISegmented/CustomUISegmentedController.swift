@@ -14,7 +14,7 @@ protocol CustomSegmentedControlDelegate: AnyObject {
 class CustomUISegmentedController: UIView {
     // MARK: - properties
     private let buttonTitles:[String]
-    private let buttonText: [Text]
+    private let buttonText: [CustomText]
     
     private var buttons: [UIButton]!
     var selectorView: UIView!
@@ -28,7 +28,7 @@ class CustomUISegmentedController: UIView {
     public private(set) var selectedIndex : Int = 0
     
     // MARK: - init
-    init(buttonText:[Text],
+    init(buttonText:[CustomText],
          selectorViewColor: UIColor = .ui.darkColor4.withAlphaComponent(0.83),
          selectorTextColor: UIColor = .white,
          textColor:UIColor = .white.withAlphaComponent(0.5)) {

@@ -27,7 +27,7 @@ class RegisterWithEmailPasswordView: UIView {
     private var stack: UIStackView!
     private let emailTextField = AuthTextFieldBox(placeholder: "Email", title: "Email")
     private let passwordTextField = AuthTextFieldBox(placeholder: "Password", title: "Password")
-    private let submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 52), textColor: .white, fillColor: .ui.primaryBlue, text: Text(text: "Sign Up", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
+    private let submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 52), textColor: .white, fillColor: .ui.primaryBlue, text: CustomText(text: "Sign Up", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
     private var passwordShowStatusImageView: UIImageView!
     private var signUpButton: UIButton!
     

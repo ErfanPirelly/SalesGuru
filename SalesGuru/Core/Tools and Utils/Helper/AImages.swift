@@ -37,6 +37,7 @@ enum AImages: String {
     case ice = "ice_ic"
     case sun = "sun_ic"
     case aiTimer = "ai_timer_ic"
+    case aiDisableTimer = "primary_Ai_timer_ic"
     case noMessage = "no_conversation_ic"
     case noMessageBackground = "no_conversation_back_ic"
     
@@ -51,4 +52,10 @@ enum AImages: String {
     case responseTime = "response_time_ic"
     case email = "email_ic"
     case phone = "phone_ic"
+    
+    // MARK: - car info
+    case carInfoMake = "car_info_make_ic"
+    case carInfoYear = "car_info_year_ic"
+    case carInfoModel_Milage = "car_info_model_ic"
+    case carInfoPrice = "car_info_price_ic"
 }

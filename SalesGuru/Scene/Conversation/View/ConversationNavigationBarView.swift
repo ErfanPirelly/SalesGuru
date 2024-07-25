@@ -14,6 +14,7 @@ protocol ConversationNavigationBarViewDelegate: AnyObject {
     func aiButtonDidTouched()
     func didSearch(with text: String?)
     func didEndSearching()
+    func chatInfoDidTouched(with chat: RMChat)
 }
 
 class ConversationNavigationBarView: UIView {
@@ -36,6 +37,7 @@ class ConversationNavigationBarView: UIView {
     private let onScreenSearchConst = 0
     private let offScreenSearchConst = K.size.portrait.width
     private var isSearchBarOn = false
+    private var chat: RMChat?
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -101,7 +103,8 @@ class ConversationNavigationBarView: UIView {
         avatarBackView.applyCorners(to: .all, with: 10)
         avatar.translatesAutoresizingMaskIntoConstraints = false
         avatarBackView.addSubview(avatar)
-        
+        avatarBackView.isUserInteractionEnabled = true
+        avatarBackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(avatarDidTouched)))
         avatarStack = .init(axis: .horizontal, distribution: .equalSpacing, spacing: 4, arrangedSubviews: [backButton, avatarBackView])
         addSubview(avatarStack)
     }
@@ -170,6 +173,7 @@ class ConversationNavigationBarView: UIView {
     }
     
     func config(with chat: RMChat) {
+        self.chat = chat
         self.username.text = chat.name
         self.subtitle.text = chat.leadState?.title ?? ""
         fillImageView(with: chat.leadState ?? .cold)
@@ -193,6 +197,11 @@ class ConversationNavigationBarView: UIView {
 
 // MARK: - @objc
 extension ConversationNavigationBarView {
+    @objc private func avatarDidTouched() {
+        guard let chat = chat else { return }
+        delegate?.chatInfoDidTouched(with: chat)
+    }
+    
     @objc private func backButtonDidTouched() {
         if isSearchBarOn {
             delegate?.didEndSearching()

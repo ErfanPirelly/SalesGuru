@@ -13,7 +13,7 @@ class CustomButton: UIButton {
     private let size: CGSize
     private let fillColor: UIColor?
     private let textColor: UIColor?
-    private let text: Text
+    private let text: CustomText
     override var buttonType: UIButton.ButtonType {
         return .system
     }
@@ -28,7 +28,7 @@ class CustomButton: UIButton {
          size: CGSize,
          textColor: UIColor?,
          fillColor: UIColor?,
-         text: Text
+         text: CustomText
     ) {
         self.style = style
         self.size = size

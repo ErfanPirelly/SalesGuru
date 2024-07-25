@@ -8,6 +8,11 @@
 import UIKit
 import M13Checkbox
 
+protocol DisableAIViewDelegate: AnyObject {
+    func didTapCancelButton()
+    func didTapSubmitButton(with checkBoxActive: Bool)
+}
+
 class DisableAIView: UIView {
     // MARK: - properties
     private let title = UILabel(text: "AI will be disabled off for 3 minutes and then will resume operation", font: .Quicksand.semiBold(16), textColor: .init(p3: "#474747"), alignment: .center)
@@ -26,6 +31,7 @@ class DisableAIView: UIView {
     private let verticalLine = UIView()
     private var buttonStack: UIStackView!
     private var checkBoxStack: UIStackView!
+    weak var delegate: DisableAIViewDelegate?
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -64,6 +70,8 @@ class DisableAIView: UIView {
     }
     
     private func setupButtonStack() {
+        cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
+        submitButton.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
         buttonStack = .init(spacing: 0, arrangedSubviews: [cancelButton, verticalLine, submitButton])
         addSubview(buttonStack)
     }
@@ -129,5 +137,15 @@ class DisableAIView: UIView {
         snp.makeConstraints { make in
             make.width.equalTo(K.size.portrait.width - 70)
         }
+    }
+}
+
+extension DisableAIView {
+    @objc private func didTapSubmitButton() {
+        delegate?.didTapSubmitButton(with: checkBox.checkState == .checked)
+    }
+    
+    @objc private func didTapCancelButton() {
+        delegate?.didTapCancelButton()
     }
 }

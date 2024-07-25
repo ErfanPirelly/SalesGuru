@@ -153,6 +153,7 @@ class ConversationTVC: UITableViewCell {
         
         self.dateLabel.text = Date(timeIntervalSince1970: with.timestamp).conversationDateFormatter()
         self.contentLabel.text = with.lastMessage?.content
+        
         if let unreadCounter = with.unreadCounter, unreadCounter != 0 {
             self.unread = true
             self.unreadMessages.text = " \(unreadCounter) "

@@ -16,7 +16,6 @@ class LoginVC: AuthViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -13,7 +13,7 @@ struct FirebaseRoutes {
     // properties
     static let userManager: UserManager = inject()
     
-    // MARK: - pathes
+    // MARK: - paths
     static var conversationList: String {
         let uid = userManager.uid ?? ""
         return "/conversations/\(uid)"
@@ -24,9 +24,14 @@ struct FirebaseRoutes {
         return "/messages/\(uid)/\(id)"
     }
     
-    static func createLead() -> String {
+    static func createLead(id: String? = nil) -> String {
         let uid = userManager.uid ?? ""
-        return "/dealers/\(uid)/leads"
+        let path = "/dealers/\(uid)/leads"
+        
+        if let id = id {
+            return path + "/\(id)"
+        } else {
+            return path
+        }
     }
-    
 }

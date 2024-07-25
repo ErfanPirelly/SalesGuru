@@ -7,11 +7,21 @@
 
 import UIKit
 
+protocol ChatInfoViewDelegate: ChatInfoHeaderViewDelegate {
+    func didSelectCarInfo()
+    func didSelectChatLead()
+}
+
 final class ChatInfoView: UIView {
     // MARK: - properties
     private let header = ChatInfoHeaderView()
     private let tableView = UITableView()
     private var dataSource: [UIModelChatSection] = []
+    weak var delegate: ChatInfoViewDelegate? {
+        didSet {
+            header.delegate = delegate
+        }
+    }
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -67,10 +77,11 @@ final class ChatInfoView: UIView {
         }
     }
     
-    func config(view with: [UIModelChatSection], headerInfo: UIMChatInfo) {
+    func config(view with: [UIModelChatSection], headerInfo: UIMChatInfo, loading: Bool) {
         self.header.config(view: headerInfo)
         self.dataSource = with
         self.tableView.reloadData()
+        header.loading(is: loading)
     }
 }
 
@@ -127,5 +138,15 @@ extension ChatInfoView: tableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = dataSource[indexPath.section].rows[indexPath.row]
+        
+        if model.type == .lead {
+            delegate?.didSelectChatLead()
+        } else if model.title.lowercased() == "car information" {
+            delegate?.didSelectCarInfo()
+        }
     }
 }

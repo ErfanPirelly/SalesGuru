@@ -15,6 +15,7 @@ class ConversationVC: UIViewController {
     private var searchTxt: String?
     private var searchResultsIndices: [IndexPath] = []
     private var currentResultIndex: Int = -1
+    private let userManager: UserManager = inject()
     
     // MARK: - init
     init(viewModel: ConversationVM) {
@@ -147,6 +148,13 @@ extension ConversationVC: SearchResultViewDelegate {
 
 // MARK: - nav bar delegate
 extension ConversationVC: ConversationNavigationBarViewDelegate {
+    func chatInfoDidTouched(with chat: RMChat) {
+        let viewModel = ChatInfoVM(chat: chat)
+        viewModel.delegate = self
+        let vc = ChatInfoVC(viewModel: viewModel)
+        (view.window?.rootViewController as? UINavigationController)?.pushViewController(vc, animated: true)
+    }
+    
     func moreButtonDidTouched() {}
     
     func didEndSearching() {
@@ -171,10 +179,31 @@ extension ConversationVC: ConversationNavigationBarViewDelegate {
     func aiButtonDidTouched() {
         guard let chat = viewModel.chat else {return}
         let vc = AISettingVC(settings: chat.getAISetting(), chatId:  chat.id ?? "")
+        vc.delegate = self
         view.window?.rootViewController?.presentWithSheetPresentation(vc, isDismissable: true)
     }
 }
 
+// MARK: - setting delegate
+extension ConversationVC: AISettingDelegate {
+    func didChangeValue(for setting: IMAISetting) {
+        var chat = self.viewModel.chat
+        
+        switch setting.type {
+        case .enabled:
+            chat?.AIMode = setting.isOn
+        case .followUp:
+            chat?.followUpEnabled = setting.isOn
+        case .sold:
+            chat?.isCarSold = setting.isOn
+        case .onlineReview: break
+        }
+        
+        if let chat = chat {
+            self.chatUpdated(with: chat)
+        }
+    }
+}
 // MARK: - input bar delegate
 extension ConversationVC: ChatInputBarViewDelegate {
     func sendMessage(with text: String) {
@@ -201,8 +230,38 @@ extension ConversationVC: ChatInputBarViewDelegate {
     }
     
     func aiTimerDidTap() {
-        let vc = DisableAIVC()
-        view.window?.rootViewController?.presentWithCenterPresentation(vc, isDismissable: true)
+        if (viewModel.chat?.AITemporaryDisable ?? false) || userManager.tempAIDisableConfirmation {
+            self.toggleTempAI()
+        } else {
+            let vc = DisableAIVC()
+            vc.delegate = self
+            view.window?.rootViewController?.presentWithCenterPresentation(vc, isDismissable: true)
+        }
+    }
+    
+    func didEndTimer() {
+        guard var chat = viewModel.chat else { return }
+        chat.AITemporaryDisable?.toggle()
+        _ = self.viewModel.updatedViewModel(with: chat)
+        self.configView()
+    }
+}
+
+// MARK: - updates delegate
+extension ConversationVC: ChatUpdatedDelegate {
+    func chatUpdated(with chat: RMChat) {
+        _ = self.viewModel.updatedViewModel(with: chat)
+        self.configView()
+    }
+}
+
+// MARK: - updates delegate
+extension ConversationVC: DisableAIVCDelegate {
+    func toggleTempAI() {
+        guard var chat = viewModel.chat else { return }
+        chat.AITemporaryDisable?.toggle()
+        self.viewModel.updatedViewModel(with: chat).toggleTempAI()
+        self.configView()
     }
 }
 

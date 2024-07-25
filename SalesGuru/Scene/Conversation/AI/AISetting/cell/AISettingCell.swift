@@ -7,6 +7,11 @@
 
 
 import UIKit
+import RxSwift
+
+protocol AISettingCellDelegate: AnyObject {
+    func didChangeValue(for setting: IMAISetting)
+}
 
 class AISettingCell: UITableViewCell {
     // MARK: - properties
@@ -17,8 +22,10 @@ class AISettingCell: UITableViewCell {
     private var switchView: CustomUISwitch!
     private var stack: UIStackView!
     private let cardView = UIView()
-    var setting: IMAISetting?
-
+    private var setting: IMAISetting?
+    private var bag = DisposeBag()
+    weak var delegate: AISettingCellDelegate?
+    
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,6 +34,11 @@ class AISettingCell: UITableViewCell {
     
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        bag = DisposeBag()
     }
     
     // MARK: - setup UI
@@ -103,5 +115,11 @@ class AISettingCell: UITableViewCell {
         self.title.text = with.title
         self.subtitle.text = with.subtitle
         self.switchView.isOn.accept(with.isOn)
+        
+        self.switchView.isOn.skip(1).asDriver(onErrorJustReturn: false).drive(onNext: {[weak self] isOn in
+            guard let self = self, var setting = self.setting else { return }
+            setting.isOn = isOn
+            self.delegate?.didChangeValue(for: setting)
+        }).disposed(by: bag)
     }
 }

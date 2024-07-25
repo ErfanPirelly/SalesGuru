@@ -66,6 +66,11 @@ final class UserManager: NSObject {
         set { manager[#function] = newValue }
     }
     
+    var tempAIDisableConfirmation: Bool {
+        get { manager[#function] ?? false }
+        set { manager[#function] = newValue }
+    }
+    
     // MARK: - Methods
     
     func deleteUser() {

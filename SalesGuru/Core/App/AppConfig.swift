@@ -9,6 +9,8 @@ import UIKit
 import IQKeyboardManagerSwift
 import FirebaseMessaging
 import FirebaseCore
+import TipKit
+import SwiftUI
 
 struct AppConfig {
     static func config() {
@@ -50,5 +52,9 @@ struct AppConfig {
         application.registerForRemoteNotifications()
         Messaging.messaging().delegate = messagingDelegate
         Messaging.messaging().isAutoInitEnabled = true
+    }
+    
+    static func configSwiftUI() {
+        
     }
 }

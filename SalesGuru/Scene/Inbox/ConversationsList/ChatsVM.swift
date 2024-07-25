@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol ChatUpdatedDelegate: AnyObject {
+    func chatUpdated(with chat: RMChat)
+}
+
 final class ChatsVM: NSObject {
     // MARK: - properties
     let network = NetworkCore(database: .salesguru)
@@ -21,7 +25,6 @@ final class ChatsVM: NSObject {
             
             switch result {
             case .success(let data):
-                Logger.log(.info, data.first?.id)
                 self.data = data.filter({$0.lastMessage != nil}).sorted(by: {$0.timestamp > $1.timestamp})
                 callback(.success(self.getData()))
             case .failure(let failure):
@@ -49,6 +52,22 @@ final class ChatsVM: NSObject {
             return result.filter({$0.filter(with: txt)})
         } else {
             return result
+        }
+    }
+    
+    func replaceChat(with chat: RMChat, callback: @escaping (Result<[RMChat], Error>) -> Void) {
+        self.data.replaceOrAppend(chat, firstMatchingKeyPath: \.id)
+        network.observe(RMSingleChatParser(), childPath: FirebaseRoutes.conversationList+"/\(chat.id ?? "")") { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let data):
+                var newChat = data
+                newChat.id = chat.id
+                self.data.replaceOrAppend(newChat, firstMatchingKeyPath: \.id)
+                callback(.success(self.data))
+            case .failure(let failure):
+                callback(.failure(failure))
+            }
         }
     }
 }

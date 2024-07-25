@@ -6,6 +6,17 @@
 //
 
 import UIKit
+import SwiftUI
+
+protocol SwiftUIColor {
+    func convert() -> Color
+}
+
+extension UIColor: SwiftUIColor {
+    func convert() -> Color {
+        return .init(uiColor: self)
+    }
+}
 
 extension UIColor {
     static let ui = UIColor.UI()

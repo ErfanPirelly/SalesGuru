@@ -29,6 +29,5 @@ struct UIMChatInfo {
     let lead: LeadState
     let email: String
     let phone: String
-    let respondTime: String
     let userName: String
 }

@@ -34,10 +34,10 @@ class ChatsView: UIView {
             emptyView.delegate = delegate
         }
     }
-    private var chats: [RMChat] = []
+//    private var chats: [RMChat] = []
     private let emptyView = EmptyConversationView()
     private var dataSource: DataSource!
-    private let plusButton = UIButton(title: "+", titleColor: .white, font: .Fonts.medium(30))
+    public let plusButton = UIButton(title: "+", titleColor: .white, font: .Fonts.medium(30))
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -129,10 +129,16 @@ class ChatsView: UIView {
     func setData(data: [RMChat]) {
         emptyView.fade(duration: 0.2, delay: 0, isIn: data.isEmpty)
         tableView.fade(duration: 0.2, delay: 0, isIn: !data.isEmpty)
-        self.chats = data
+//        self.chats = data
         refreshController.endRefreshing()
         header.stopIndicator()
         applyInitialSnapshot(items: data)
+    }
+    
+    func updateSingleChat(chat: RMChat) {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadItems([chat])
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
    private func configureDataSource() {

@@ -24,7 +24,7 @@ class PersonalInfoView: UIView {
     private var stack: UIStackView!
     public let firstnameTextField = AuthTextFieldBox(placeholder: "Fist Name", title: "name")
     public let lastnameTextField = AuthTextFieldBox(placeholder: "Last Name", title: "Last Name")
-    private let submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 52), textColor: .white, fillColor: .ui.primaryBlue, text: Text(text: "Submit", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
+    private let submitButton = CustomButton(style: .fill, size: .init(width: 0, height: 52), textColor: .white, fillColor: .ui.primaryBlue, text: CustomText(text: "Submit", font: .Quicksand.semiBold(20), textColor: .white, alignment: .center))
     private var signUpButton: UIButton!
     private var privacyCheckBox: M13Checkbox!
     public var privacyLabel: UITextView!

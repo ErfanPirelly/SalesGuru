@@ -6,6 +6,9 @@
 //
 
 import UIKit
+protocol AISettingViewDelegate: AISettingCellDelegate {
+    
+}
 
 class AISettingView: UIView {
     // MARK: - properties
@@ -14,6 +17,7 @@ class AISettingView: UIView {
     private let tableView = UITableView()
     private var stack: UIStackView!
     private var dataSource: [IMAISetting] = []
+    weak var delegate: AISettingViewDelegate?
     
     // MARK: - init
     override init(frame: CGRect) {
@@ -80,7 +84,7 @@ extension AISettingView: tableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AISettingCell.CellID, for: indexPath) as! AISettingCell
         cell.fill(cell: dataSource[indexPath.row])
+        cell.delegate = delegate
         return cell
     }
-    
 }

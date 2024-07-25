@@ -134,6 +134,8 @@ class SingleChatView: UIView {
         self.dataSource = data
         self.chat = chat
         navBar.config(with: chat)
+        let disabled = chat.AITemporaryDisable ?? false
+        self.inputBar.configTempAI(disabled: disabled, remaining: disabled ? 180 : nil)
         self.tableView.reloadData()
         self.tableView.scrollToLastItem()
     }
@@ -155,9 +157,16 @@ class SingleChatView: UIView {
     }
     
     func insertMessage(to dataSource: [MessageSections], index: IndexPath, scrollToIndex: Bool = true) {
+        let section = self.dataSource.count
         self.dataSource = dataSource
+        Logger.log(.error, section, dataSource.count, (section + 1)...dataSource.count)
+        
         self.tableView.performBatchUpdates {
-            self.tableView.insertRows(at: [index], with: .right)
+            if section != dataSource.count {
+                self.tableView.insertSections([dataSource.count - 1], with: .right)
+            } else {
+                self.tableView.insertRows(at: [index], with: .right)
+            }
         } completion: { completed in
             if completed {
                 self.tableView.scrollToRow(at: index, at: .bottom, animated: true)
@@ -269,12 +278,15 @@ private extension SingleChatView {
             moreView.fade(duration: 0.35, delay: 0, isIn: false)
             navBar.moreButton.isSelected = false
         }
-        
         self.endEditing(true)
     }
 }
 // MARK: - nav delegate
 extension SingleChatView: ConversationNavigationBarViewDelegate {
+    func chatInfoDidTouched(with chat: RMChat) {
+        delegate?.chatInfoDidTouched(with: chat)
+    }
+    
     func didEndSearching() {
         delegate?.didEndSearching()
     }
